@@ -3,50 +3,104 @@
 import { useEffect, useRef } from 'react'
 
 const steps = [
-  { num: '01', title: 'Discovery & Strategy', desc: 'We deeply understand your business, goals, target audience, and competition. This phase defines the strategic foundation for every decision.', duration: '1–2 days' },
-  { num: '02', title: 'Design & Prototyping', desc: 'Our designers craft wireframes and high-fidelity mockups. You see and approve the visual direction before a single line of code is written.', duration: '3–7 days' },
-  { num: '03', title: 'Development', desc: 'Our engineers build your product with clean, scalable code. Daily updates keep you informed as designs come to life.', duration: '1–4 weeks' },
-  { num: '04', title: 'Review & Refine', desc: 'We test rigorously across all devices and browsers. Your feedback shapes the final polish — we iterate until everything is perfect.', duration: '3–5 days' },
-  { num: '05', title: 'Launch & Support', desc: 'We handle deployment, go-live monitoring, and ongoing support. Your product keeps performing at its best long after launch.', duration: 'Ongoing' },
+  { 
+    num: '01', 
+    title: 'Discovery & Strategy', 
+    desc: 'We deeply understand your business, goals, and competition.', 
+    duration: '1–2 days',
+    icon: '🔍'
+  },
+  { 
+    num: '02', 
+    title: 'Design & Prototyping', 
+    desc: 'Wireframes and high-fidelity mockups for your approval.', 
+    duration: '3–7 days',
+    icon: '🎨'
+  },
+  { 
+    num: '03', 
+    title: 'Development', 
+    desc: 'Clean, scalable code with daily updates.', 
+    duration: '1–4 weeks',
+    icon: '⚙️'
+  },
+  { 
+    num: '04', 
+    title: 'Review & Refine', 
+    desc: 'Rigorous testing and iteration until perfect.', 
+    duration: '3–5 days',
+    icon: '✨'
+  },
+  { 
+    num: '05', 
+    title: 'Launch & Support', 
+    desc: 'Deployment, monitoring, and ongoing support.', 
+    duration: 'Ongoing',
+    icon: '🚀'
+  },
 ]
 
 export default function Process() {
   const ref = useRef<HTMLElement>(null)
 
   useEffect(() => {
-    const init = async () => {
-      const { gsap } = await import('gsap')
-      const { ScrollTrigger } = await import('gsap/ScrollTrigger')
-      gsap.registerPlugin(ScrollTrigger)
-      gsap.fromTo('.proc-step', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', stagger: 0.13, scrollTrigger: { trigger: ref.current, start: 'top 75%', once: true } })
-      gsap.fromTo('.proc-line', { scaleY: 0, transformOrigin: 'top' }, { scaleY: 1, duration: 1.5, ease: 'power3.inOut', scrollTrigger: { trigger: ref.current, start: 'top 70%', once: true } })
-    }
-    init()
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry, index) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.classList.add('active')
+            }, index * 100)
+          }
+        })
+      },
+      { threshold: 0.2 }
+    )
+
+    const items = ref.current?.querySelectorAll('.timeline-item')
+    items?.forEach((item) => observer.observe(item))
+
+    return () => observer.disconnect()
   }, [])
 
   return (
-    <section ref={ref} className="section" style={{ background: '#FAFAF8' }}>
+    <section ref={ref} className="section bg-bg">
       <div className="container">
-        <div style={{ maxWidth: 520, marginBottom: 'clamp(3rem, 5vw, 5rem)' }}>
-          <span className="tag" style={{ marginBottom: '1.25rem', display: 'inline-flex' }}>Our Process</span>
-          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 3.5vw, 3rem)', fontWeight: 800, letterSpacing: '-0.05em', lineHeight: 1.1 }}>How we go from idea<br />to shipped product.</h2>
+        <div className="section-header">
+          <span className="tag mb-4">Our Process</span>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-4">
+            How we go from idea<br />to <span className="text-accent-warm">shipped product.</span>
+          </h2>
         </div>
 
-        <div style={{ position: 'relative', maxWidth: 860 }}>
-          <div className="proc-line" style={{ position: 'absolute', left: 88, top: 28, bottom: 28, width: 1, background: '#E8E6E1' }} />
+        <div className="relative max-w-4xl mx-auto">
+          {/* Timeline Line */}
+          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-accent-warm via-accent-sky to-accent-lime md:-translate-x-1/2" />
+
           {steps.map((step, i) => (
-            <div key={i} className="proc-step" style={{ opacity: 0, display: 'grid', gridTemplateColumns: '88px 1px 1fr', gap: '0 2rem', alignItems: 'start', marginBottom: i < steps.length - 1 ? '2.5rem' : 0 }}>
-              <div style={{ textAlign: 'right', paddingTop: 2 }}>
-                <p style={{ fontFamily: 'var(--font-display)', fontSize: '1.8rem', fontWeight: 800, letterSpacing: '-0.06em', color: '#1A1916', lineHeight: 1, marginBottom: 6 }}>{step.num}</p>
-                <p style={{ fontFamily: 'var(--font-mono)', fontSize: 9.5, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#9B9891', whiteSpace: 'nowrap' }}>{step.duration}</p>
+            <div 
+              key={i} 
+              className={`timeline-item reveal relative flex flex-col md:flex-row gap-8 mb-12 ${i % 2 === 0 ? 'md:flex-row-reverse' : ''}`}
+            >
+              {/* Content */}
+              <div className="flex-1 md:text-right pl-20 md:pl-0 md:pr-12">
+                <div className="bg-bg-surface border border-border-soft rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow">
+                  <div className="flex items-center gap-3 mb-3 md:justify-end">
+                    <span className="text-3xl">{step.icon}</span>
+                    <span className="font-mono text-sm text-ink-tertiary">{step.duration}</span>
+                  </div>
+                  <h3 className="font-display font-bold text-xl mb-2">{step.title}</h3>
+                  <p className="text-ink-secondary">{step.desc}</p>
+                </div>
               </div>
-              <div style={{ position: 'relative', display: 'flex', justifyContent: 'center', paddingTop: 6 }}>
-                <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#1A1916', border: '2px solid #FAFAF8', boxShadow: '0 0 0 1px #D1CEC7', flexShrink: 0, marginLeft: -4.5 }} />
+
+              {/* Center Node */}
+              <div className="absolute left-8 md:left-1/2 top-6 w-12 h-12 bg-bg-surface border-4 border-accent-warm rounded-full flex items-center justify-center shadow-lg md:-translate-x-1/2 z-10">
+                <span className="font-display font-bold text-sm text-ink">{step.num}</span>
               </div>
-              <div style={{ paddingBottom: '1rem' }}>
-                <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.1rem', fontWeight: 700, letterSpacing: '-0.02em', marginBottom: 8 }}>{step.title}</h3>
-                <p style={{ fontSize: 14, color: '#6B6860', lineHeight: 1.75, maxWidth: 500 }}>{step.desc}</p>
-              </div>
+
+              {/* Spacer for alternating layout */}
+              <div className="flex-1 hidden md:block" />
             </div>
           ))}
         </div>

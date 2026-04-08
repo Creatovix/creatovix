@@ -1,78 +1,150 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Navigation, Pagination, Autoplay } from 'swiper/modules'
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
 
 const testimonials = [
-  { name: 'Sarah Mitchell', role: 'CEO, Luminary Skincare', initials: 'SM', color: '#C4622D', quote: 'DevCraft Studio completely transformed our Shopify store. Our conversion rate jumped by 38% in the first month. The team understood our brand vision immediately and delivered beyond expectations.' },
-  { name: 'James Okonkwo', role: 'Founder, TechFlow SaaS', initials: 'JO', color: '#3A7FBD', quote: 'We needed a complex full-stack dashboard built fast and built right. DevCraft delivered a scalable, beautiful product in under 6 weeks. Zero surprises — excellent communication throughout.' },
-  { name: 'Priya Mehta', role: 'Marketing Director, NourishCo', initials: 'PM', color: '#1D9E75', quote: 'The WordPress site they built is lightning fast, easy to manage, and ranks on page one of Google. The graphic design work for our rebrand was outstanding. Truly a one-stop shop.' },
-  { name: 'Daniel Reeves', role: 'Owner, Reeves Real Estate', initials: 'DR', color: '#6B5CE7', quote: 'Professional, responsive, and incredibly talented. 60% more leads, lower bounce rate, and countless compliments from clients after the redesign. I cannot recommend them enough.' },
-  { name: 'Aisha Balogun', role: 'Co-Founder, Verdant Wellness', initials: 'AB', color: '#E83E8C', quote: 'From logo to Shopify store to social media templates, DevCraft handled everything. The brand identity they created is exactly what we envisioned — modern, clean, and memorable.' },
-  { name: 'Chris Harrington', role: 'CTO, Stackwise Analytics', initials: 'CH', color: '#8CB33A', quote: 'Technically outstanding team. They architected and built our data platform from scratch — clean TypeScript, proper testing, and CI/CD from day one. Would absolutely work with them again.' },
-]
-
-const trustMetrics = [
-  { num: '140+', label: 'Projects delivered' },
-  { num: '4.9★', label: 'Average rating' },
-  { num: '98%', label: 'Would recommend us' },
-  { num: '85%', label: 'Repeat clients' },
+  { 
+    name: 'Sarah Mitchell', 
+    role: 'CEO, Luminary Skincare', 
+    quote: 'DevCraft Studio completely transformed our Shopify store. Our conversion rate jumped by 38% in the first month.',
+    image: 'https://placehold.co/100x100/D4703A/FFFFFF?text=SM',
+    rating: 5
+  },
+  { 
+    name: 'James Okonkwo', 
+    role: 'Founder, TechFlow SaaS', 
+    quote: 'We needed a complex full-stack dashboard built fast. DevCraft delivered a scalable product in under 6 weeks.',
+    image: 'https://placehold.co/100x100/4A90C2/FFFFFF?text=JO',
+    rating: 5
+  },
+  { 
+    name: 'Priya Mehta', 
+    role: 'Marketing Director, NourishCo', 
+    quote: 'The WordPress site they built is lightning fast and ranks on page one of Google. Outstanding work!',
+    image: 'https://placehold.co/100x100/2DAE85/FFFFFF?text=PM',
+    rating: 5
+  },
+  { 
+    name: 'Daniel Reeves', 
+    role: 'Owner, Reeves Real Estate', 
+    quote: 'Professional, responsive, and incredibly talented. 60% more leads after the redesign.',
+    image: 'https://placehold.co/100x100/7B6CE8/FFFFFF?text=DR',
+    rating: 5
+  },
+  { 
+    name: 'Aisha Balogun', 
+    role: 'Co-Founder, Verdant Wellness', 
+    quote: 'From logo to Shopify store, DevCraft handled everything. The brand identity is exactly what we envisioned.',
+    image: 'https://placehold.co/100x100/E84E9C/FFFFFF?text=AB',
+    rating: 5
+  },
 ]
 
 export default function Testimonials() {
-  const ref = useRef<HTMLElement>(null)
-
   useEffect(() => {
-    const init = async () => {
-      const { gsap } = await import('gsap')
-      const { ScrollTrigger } = await import('gsap/ScrollTrigger')
-      gsap.registerPlugin(ScrollTrigger)
-      gsap.fromTo('.testi-card', { opacity: 0, y: 32 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', stagger: 0.09, scrollTrigger: { trigger: ref.current, start: 'top 75%', once: true } })
-    }
-    init()
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active')
+          }
+        })
+      },
+      { threshold: 0.1 }
+    )
+
+    const el = document.querySelector('.testimonials-section')
+    if (el) observer.observe(el)
+
+    return () => observer.disconnect()
   }, [])
 
   return (
-    <section ref={ref} className="section" style={{ background: '#FAFAF8' }}>
+    <section className="testimonials-section section bg-bg-soft reveal">
       <div className="container">
-        <div style={{ maxWidth: 520, marginBottom: 'clamp(3rem, 5vw, 4rem)' }}>
-          <span className="tag" style={{ marginBottom: '1.25rem', display: 'inline-flex' }}>Client Reviews</span>
-          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 3.5vw, 3rem)', fontWeight: 800, letterSpacing: '-0.05em', lineHeight: 1.1, marginBottom: '1rem' }}>Don't take our word<br />for it.</h2>
-          <p style={{ fontSize: 14.5, color: '#6B6860', lineHeight: 1.75 }}>Real feedback from real clients who trusted us to build their digital future.</p>
+        <div className="section-header text-center mx-auto">
+          <span className="tag mb-4">Client Reviews</span>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-4">
+            Don't take our word<br />for it.
+          </h2>
+          <p className="text-lg text-ink-secondary max-w-2xl mx-auto">
+            Real feedback from real clients who trusted us to build their digital future.
+          </p>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.25rem', marginBottom: '2rem' }} className="testi-grid">
-          {testimonials.map((t, i) => (
-            <div key={i} className="testi-card card" style={{ opacity: 0, padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <div style={{ display: 'flex', gap: 3 }}>
-                {Array.from({ length: 5 }).map((_, j) => (
-                  <svg key={j} width="13" height="13" viewBox="0 0 14 14" fill="#F59E0B"><path d="M7 1l1.5 3.5 3.8.5-2.8 2.6.7 3.8L7 9.8 3.8 11.4l.7-3.8L1.7 5l3.8-.5z" /></svg>
-                ))}
-              </div>
-              <p style={{ fontSize: 13.5, color: '#6B6860', lineHeight: 1.75, flex: 1 }}>"{t.quote}"</p>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12, paddingTop: '1rem', borderTop: '1px solid #E8E6E1' }}>
-                <div style={{ width: 40, height: 40, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-display)', fontSize: 13, fontWeight: 700, flexShrink: 0, background: t.color + '18', color: t.color }}>{t.initials}</div>
-                <div>
-                  <p style={{ fontSize: 13.5, fontWeight: 600, color: '#1A1916' }}>{t.name}</p>
-                  <p style={{ fontSize: 12, color: '#9B9891', marginTop: 2 }}>{t.role}</p>
+        <div className="relative max-w-[1440px] mx-auto">
+          <Swiper
+            modules={[Navigation, Pagination, Autoplay]}
+            spaceBetween={30}
+            slidesPerView={1}
+            navigation={{
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev',
+            }}
+            pagination={{ clickable: true }}
+            autoplay={{ delay: 5000, disableOnInteraction: false }}
+            breakpoints={{
+              640: { slidesPerView: 2 },
+              1024: { slidesPerView: 3 },
+            }}
+            className="pb-16"
+          >
+            {testimonials.map((t, i) => (
+              <SwiperSlide key={i}>
+                <div className="card h-full p-6 flex flex-col">
+                  <div className="flex gap-1 mb-4">
+                    {Array.from({ length: t.rating }).map((_, j) => (
+                      <svg key={j} className="w-5 h-5 text-amber-400 fill-current" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                    ))}
+                  </div>
+                  <p className="text-ink-secondary leading-relaxed mb-6 flex-1">"{t.quote}"</p>
+                  <div className="flex items-center gap-4 pt-4 border-t border-border">
+                    <img src={t.image} alt={t.name} className="w-12 h-12 rounded-full object-cover" />
+                    <div>
+                      <p className="font-semibold text-ink">{t.name}</p>
+                      <p className="text-sm text-ink-tertiary">{t.role}</p>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          ))}
+              </SwiperSlide>
+            ))}
+          </Swiper>
+
+          {/* Custom Navigation */}
+          <button className="swiper-button-prev absolute left-0 top-1/2 -translate-y-1/2 w-12 h-12 bg-bg-surface border border-border rounded-full flex items-center justify-center shadow-lg hover:bg-ink hover:text-white transition-all -ml-6 z-10">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          <button className="swiper-button-next absolute right-0 top-1/2 -translate-y-1/2 w-12 h-12 bg-bg-surface border border-border rounded-full flex items-center justify-center shadow-lg hover:bg-ink hover:text-white transition-all -mr-6 z-10">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
         </div>
 
-        <div style={{ background: '#fff', border: '1px solid #E8E6E1', borderRadius: 20, padding: 'clamp(1.5rem, 3vw, 2rem) clamp(1.5rem, 4vw, 3rem)', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1.5rem' }} className="trust-bar">
-          {trustMetrics.map((m, i) => (
-            <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, borderLeft: i > 0 ? '1px solid #E8E6E1' : 'none', paddingLeft: i > 0 ? '1.5rem' : 0 }}>
-              <span style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.8rem, 2.5vw, 2.2rem)', fontWeight: 800, letterSpacing: '-0.04em', color: '#1A1916', lineHeight: 1 }}>{m.num}</span>
-              <span style={{ fontSize: 12, color: '#9B9891', textAlign: 'center' }}>{m.label}</span>
+        {/* Trust Metrics */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 max-w-4xl mx-auto">
+          {[
+            { num: '140+', label: 'Projects Delivered' },
+            { num: '4.9★', label: 'Average Rating' },
+            { num: '98%', label: 'Would Recommend' },
+            { num: '85%', label: 'Repeat Clients' },
+          ].map((m, i) => (
+            <div key={i} className="text-center p-6 bg-bg-surface rounded-2xl border border-border-soft">
+              <p className="font-display font-extrabold text-3xl text-accent-warm mb-1">{m.num}</p>
+              <p className="text-sm text-ink-tertiary">{m.label}</p>
             </div>
           ))}
         </div>
       </div>
-      <style>{`
-        @media (max-width: 1024px) { .testi-grid { grid-template-columns: repeat(2, 1fr) !important; } }
-        @media (max-width: 640px) { .testi-grid, .trust-bar { grid-template-columns: 1fr !important; } }
-      `}</style>
     </section>
   )
 }

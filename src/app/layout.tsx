@@ -3,8 +3,7 @@ import './globals.css'
 
 export const metadata: Metadata = {
   title: 'DevCraft Studio — Full Stack, Shopify, WordPress & Design Agency',
-  description:
-    'DevCraft Studio is a full-service digital agency. We build high-performance websites, Shopify stores, WordPress sites, and stunning brand identities that grow your business.',
+  description: 'DevCraft Studio is a full-service digital agency. We build high-performance websites, Shopify stores, WordPress sites, and stunning brand identities that grow your business.',
   keywords: [
     'full stack development agency',
     'shopify development agency',
@@ -13,13 +12,11 @@ export const metadata: Metadata = {
     'graphic design agency',
     'UI UX design services',
     'digital agency',
-    'custom website development',
   ],
   authors: [{ name: 'DevCraft Studio' }],
   openGraph: {
     title: 'DevCraft Studio — Full Stack, Shopify, WordPress & Design Agency',
-    description:
-      'We craft modern digital experiences that convert — from full-stack apps to stunning e-commerce stores.',
+    description: 'We craft modern digital experiences that convert — from full-stack apps to stunning e-commerce stores.',
     type: 'website',
     locale: 'en_US',
     siteName: 'DevCraft Studio',
@@ -28,11 +25,6 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'DevCraft Studio',
     description: 'Full Stack · Shopify · WordPress · Graphic & Web Design.',
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: { index: true, follow: true },
   },
 }
 
@@ -47,7 +39,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
-      <body>{children}</body>
+      <body className="antialiased">{children}</body>
     </html>
   )
 }

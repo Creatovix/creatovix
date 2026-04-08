@@ -1,15 +1,65 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import Link from 'next/link'
 
 const categories = ['All', 'Full Stack', 'Shopify', 'WordPress', 'Design']
+
 const projects = [
-  { num: '01', title: 'Luxe Commerce Store', category: 'Shopify', tags: ['Shopify', 'Liquid', 'Custom Theme'], desc: 'High-converting fashion e-commerce store with custom Shopify theme, upsell flows, and 3× revenue growth post-launch.', color: '#C4622D' },
-  { num: '02', title: 'SaaS Analytics Dashboard', category: 'Full Stack', tags: ['Next.js', 'TypeScript', 'PostgreSQL'], desc: 'Real-time analytics platform serving 10k+ daily active users. Built with Next.js, Supabase, and D3.js visualizations.', color: '#3A7FBD' },
-  { num: '03', title: 'Healthcare Brand Identity', category: 'Design', tags: ['Branding', 'Logo', 'Print'], desc: 'Complete brand identity system for a modern healthcare startup — logo, typography, color system, and full collateral.', color: '#6B5CE7' },
-  { num: '04', title: 'Real Estate Platform', category: 'WordPress', tags: ['WordPress', 'WooCommerce', 'ACF'], desc: 'Property listing platform with advanced search, agent profiles, and virtual tour integration. 40% faster than before.', color: '#8CB33A' },
-  { num: '05', title: 'Restaurant Ordering App', category: 'Full Stack', tags: ['React', 'Node.js', 'Stripe'], desc: 'Full-stack online ordering with real-time kitchen dashboard, live order tracking, and Stripe payment integration.', color: '#E83E8C' },
-  { num: '06', title: 'Wellness Subscription Store', category: 'Shopify', tags: ['Shopify', 'Custom App', 'Subscriptions'], desc: 'Subscription-based wellness store with custom bundling app, loyalty program, and 4.9★ customer rating.', color: '#1D9E75' },
+  { 
+    num: '01', 
+    title: 'Luxe Commerce Store', 
+    category: 'Shopify', 
+    tags: ['Shopify', 'Liquid', 'Custom Theme'], 
+    desc: 'High-converting fashion e-commerce with 3× revenue growth.',
+    image: 'https://placehold.co/800x600/F5F3F0/D4703A?text=Luxe+Store',
+    color: '#D4703A'
+  },
+  { 
+    num: '02', 
+    title: 'SaaS Analytics Dashboard', 
+    category: 'Full Stack', 
+    tags: ['Next.js', 'TypeScript', 'PostgreSQL'], 
+    desc: 'Real-time analytics platform serving 10k+ daily users.',
+    image: 'https://placehold.co/800x600/F5F3F0/4A90C2?text=Analytics',
+    color: '#4A90C2'
+  },
+  { 
+    num: '03', 
+    title: 'Healthcare Brand Identity', 
+    category: 'Design', 
+    tags: ['Branding', 'Logo', 'Print'], 
+    desc: 'Complete brand identity system for modern healthcare.',
+    image: 'https://placehold.co/800x600/F5F3F0/7B6CE8?text=Healthcare',
+    color: '#7B6CE8'
+  },
+  { 
+    num: '04', 
+    title: 'Real Estate Platform', 
+    category: 'WordPress', 
+    tags: ['WordPress', 'WooCommerce', 'ACF'], 
+    desc: 'Property listing platform with advanced search.',
+    image: 'https://placehold.co/800x600/F5F3F0/9AB84A?text=Real+Estate',
+    color: '#9AB84A'
+  },
+  { 
+    num: '05', 
+    title: 'Restaurant Ordering App', 
+    category: 'Full Stack', 
+    tags: ['React', 'Node.js', 'Stripe'], 
+    desc: 'Full-stack online ordering with real-time dashboard.',
+    image: 'https://placehold.co/800x600/F5F3F0/E84E9C?text=Restaurant',
+    color: '#E84E9C'
+  },
+  { 
+    num: '06', 
+    title: 'Wellness Subscription Store', 
+    category: 'Shopify', 
+    tags: ['Shopify', 'Custom App', 'Subscriptions'], 
+    desc: 'Subscription-based wellness store with 4.9★ rating.',
+    image: 'https://placehold.co/800x600/F5F3F0/2DAE85?text=Wellness',
+    color: '#2DAE85'
+  },
 ]
 
 export default function Portfolio() {
@@ -18,72 +68,103 @@ export default function Portfolio() {
   const filtered = active === 'All' ? projects : projects.filter(p => p.category === active)
 
   useEffect(() => {
-    const init = async () => {
-      const { gsap } = await import('gsap')
-      const { ScrollTrigger } = await import('gsap/ScrollTrigger')
-      gsap.registerPlugin(ScrollTrigger)
-      gsap.fromTo('.port-card', { opacity: 0, y: 36 }, { opacity: 1, y: 0, duration: 0.75, ease: 'power3.out', stagger: 0.1, scrollTrigger: { trigger: ref.current, start: 'top 75%', once: true } })
-    }
-    init()
-  }, [])
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active')
+          }
+        })
+      },
+      { threshold: 0.1 }
+    )
 
-  useEffect(() => {
-    const animate = async () => {
-      const { gsap } = await import('gsap')
-      gsap.fromTo('.port-card', { opacity: 0, scale: 0.96 }, { opacity: 1, scale: 1, duration: 0.4, ease: 'power2.out', stagger: 0.06 })
-    }
-    animate()
+    const cards = ref.current?.querySelectorAll('.portfolio-card')
+    cards?.forEach((card) => observer.observe(card))
+
+    return () => observer.disconnect()
   }, [active])
 
   return (
-    <section ref={ref} id="portfolio" className="section" style={{ background: '#F4F3EF' }}>
+    <section ref={ref} id="portfolio" className="section bg-bg">
       <div className="container">
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', alignItems: 'end', marginBottom: 'clamp(2.5rem, 4vw, 3.5rem)' }} className="port-header">
+        <div className="grid lg:grid-cols-2 gap-8 items-end mb-12">
           <div>
-            <span className="tag" style={{ marginBottom: '1.25rem', display: 'inline-flex' }}>Our Work</span>
-            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 3.5vw, 3rem)', fontWeight: 800, letterSpacing: '-0.05em', lineHeight: 1.1 }}>Projects we're<br />proud of.</h2>
+            <span className="tag mb-4">Our Work</span>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight">
+              Projects we're<br />proud of.
+            </h2>
           </div>
-          <p style={{ fontSize: 14.5, color: '#6B6860', lineHeight: 1.75 }}>A curated selection across industries. Every build starts with strategy and ends with measurable results.</p>
+          <p className="text-lg text-ink-secondary">
+            A curated selection across industries. Every build starts with strategy and ends with measurable results.
+          </p>
         </div>
 
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: '2rem' }}>
+        {/* Filter Buttons */}
+        <div className="flex flex-wrap gap-3 mb-10">
           {categories.map(cat => (
-            <button key={cat} onClick={() => setActive(cat)} style={{ fontSize: 13, fontWeight: 500, padding: '8px 18px', borderRadius: 9999, border: `1.5px solid ${active === cat ? '#1A1916' : '#E8E6E1'}`, background: active === cat ? '#1A1916' : '#fff', color: active === cat ? '#fff' : '#6B6860', cursor: 'pointer', transition: 'all 0.2s' }}>
+            <button
+              key={cat}
+              onClick={() => setActive(cat)}
+              className={`px-6 py-2.5 rounded-full font-medium transition-all ${
+                active === cat
+                  ? 'bg-ink text-white shadow-lg'
+                  : 'bg-bg-surface border border-border text-ink-secondary hover:border-ink'
+              }`}
+            >
               {cat}
             </button>
           ))}
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.25rem' }} className="port-grid">
-          {filtered.map(p => (
-            <div key={p.num} className="port-card card" style={{ opacity: 0 }}>
-              <div style={{ height: 192, position: 'relative', display: 'flex', alignItems: 'center', overflow: 'hidden', borderBottom: `1px solid ${p.color}22`, background: p.color + '12' }}>
-                <div style={{ width: '100%', padding: '1.5rem' }}>
-                  <p style={{ fontFamily: 'var(--font-display)', fontSize: '2.5rem', fontWeight: 800, letterSpacing: '-0.06em', lineHeight: 1, marginBottom: 12, color: p.color + '55' }}>{p.num}</p>
-                  {[55, 85, 40].map((w, i) => <div key={i} style={{ height: 6, borderRadius: 4, marginBottom: 8, width: `${w}%`, background: p.color + '28' }} />)}
+        {/* Projects Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filtered.map((p, i) => (
+            <div key={i} className="portfolio-card card reveal group">
+              <div className="relative h-64 overflow-hidden">
+                <img 
+                  src={p.image} 
+                  alt={p.title}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-bg-surface via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <span 
+                  className="absolute top-4 right-4 px-4 py-1.5 rounded-full text-xs font-semibold text-white"
+                  style={{ backgroundColor: p.color }}
+                >
+                  {p.category}
+                </span>
+                <div className="absolute bottom-4 left-4 right-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                  <Link href="#contact" className="btn-primary w-full justify-center">
+                    View Project
+                  </Link>
                 </div>
-                <span style={{ position: 'absolute', top: 14, right: 14, fontFamily: 'var(--font-mono)', fontSize: 10, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#fff', background: p.color, padding: '5px 12px', borderRadius: 9999 }}>{p.category}</span>
               </div>
-              <div style={{ padding: '1.5rem' }}>
-                <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1rem', fontWeight: 700, letterSpacing: '-0.02em', marginBottom: 8 }}>{p.title}</h3>
-                <p style={{ fontSize: 13, color: '#6B6860', lineHeight: 1.7, marginBottom: '1rem' }}>{p.desc}</p>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-                  {p.tags.map(t => <span key={t} style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: '#9B9891', background: '#F4F3EF', border: '1px solid #E8E6E1', borderRadius: 9999, padding: '3px 10px' }}>{t}</span>)}
+              <div className="p-6">
+                <p className="font-display font-bold text-5xl text-border mb-3">{p.num}</p>
+                <h3 className="font-display font-bold text-xl mb-2">{p.title}</h3>
+                <p className="text-ink-secondary text-sm mb-4">{p.desc}</p>
+                <div className="flex flex-wrap gap-2">
+                  {p.tags.map(tag => (
+                    <span key={tag} className="px-3 py-1 bg-bg-alt border border-border rounded-full text-xs text-ink-secondary">
+                      {tag}
+                    </span>
+                  ))}
                 </div>
               </div>
             </div>
           ))}
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem', marginTop: '3rem', paddingTop: '2rem', borderTop: '1px solid #E8E6E1' }}>
-          <p style={{ fontSize: 14.5, color: '#6B6860' }}>We've delivered 140+ projects across diverse industries.</p>
-          <a href="#contact" className="btn-outline" style={{ fontSize: 13 }}>Discuss your project →</a>
+        <div className="text-center mt-12">
+          <Link href="#contact" className="btn-outline inline-flex">
+            Discuss Your Project
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </Link>
         </div>
       </div>
-      <style>{`
-        @media (max-width: 1024px) { .port-grid { grid-template-columns: repeat(2, 1fr) !important; } }
-        @media (max-width: 640px) { .port-grid, .port-header { grid-template-columns: 1fr !important; } }
-      `}</style>
     </section>
   )
 }
