@@ -75,7 +75,7 @@ export default function Services() {
   }, [])
 
   return (
-    <section ref={ref} id="services" className="section bg-bg-soft">
+    <section ref={ref} id="services" className="section bg-bg-soft lg:mb-[-14vh] md:mb-[-10vh] mb-[-8vh]">
       <div className="container">
         <div className="section-header">
           <span className="tag mb-4">Our Services</span>

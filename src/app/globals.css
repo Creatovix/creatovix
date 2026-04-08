@@ -448,3 +448,48 @@ h6 {
 .swiper-button-prev {
     left: -6% !important;
   }
+
+
+
+  /* Marquee Animation */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-container {
+  overflow: hidden;
+  position: relative;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+
+.marquee-container:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* Faster variant for secondary row */
+@keyframes marquee-reverse {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.marquee-track-reverse {
+  animation: marquee-reverse 35s linear infinite;
+}
+
+.marquee-container:hover .marquee-track-reverse {
+  animation-play-state: paused;
+}

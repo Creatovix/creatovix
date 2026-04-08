@@ -10,6 +10,7 @@ import Testimonials from '@/components/sections/Testimonials'
 import Team from '@/components/sections/Team'
 import CTA from '@/components/sections/CTA'
 import Contact from '@/components/sections/Contact'
+import Skills from '@/components/sections/Skills'
 
 export default function HomePage() {
   return (
@@ -19,6 +20,7 @@ export default function HomePage() {
         <Hero />
         <Stats />
         <Services />
+        <Skills />
         <About />
         <Process />
         <Portfolio />
