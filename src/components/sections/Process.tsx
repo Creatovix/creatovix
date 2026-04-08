@@ -64,7 +64,7 @@ export default function Process() {
   }, [])
 
   return (
-    <section ref={ref} className="section bg-bg">
+    <section ref={ref} className="section bg-bg my-[-15vh]">
       <div className="container">
         <div className="section-header">
           <span className="tag mb-4">Our Process</span>

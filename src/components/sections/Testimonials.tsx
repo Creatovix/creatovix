@@ -65,7 +65,7 @@ export default function Testimonials() {
   }, [])
 
   return (
-    <section className="testimonials-section section bg-bg-soft reveal">
+    <section className="testimonials-section section bg-bg-soft reveal mb-[-10vh]">
       <div className="container">
         <div className="section-header text-center mx-auto">
           <span className="tag mb-4">Client Reviews</span>
