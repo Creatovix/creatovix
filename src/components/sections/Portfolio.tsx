@@ -6,59 +6,47 @@ import Link from 'next/link'
 const categories = ['All', 'Full Stack', 'Shopify', 'WordPress', 'Design']
 
 const projects = [
-  { 
-    num: '01', 
-    title: 'Luxe Commerce Store', 
-    category: 'Shopify', 
-    tags: ['Shopify', 'Liquid', 'Custom Theme'], 
+  {
+    num: '01', title: 'Luxe Commerce Store', category: 'Shopify',
+    tags: ['Shopify', 'Liquid', 'Custom Theme'],
     desc: 'High-converting fashion e-commerce with 3× revenue growth.',
-    image: 'https://placehold.co/800x600/F5F3F0/D4703A?text=Luxe+Store',
-    color: '#D4703A'
+    image: 'https://placehold.co/800x600/F0EDE8/C4622D?text=Luxe+Store',
+    color: '#C4622D', result: '3× Revenue',
   },
-  { 
-    num: '02', 
-    title: 'SaaS Analytics Dashboard', 
-    category: 'Full Stack', 
-    tags: ['Next.js', 'TypeScript', 'PostgreSQL'], 
-    desc: 'Real-time analytics platform serving 10k+ daily users.',
-    image: 'https://placehold.co/800x600/F5F3F0/4A90C2?text=Analytics',
-    color: '#4A90C2'
+  {
+    num: '02', title: 'SaaS Analytics Dashboard', category: 'Full Stack',
+    tags: ['Next.js', 'TypeScript', 'PostgreSQL'],
+    desc: 'Real-time analytics platform serving 10k+ daily active users.',
+    image: 'https://placehold.co/800x600/EEF4FA/4A90C2?text=Analytics+Dashboard',
+    color: '#4A90C2', result: '10k+ DAU',
   },
-  { 
-    num: '03', 
-    title: 'Healthcare Brand Identity', 
-    category: 'Design', 
-    tags: ['Branding', 'Logo', 'Print'], 
-    desc: 'Complete brand identity system for modern healthcare.',
-    image: 'https://placehold.co/800x600/F5F3F0/7B6CE8?text=Healthcare',
-    color: '#7B6CE8'
+  {
+    num: '03', title: 'Healthcare Brand Identity', category: 'Design',
+    tags: ['Branding', 'Logo', 'Print'],
+    desc: 'Complete brand identity system for a modern healthcare provider.',
+    image: 'https://placehold.co/800x600/F2F0FA/7B6CE8?text=Healthcare+Brand',
+    color: '#7B6CE8', result: 'Full Rebrand',
   },
-  { 
-    num: '04', 
-    title: 'Real Estate Platform', 
-    category: 'WordPress', 
-    tags: ['WordPress', 'WooCommerce', 'ACF'], 
-    desc: 'Property listing platform with advanced search.',
-    image: 'https://placehold.co/800x600/F5F3F0/9AB84A?text=Real+Estate',
-    color: '#9AB84A'
+  {
+    num: '04', title: 'Real Estate Platform', category: 'WordPress',
+    tags: ['WordPress', 'WooCommerce', 'ACF'],
+    desc: 'Property listing platform with advanced search and CRM sync.',
+    image: 'https://placehold.co/800x600/F2F6EC/9AB84A?text=Real+Estate',
+    color: '#9AB84A', result: '+60% Leads',
   },
-  { 
-    num: '05', 
-    title: 'Restaurant Ordering App', 
-    category: 'Full Stack', 
-    tags: ['React', 'Node.js', 'Stripe'], 
-    desc: 'Full-stack online ordering with real-time dashboard.',
-    image: 'https://placehold.co/800x600/F5F3F0/E84E9C?text=Restaurant',
-    color: '#E84E9C'
+  {
+    num: '05', title: 'Restaurant Ordering App', category: 'Full Stack',
+    tags: ['React', 'Node.js', 'Stripe'],
+    desc: 'Full-stack online ordering with real-time kitchen dashboard.',
+    image: 'https://placehold.co/800x600/FDF0F8/E84E9C?text=Restaurant+App',
+    color: '#E84E9C', result: '$1.2M Orders',
   },
-  { 
-    num: '06', 
-    title: 'Wellness Subscription Store', 
-    category: 'Shopify', 
-    tags: ['Shopify', 'Custom App', 'Subscriptions'], 
+  {
+    num: '06', title: 'Wellness Subscription Store', category: 'Shopify',
+    tags: ['Shopify', 'Custom App', 'Subscriptions'],
     desc: 'Subscription-based wellness store with 4.9★ rating.',
-    image: 'https://placehold.co/800x600/F5F3F0/2DAE85?text=Wellness',
-    color: '#2DAE85'
+    image: 'https://placehold.co/800x600/E8F8F3/2DAE85?text=Wellness+Store',
+    color: '#2DAE85', result: '4.9★ Rating',
   },
 ]
 
@@ -68,103 +56,150 @@ export default function Portfolio() {
   const filtered = active === 'All' ? projects : projects.filter(p => p.category === active)
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('active')
-          }
-        })
-      },
-      { threshold: 0.1 }
-    )
+    const init = async () => {
+      const { gsap } = await import('gsap')
+      const { ScrollTrigger } = await import('gsap/ScrollTrigger')
+      gsap.registerPlugin(ScrollTrigger)
+      gsap.fromTo('.portfolio-header-el', { opacity: 0, y: 28 }, {
+        opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', stagger: 0.12,
+        scrollTrigger: { trigger: ref.current, start: 'top 75%', once: true }
+      })
+    }
+    init()
+  }, [])
 
-    const cards = ref.current?.querySelectorAll('.portfolio-card')
-    cards?.forEach((card) => observer.observe(card))
-
-    return () => observer.disconnect()
+  useEffect(() => {
+    const items = document.querySelectorAll('.port-card')
+    items.forEach((el, i) => {
+      (el as HTMLElement).style.opacity = '0';
+      (el as HTMLElement).style.transform = 'translateY(24px)';
+      setTimeout(() => {
+        (el as HTMLElement).style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        (el as HTMLElement).style.opacity = '1';
+        (el as HTMLElement).style.transform = 'translateY(0)';
+      }, i * 80)
+    })
   }, [active])
 
   return (
-    <section ref={ref} id="portfolio" className="section bg-bg">
+    <section ref={ref} id="portfolio" style={{ background: '#F5F3F0', padding: 'clamp(4rem, 8vw, 8rem) 0' }}>
       <div className="container">
-        <div className="grid lg:grid-cols-2 gap-8 items-end mb-12">
+
+        {/* Header */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'clamp(1.5rem, 4vw, 4rem)', alignItems: 'flex-end', marginBottom: 'clamp(2rem, 4vw, 3rem)' }} className="port-header-grid">
           <div>
-            <span className="tag mb-4">Our Work</span>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight">
+            <span className="tag portfolio-header-el" style={{ marginBottom: '1.25rem', display: 'inline-flex', opacity: 0 }}>Our Work</span>
+            <h2 className="portfolio-header-el" style={{ fontFamily: 'var(--font-display)', fontWeight: 800, letterSpacing: '-0.05em', lineHeight: 1.0, fontSize: 'clamp(2rem, 4vw, 3.5rem)', margin: 0, opacity: 0 }}>
               Projects we're<br />proud of.
             </h2>
           </div>
-          <p className="text-lg text-ink-secondary">
+          <p className="portfolio-header-el" style={{ fontSize: 16, color: '#6B6860', lineHeight: 1.75, opacity: 0, margin: 0 }}>
             A curated selection across industries. Every build starts with strategy and ends with measurable results.
           </p>
         </div>
 
-        {/* Filter Buttons */}
-        <div className="flex flex-wrap gap-3 mb-10">
+        {/* Filters */}
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 'clamp(2rem, 4vw, 3rem)' }}>
           {categories.map(cat => (
-            <button
-              key={cat}
-              onClick={() => setActive(cat)}
-              className={`px-6 py-2.5 rounded-full font-medium transition-all ${
-                active === cat
-                  ? 'bg-ink text-white shadow-lg'
-                  : 'bg-bg-surface border border-border text-ink-secondary hover:border-ink'
-              }`}
-            >
+            <button key={cat} onClick={() => setActive(cat)} style={{
+              padding: '8px 20px', borderRadius: 9999, fontSize: 13, fontWeight: 600,
+              cursor: 'pointer', transition: 'all 0.22s',
+              background: active === cat ? '#1A1916' : '#fff',
+              color: active === cat ? '#fff' : '#6B6860',
+              border: active === cat ? '1px solid #1A1916' : '1px solid #E0DDD8',
+              letterSpacing: '-0.01em',
+              boxShadow: active === cat ? '0 4px 12px rgba(26,25,22,0.18)' : 'none',
+            }}>
               {cat}
             </button>
           ))}
         </div>
 
-        {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Grid */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'clamp(1rem, 2vw, 1.5rem)' }} className="port-grid">
           {filtered.map((p, i) => (
-            <div key={i} className="portfolio-card card reveal group">
-              <div className="relative h-64 overflow-hidden">
-                <img 
-                  src={p.image} 
-                  alt={p.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            <div key={p.num + active} className="port-card" style={{
+              background: '#fff', borderRadius: 20, border: '1px solid #E8E6E1',
+              overflow: 'hidden', transition: 'all 0.38s cubic-bezier(0.4,0,0.2,1)',
+              cursor: 'default', position: 'relative',
+            }}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(-8px)'; (e.currentTarget as HTMLElement).style.boxShadow = '0 20px 60px rgba(26,25,22,0.12)'; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'; (e.currentTarget as HTMLElement).style.boxShadow = 'none'; }}
+            >
+              {/* Image */}
+              <div style={{ position: 'relative', height: 220, overflow: 'hidden' }}>
+                <img src={p.image} alt={p.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: 'transform 0.6s ease' }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLImageElement).style.transform = 'scale(1.06)'; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLImageElement).style.transform = 'scale(1)'; }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-bg-surface via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <span 
-                  className="absolute top-4 right-4 px-4 py-1.5 rounded-full text-xs font-semibold text-white"
-                  style={{ backgroundColor: p.color }}
-                >
+                {/* Result badge */}
+                <div style={{
+                  position: 'absolute', top: 14, left: 14,
+                  background: p.color, color: '#fff',
+                  padding: '5px 12px', borderRadius: 9999, fontSize: 11.5, fontWeight: 700,
+                  letterSpacing: '-0.01em',
+                }}>
+                  {p.result}
+                </div>
+                {/* Category badge */}
+                <div style={{
+                  position: 'absolute', top: 14, right: 14,
+                  background: 'rgba(255,255,255,0.92)', backdropFilter: 'blur(8px)',
+                  color: '#6B6860', padding: '5px 12px', borderRadius: 9999,
+                  fontSize: 11, fontWeight: 600, letterSpacing: '0.04em', fontFamily: 'var(--font-mono)',
+                }}>
                   {p.category}
-                </span>
-                <div className="absolute bottom-4 left-4 right-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                  <Link href="#contact" className="btn-primary w-full justify-center">
-                    View Project
-                  </Link>
                 </div>
               </div>
-              <div className="p-6">
-                <p className="font-display font-bold text-5xl text-border mb-3">{p.num}</p>
-                <h3 className="font-display font-bold text-xl mb-2">{p.title}</h3>
-                <p className="text-ink-secondary text-sm mb-4">{p.desc}</p>
-                <div className="flex flex-wrap gap-2">
+
+              {/* Content */}
+              <div style={{ padding: 'clamp(1.25rem, 2.5vw, 1.75rem)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: 18, color: '#C4622D', letterSpacing: '0.06em' }}>{p.num}</span>
+                  <div style={{ width: 28, height: 28, borderRadius: '50%', background: p.color + '18', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <div style={{ width: 8, height: 8, borderRadius: '50%', background: p.color }} />
+                  </div>
+                </div>
+                <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 18, fontWeight: 700, letterSpacing: '-0.03em', color: '#1A1916', marginBottom: 8, lineHeight: 1.3 }}>{p.title}</h3>
+                <p style={{ fontSize: 15, color: '#6B6860', lineHeight: 1.25, marginBottom: 14 }}>{p.desc}</p>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 16 }}>
                   {p.tags.map(tag => (
-                    <span key={tag} className="px-3 py-1 bg-bg-alt border border-border rounded-full text-xs text-ink-secondary">
-                      {tag}
-                    </span>
+                    <span key={tag} style={{ padding: '3px 9px', background: '#F4F3EF', border: '1px solid #E8E6E1', borderRadius: 5, fontSize: 12, color: '#6B6860', fontFamily: 'var(--font-mono)' }}>{tag}</span>
                   ))}
                 </div>
+                <Link href="#contact" style={{
+                  display: 'inline-flex', alignItems: 'center', gap: 6,
+                  fontSize: 14, fontWeight: 600, color: p.color,
+                  textDecoration: 'none', transition: 'gap 0.2s',
+                  letterSpacing: '-0.01em',
+                }}
+                  onMouseEnter={e => (e.currentTarget as HTMLElement).style.gap = '10px'}
+                  onMouseLeave={e => (e.currentTarget as HTMLElement).style.gap = '6px'}
+                >
+                  View Case Study
+                  <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </Link>
               </div>
             </div>
           ))}
         </div>
 
-        <div className="text-center mt-12">
-          <Link href="#contact" className="btn-outline inline-flex">
+        <div style={{ textAlign: 'center', marginTop: 'clamp(2rem, 4vw, 3.5rem)' }}>
+          <Link href="#contact" className="btn-outline">
             Discuss Your Project
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
           </Link>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 1024px) { .port-grid { grid-template-columns: repeat(2, 1fr) !important; } }
+        @media (max-width: 640px) { .port-grid { grid-template-columns: 1fr !important; } .port-header-grid { grid-template-columns: 1fr !important; } }
+      `}</style>
     </section>
   )
 }
