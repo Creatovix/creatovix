@@ -60,10 +60,10 @@ export default function Navbar() {
               background: 'linear-gradient(135deg, #1A1916 0%, #3a3632 100%)',
               color: '#fff', borderRadius: 10,
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontFamily: 'var(--font-display)', fontSize: 12, fontWeight: 800,
+              fontFamily: 'var(--font-display)', fontSize: 15, fontWeight: 800,
               letterSpacing: '-0.02em',
               boxShadow: '0 2px 8px rgba(26,25,22,0.2)',
-            }}>DC</div>
+            }}>CC</div>
             <span style={{ fontFamily: 'var(--font-display)', fontSize: 22, fontWeight: 700, letterSpacing: '-0.04em', color: '#1A1916' }}>
               Code<span style={{ color: '#C4622D' }}>Craft</span>
             </span>

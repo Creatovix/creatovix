@@ -10,42 +10,48 @@ const projects = [
     num: '01', title: 'Luxe Commerce Store', category: 'Shopify',
     tags: ['Shopify', 'Liquid', 'Custom Theme'],
     desc: 'High-converting fashion e-commerce with 3× revenue growth.',
-    image: 'https://placehold.co/800x600/F0EDE8/C4622D?text=Luxe+Store',
+    // Fashion/e-commerce store image
+    image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&h=600&fit=crop',
     color: '#C4622D', result: '3× Revenue',
   },
   {
     num: '02', title: 'SaaS Analytics Dashboard', category: 'Full Stack',
     tags: ['Next.js', 'TypeScript', 'PostgreSQL'],
     desc: 'Real-time analytics platform serving 10k+ daily active users.',
-    image: 'https://placehold.co/800x600/EEF4FA/4A90C2?text=Analytics+Dashboard',
+    // Analytics/dashboard image
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop',
     color: '#4A90C2', result: '10k+ DAU',
   },
   {
     num: '03', title: 'Healthcare Brand Identity', category: 'Design',
     tags: ['Branding', 'Logo', 'Print'],
     desc: 'Complete brand identity system for a modern healthcare provider.',
-    image: 'https://placehold.co/800x600/F2F0FA/7B6CE8?text=Healthcare+Brand',
+    // Branding/design image
+    image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=600&fit=crop',
     color: '#7B6CE8', result: 'Full Rebrand',
   },
   {
     num: '04', title: 'Real Estate Platform', category: 'WordPress',
     tags: ['WordPress', 'WooCommerce', 'ACF'],
     desc: 'Property listing platform with advanced search and CRM sync.',
-    image: 'https://placehold.co/800x600/F2F6EC/9AB84A?text=Real+Estate',
+    // Real estate image
+    image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600&fit=crop',
     color: '#9AB84A', result: '+60% Leads',
   },
   {
     num: '05', title: 'Restaurant Ordering App', category: 'Full Stack',
     tags: ['React', 'Node.js', 'Stripe'],
     desc: 'Full-stack online ordering with real-time kitchen dashboard.',
-    image: 'https://placehold.co/800x600/FDF0F8/E84E9C?text=Restaurant+App',
+    // Restaurant/food image
+    image: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&h=600&fit=crop',
     color: '#E84E9C', result: '$1.2M Orders',
   },
   {
     num: '06', title: 'Wellness Subscription Store', category: 'Shopify',
     tags: ['Shopify', 'Custom App', 'Subscriptions'],
     desc: 'Subscription-based wellness store with 4.9★ rating.',
-    image: 'https://placehold.co/800x600/E8F8F3/2DAE85?text=Wellness+Store',
+    // Wellness/skincare image
+    image: 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=800&h=600&fit=crop',
     color: '#2DAE85', result: '4.9★ Rating',
   },
 ]
@@ -128,16 +134,24 @@ export default function Portfolio() {
             >
               {/* Image */}
               <div style={{ position: 'relative', height: 220, overflow: 'hidden' }}>
-                <img src={p.image} alt={p.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: 'transform 0.6s ease' }}
+                <img
+                  src={p.image}
+                  alt={p.title}
+                  style={{
+                    width: '100%', height: '100%', objectFit: 'cover', display: 'block',
+                    transition: 'transform 0.6s ease',
+                  }}
                   onMouseEnter={e => { (e.currentTarget as HTMLImageElement).style.transform = 'scale(1.06)'; }}
                   onMouseLeave={e => { (e.currentTarget as HTMLImageElement).style.transform = 'scale(1)'; }}
                 />
+                {/* Subtle overlay for badge legibility */}
+                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(0,0,0,0.15) 0%, transparent 50%)' }} />
                 {/* Result badge */}
                 <div style={{
                   position: 'absolute', top: 14, left: 14,
                   background: p.color, color: '#fff',
                   padding: '5px 12px', borderRadius: 9999, fontSize: 11.5, fontWeight: 700,
-                  letterSpacing: '-0.01em',
+                  letterSpacing: '-0.01em', boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
                 }}>
                   {p.result}
                 </div>
@@ -161,7 +175,7 @@ export default function Portfolio() {
                   </div>
                 </div>
                 <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 18, fontWeight: 700, letterSpacing: '-0.03em', color: '#1A1916', marginBottom: 8, lineHeight: 1.3 }}>{p.title}</h3>
-                <p style={{ fontSize: 15, color: '#6B6860', lineHeight: 1.25, marginBottom: 14 }}>{p.desc}</p>
+                <p style={{ fontSize: 15, color: '#6B6860', lineHeight: 1.65, marginBottom: 14 }}>{p.desc}</p>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 16 }}>
                   {p.tags.map(tag => (
                     <span key={tag} style={{ padding: '3px 9px', background: '#F4F3EF', border: '1px solid #E8E6E1', borderRadius: 5, fontSize: 12, color: '#6B6860', fontFamily: 'var(--font-mono)' }}>{tag}</span>

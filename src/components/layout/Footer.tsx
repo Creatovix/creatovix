@@ -21,7 +21,7 @@ export default function Footer() {
           {/* Brand col */}
           <div>
             <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none', marginBottom: '1.25rem' }}>
-              <div style={{ width: 34, height: 34, background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)', color: '#fff', borderRadius: 9, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-display)', fontSize: 11, fontWeight: 800, letterSpacing: '-0.02em' }}>DC</div>
+              <div style={{ width: 34, height: 34, background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)', color: '#fff', borderRadius: 9, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-display)', fontSize: 13, fontWeight: 800, letterSpacing: '-0.02em' }}>CC</div>
               <span style={{ fontFamily: 'var(--font-display)', fontSize: 28, fontWeight: 700, letterSpacing: '-0.04em', color: '#fff' }}>Code<span style={{ color: '#C4622D' }}>Craft</span></span>
             </Link>
             <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.75)', lineHeight: 1.25, marginBottom: '1.5rem', maxWidth: 240 }}>
