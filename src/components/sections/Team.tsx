@@ -211,7 +211,7 @@ export default function Team() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="team" style={{ background: "#F5F3F0" }}>
+    <section className="px-3" ref={sectionRef} id="team" style={{ background: "#F5F3F0" }}>
       {/* Header - Scrolls away normally */}
       <div
         style={{
@@ -275,7 +275,7 @@ export default function Team() {
     "
           >
             {/* Left: Sticky Image Card - FIXED LAYOUT */}
-            <div style={{ position: "relative", height: "70vh" }}>
+            <div className="md:h-[70vh] h-[80vh]" style={{ position: "relative", }}>
               {team.map((member, index) => (
                 <div
                   key={member.name}
