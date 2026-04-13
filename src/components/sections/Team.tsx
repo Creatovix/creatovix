@@ -1,8 +1,20 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { getTeamSection, resolveImageUrl } from "@/sanity/lib/queries";
+import type { SanityTeamMember } from "@/sanity/lib/queries";
 
-const team = [
+// ─── Hardcoded Fallback Data ──────────────────────────────────────────────────
+// Shown when Sanity has no teamSection document yet.
+
+const FALLBACK_SECTION = {
+  sectionTag: "The Team",
+  heading: "Meet the experts\nbehind the code.",
+  subheading:
+    "Scroll to meet the specialists who bring deep expertise and genuine passion to every single project.",
+};
+
+const FALLBACK_MEMBERS = [
   {
     name: "Ahmad Raza",
     role: "Lead Full Stack Developer",
@@ -59,13 +71,65 @@ const team = [
   },
 ];
 
+// ─── Normalised member type used inside this component ───────────────────────
+interface NormalizedMember {
+  name: string;
+  role: string;
+  image: string;
+  bio: string;
+  skills: string[];
+  accentColor: string;
+}
+
+function normalizeSanityMember(m: SanityTeamMember): NormalizedMember {
+  return {
+    name: m.name,
+    role: m.role,
+    bio: m.bio,
+    image: resolveImageUrl(m.image, 600, 800),
+    skills: m.skills ?? [],
+    accentColor: m.accentColor ?? "#4A90C2",
+  };
+}
+
+// ─── Component ────────────────────────────────────────────────────────────────
+
 export default function Team() {
   const sectionRef = useRef<HTMLElement>(null);
   const cardsContainerRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const navItemRefs = useRef<(HTMLDivElement | null)[]>([]);
 
+  // Sanity data state
+  const [section, setSection] = useState(FALLBACK_SECTION);
+  const [team, setTeam] = useState<NormalizedMember[]>(FALLBACK_MEMBERS);
+  const [dataSource, setDataSource] = useState<"fallback" | "sanity">("fallback");
+
+  // Fetch from Sanity on mount
   useEffect(() => {
+    getTeamSection().then((data) => {
+      if (!data) {
+        // No Sanity data — keep hardcoded fallback
+        console.info("[Team] No Sanity data found, using fallback content.");
+        return;
+      }
+      setSection({
+        sectionTag: data.sectionTag || FALLBACK_SECTION.sectionTag,
+        heading: data.heading || FALLBACK_SECTION.heading,
+        subheading: data.subheading || FALLBACK_SECTION.subheading,
+      });
+      setTeam(data.members.map(normalizeSanityMember));
+      setDataSource("sanity");
+      console.info("[Team] Loaded from Sanity CMS.");
+    });
+  }, []);
+
+  // GSAP sticky scroll animation
+  useEffect(() => {
+    if (!team.length) return;
+
+    let cleanup: (() => void) | undefined;
+
     const init = async () => {
       const { gsap } = await import("gsap");
       const { ScrollTrigger } = await import("gsap/ScrollTrigger");
@@ -75,7 +139,6 @@ export default function Team() {
       const navItems = navItemRefs.current.filter(Boolean);
       const totalCards = cards.length;
 
-      // Create a timeline for the sticky scroll
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: cardsContainerRef.current,
@@ -88,142 +151,108 @@ export default function Team() {
         },
       });
 
-      // Animate each card AND update nav items
       cards.forEach((card, index) => {
         if (!card) return;
 
-        // Set initial state for cards
         gsap.set(card, {
           opacity: index === 0 ? 1 : 0,
           scale: index === 0 ? 1 : 0.95,
           zIndex: index === 0 ? totalCards - index : 0,
         });
 
-        // Set initial state for nav items
         if (navItems[index]) {
           gsap.set(navItems[index], {
             opacity: index === 0 ? 1 : 0.4,
             borderColor: index === 0 ? team[index].accentColor : "#E0DDD8",
-            backgroundColor: index === 0 ? "#fff" : "#fff",
           });
-
-          // Highlight the indicator dot
-          const indicator = navItems[index].querySelector(".nav-indicator");
-          if (indicator) {
-            gsap.set(indicator, {
-              opacity: index === 0 ? 1 : 0,
-            });
-          }
+          const indicator = navItems[index]!.querySelector(".nav-indicator");
+          if (indicator) gsap.set(indicator, { opacity: index === 0 ? 1 : 0 });
         }
 
-        // Add animation to timeline
         if (index > 0) {
-          // Fade out previous card
           tl.to(
             cards[index - 1],
-            {
-              opacity: 0,
-              scale: 0.95,
-              duration: 1,
-              ease: "power2.inOut",
-            },
-            index,
+            { opacity: 0, scale: 0.95, duration: 1, ease: "power2.inOut" },
+            index
           );
-
-          // Fade in current card
           tl.to(
             card,
-            {
-              opacity: 1,
-              scale: 1,
-              zIndex: totalCards - index,
-              duration: 1,
-              ease: "power2.inOut",
-            },
-            index,
+            { opacity: 1, scale: 1, zIndex: totalCards - index, duration: 1, ease: "power2.inOut" },
+            index
           );
 
-          // Update nav items - dim previous
           if (navItems[index - 1]) {
             tl.to(
               navItems[index - 1],
-              {
-                opacity: 0.4,
-                borderColor: "#E0DDD8",
-                duration: 0.5,
-                ease: "power2.inOut",
-              },
-              index,
+              { opacity: 0.4, borderColor: "#E0DDD8", duration: 0.5, ease: "power2.inOut" },
+              index
             );
-
-            const prevIndicator =
-              navItems[index - 1]?.querySelector(".nav-indicator");
-            if (prevIndicator) {
-              tl.to(
-                prevIndicator,
-                {
-                  opacity: 0,
-                  duration: 0.5,
-                  ease: "power2.inOut",
-                },
-                index,
-              );
-            }
+            const prevIndicator = navItems[index - 1]!.querySelector(".nav-indicator");
+            if (prevIndicator)
+              tl.to(prevIndicator, { opacity: 0, duration: 0.5, ease: "power2.inOut" }, index);
           }
 
-          // Update nav items - highlight current
           if (navItems[index]) {
             tl.to(
               navItems[index],
-              {
-                opacity: 1,
-                borderColor: team[index].accentColor,
-                duration: 0.5,
-                ease: "power2.inOut",
-              },
-              index,
+              { opacity: 1, borderColor: team[index].accentColor, duration: 0.5, ease: "power2.inOut" },
+              index
             );
-
-            const currentIndicator =
-              navItems[index]?.querySelector(".nav-indicator");
-            if (currentIndicator) {
-              tl.to(
-                currentIndicator,
-                {
-                  opacity: 1,
-                  duration: 0.5,
-                  ease: "power2.inOut",
-                },
-                index,
-              );
-            }
+            const currentIndicator = navItems[index]!.querySelector(".nav-indicator");
+            if (currentIndicator)
+              tl.to(currentIndicator, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, index);
           }
         }
       });
 
-      return () => {
+      cleanup = () => {
         tl.kill();
-        ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+        ScrollTrigger.getAll().forEach((t) => t.kill());
       };
     };
 
     init();
-  }, []);
+
+    return () => cleanup?.();
+  }, [team]); // Re-run animation when team data changes
+
+  // Format heading: split on \n for line breaks
+  const headingLines = section.heading.split("\n");
 
   return (
     <section className="px-3" ref={sectionRef} id="team" style={{ background: "#F5F3F0" }}>
-      {/* Header - Scrolls away normally */}
+
+      {/* Dev indicator — remove in production */}
+      {process.env.NODE_ENV === "development" && (
+        <div
+          style={{
+            position: "fixed",
+            bottom: 16,
+            right: 16,
+            zIndex: 9999,
+            padding: "4px 12px",
+            background: dataSource === "sanity" ? "#2DAE85" : "#C4622D",
+            color: "#fff",
+            borderRadius: 999,
+            fontSize: 11,
+            fontWeight: 700,
+            letterSpacing: "0.06em",
+            pointerEvents: "none",
+          }}
+        >
+          TEAM: {dataSource.toUpperCase()}
+        </div>
+      )}
+
+      {/* Header */}
       <div
         style={{
           padding: "clamp(4rem, 8vw, 6rem) 0 clamp(2rem, 4vw, 3rem)",
           textAlign: "center",
         }}
       >
-        <span
-          className="tag"
-          style={{ marginBottom: "1.25rem", display: "inline-flex" }}
-        >
-          The Team
+        <span className="tag" style={{ marginBottom: "1.25rem", display: "inline-flex" }}>
+          {section.sectionTag}
         </span>
         <h2
           style={{
@@ -236,52 +265,32 @@ export default function Team() {
             color: "#1A1916",
           }}
         >
-          Meet the experts
-          <br />
-          behind the code.
+          {headingLines.map((line, i) => (
+            <span key={i}>
+              {line}
+              {i < headingLines.length - 1 && <br />}
+            </span>
+          ))}
         </h2>
-        <p
-          style={{
-            fontSize: 16,
-            color: "#6B6860",
-            lineHeight: 1.75,
-            maxWidth: 560,
-            margin: "0 auto",
-          }}
-        >
-          Scroll to meet the specialists who bring deep expertise and genuine
-          passion to every single project.
+        <p style={{ fontSize: 16, color: "#6B6860", lineHeight: 1.75, maxWidth: 560, margin: "0 auto" }}>
+          {section.subheading}
         </p>
       </div>
 
-      {/* Sticky Cards Container - Pins when this hits the top */}
+      {/* Sticky Cards Container */}
       <div
         ref={cardsContainerRef}
-        style={{
-          position: "relative",
-          minHeight: "100vh",
-          overflow: "hidden",
-        }}
+        style={{ position: "relative", minHeight: "100vh", overflow: "hidden" }}
       >
         <div className="container min-h-screen flex items-center py-[clamp(2rem,4vw,4rem)]">
-          <div
-            className="
-      w-full 
-      grid 
-      grid-cols-1 
-      md:grid-cols-2 
-      gap-[clamp(2rem,4vw,4rem)] 
-      items-center
-    "
-          >
-            {/* Left: Sticky Image Card - FIXED LAYOUT */}
-            <div className="md:h-[70vh] h-[80vh]" style={{ position: "relative", }}>
+          <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-[clamp(2rem,4vw,4rem)] items-center">
+
+            {/* Left: Stacked Image Cards */}
+            <div className="md:h-[70vh] h-[80vh]" style={{ position: "relative" }}>
               {team.map((member, index) => (
                 <div
-                  key={member.name}
-                  ref={(el) => {
-                    cardRefs.current[index] = el;
-                  }}
+                  key={member.name + index}
+                  ref={(el) => { cardRefs.current[index] = el; }}
                   className="team-card-sticky"
                   style={{
                     position: "absolute",
@@ -296,35 +305,20 @@ export default function Team() {
                     flexDirection: "column",
                   }}
                 >
-                  {/* Image Section - 65% height */}
-                  <div
-                    style={{
-                      position: "relative",
-                      height: "65%",
-                      flexShrink: 0,
-                    }}
-                  >
+                  {/* Image */}
+                  <div style={{ position: "relative", height: "65%", flexShrink: 0 }}>
                     <img
                       src={member.image}
                       alt={member.name}
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                        objectPosition: "center top",
-                      }}
+                      style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }}
                     />
-                    {/* Gradient Overlay */}
                     <div
                       style={{
                         position: "absolute",
                         inset: 0,
-                        background:
-                          "linear-gradient(to bottom, transparent 0%, rgba(26,25,22,0.8) 100%)",
+                        background: "linear-gradient(to bottom, transparent 0%, rgba(26,25,22,0.8) 100%)",
                       }}
                     />
-
-                    {/* Role Badge */}
                     <div
                       style={{
                         position: "absolute",
@@ -344,7 +338,7 @@ export default function Team() {
                     </div>
                   </div>
 
-                  {/* Content Section - 35% height */}
+                  {/* Content */}
                   <div
                     style={{
                       padding: "24px",
@@ -367,19 +361,10 @@ export default function Team() {
                       >
                         {member.name}
                       </h3>
-                      <p
-                        style={{
-                          fontSize: 14,
-                          color: "#6B6860",
-                          lineHeight: 1.6,
-                          marginBottom: 16,
-                        }}
-                      >
+                      <p style={{ fontSize: 14, color: "#6B6860", lineHeight: 1.6, marginBottom: 16 }}>
                         {member.bio}
                       </p>
                     </div>
-
-                    {/* Skills */}
                     <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
                       {member.skills.map((skill) => (
                         <span
@@ -403,14 +388,12 @@ export default function Team() {
               ))}
             </div>
 
-            {/* Right: Navigation Indicators - WITH ACTIVE STATES */}
+            {/* Right: Nav Items */}
             <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
               {team.map((member, index) => (
                 <div
-                  key={member.name}
-                  ref={(el) => {
-                    navItemRefs.current[index] = el;
-                  }}
+                  key={member.name + index}
+                  ref={(el) => { navItemRefs.current[index] = el; }}
                   style={{
                     display: "flex",
                     alignItems: "center",
@@ -439,11 +422,7 @@ export default function Team() {
                     <img
                       src={member.image}
                       alt={member.name}
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                      }}
+                      style={{ width: "100%", height: "100%", objectFit: "cover" }}
                     />
                   </div>
                   <div style={{ flex: 1 }}>
@@ -458,18 +437,12 @@ export default function Team() {
                     >
                       {member.name}
                     </h4>
-                    <p
-                      style={{
-                        fontSize: 13,
-                        color: member.accentColor,
-                        fontWeight: 600,
-                        margin: "4px 0 0",
-                      }}
-                    >
+                    <p style={{ fontSize: 13, color: member.accentColor, fontWeight: 600, margin: "4px 0 0" }}>
                       {member.role}
                     </p>
                   </div>
                   <div
+                    className="nav-indicator"
                     style={{
                       width: 8,
                       height: 8,
@@ -478,7 +451,6 @@ export default function Team() {
                       opacity: 0,
                       transition: "opacity 0.3s",
                     }}
-                    className="nav-indicator"
                   />
                 </div>
               ))}
