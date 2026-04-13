@@ -108,15 +108,8 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.75rem', padding: '1.25rem 0' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap', gap: '0.75rem', padding: '1.25rem 0' }}>
           <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.8)', letterSpacing: '-0.01em' }}>© {year} DevCraft Studio. All rights reserved.</p>
-          <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
-            {['Privacy Policy', 'Terms of Service'].map(t => (
-              <Link key={t} href="#" style={{ fontSize: 13, color: 'rgba(255,255,255,8)', textDecoration: 'none', transition: 'color 0.2s' }}
-                onMouseEnter={e => (e.currentTarget.style.color = 'rgba(255,255,255,6)')}
-                onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,8)')}>{t}</Link>
-            ))}
-          </div>
         </div>
       </div>
 
