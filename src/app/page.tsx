@@ -11,11 +11,13 @@ import Team from '@/components/sections/Team'
 import CTA from '@/components/sections/CTA'
 import Contact from '@/components/sections/Contact'
 import Skills from '@/components/sections/Skills'
+import Loader from '@/components/sections/loader'
 
 export default function HomePage() {
   return (
     <>
       <Navbar />
+      <Loader />
       <main>
         <Hero />
         <Stats />
