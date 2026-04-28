@@ -1,5 +1,9 @@
 "use client";
-import { useEffect, useRef, useState, useCallback } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
+
+// Make type for NodeJS.Timeout (for both node and browser)
+type Timeout = ReturnType<typeof setTimeout>;
+type Interval = ReturnType<typeof setInterval>;
 
 const SLIDES = [
   {
@@ -60,7 +64,7 @@ export default function Hero() {
   const [direction, setDirection] = useState<"next" | "prev">("next");
   const [transitioning, setTransitioning] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
-  const autoRef = useRef<NodeJS.Timeout>();
+  const autoRef = useRef<Interval | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const goTo = useCallback(
@@ -80,21 +84,26 @@ export default function Hero() {
 
   const next = useCallback(() => {
     goTo((current + 1) % SLIDES.length, "next");
+    // Do not reset auto here, only when user acts
   }, [current, goTo]);
 
   const goToPrev = useCallback(() => {
     goTo((current - 1 + SLIDES.length) % SLIDES.length, "prev");
+    // Do not reset auto here, only when user acts
   }, [current, goTo]);
 
   useEffect(() => {
-    autoRef.current = setInterval(next, 5000);
-    return () => clearInterval(autoRef.current);
+    if (autoRef.current) clearInterval(autoRef.current as any);
+    autoRef.current = setInterval(next, 5000) as any;
+    return () => {
+      if (autoRef.current) clearInterval(autoRef.current as any);
+    };
   }, [next]);
 
-  const resetAuto = () => {
-    clearInterval(autoRef.current);
-    autoRef.current = setInterval(next, 5000);
-  };
+  const resetAuto = useCallback(() => {
+    if (autoRef.current) clearInterval(autoRef.current as any);
+    autoRef.current = setInterval(next, 5000) as any;
+  }, [next]);
 
   useEffect(() => {
     const handleMouse = (e: MouseEvent) => {
@@ -108,23 +117,10 @@ export default function Hero() {
   }, []);
 
   const slide = SLIDES[current];
-  const prevSlide = prev !== null ? SLIDES[prev] : null;
-
-  const getSlideTransform = (isEntering: boolean) => {
-    if (!transitioning) return "translateX(0) skewX(0deg)";
-    if (isEntering) {
-      return direction === "next"
-        ? "translateX(0) skewX(0deg)"
-        : "translateX(0) skewX(0deg)";
-    }
-    return direction === "next"
-      ? "translateX(-5%) skewX(-2deg)"
-      : "translateX(5%) skewX(2deg)";
-  };
 
   return (
     <section
-    className="px-[100px]"
+      className="px-[100px]"
       ref={containerRef}
       style={{
         position: "relative",
@@ -139,13 +135,12 @@ export default function Hero() {
         style={{
           position: "absolute",
           inset: 0,
-          backgroundImage: `
-            linear-gradient(rgba(255,77,0,0.04) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,77,0,0.04) 1px, transparent 1px)
-          `,
+          backgroundImage:
+            "linear-gradient(rgba(255,77,0,0.04) 1px, transparent 1px),linear-gradient(90deg, rgba(255,77,0,0.04) 1px, transparent 1px)",
           backgroundSize: "60px 60px",
           transform: `translate(${(mousePos.x - 0.5) * 20}px, ${(mousePos.y - 0.5) * 20}px)`,
           transition: "transform 0.8s ease-out",
+          pointerEvents: "none",
         }}
       />
 
@@ -196,7 +191,6 @@ export default function Hero() {
               resetAuto();
             }}
             style={{
-              width: i === current ? 3 : 2,
               height: i === current ? 40 : 20,
               background:
                 i === current ? slide.accent : "rgba(255,255,255,0.2)",
@@ -208,7 +202,13 @@ export default function Hero() {
                 i === current
                   ? `0 0 12px ${slide.accent}`
                   : "none",
+              width: i === current ? "3px" : "2px",
+              minWidth: i === current ? "3px" : "2px",
+              padding: 0,
+              outline: "none",
             }}
+            aria-label={`Show slide ${i + 1}`}
+            tabIndex={0}
           />
         ))}
       </div>
@@ -352,13 +352,13 @@ export default function Hero() {
                 boxShadow: `0 0 30px ${slide.accent}44`,
                 display: "inline-block",
               }}
-              onMouseEnter={(e) => {
+              onMouseEnter={e => {
                 (e.currentTarget as HTMLAnchorElement).style.transform =
                   "translateY(-3px) scale(1.02)";
                 (e.currentTarget as HTMLAnchorElement).style.boxShadow =
                   `0 12px 40px ${slide.accent}66`;
               }}
-              onMouseLeave={(e) => {
+              onMouseLeave={e => {
                 (e.currentTarget as HTMLAnchorElement).style.transform =
                   "translateY(0) scale(1)";
                 (e.currentTarget as HTMLAnchorElement).style.boxShadow =
@@ -383,12 +383,12 @@ export default function Hero() {
                 transition: "all 0.3s ease",
                 display: "inline-block",
               }}
-              onMouseEnter={(e) => {
+              onMouseEnter={e => {
                 (e.currentTarget as HTMLAnchorElement).style.borderColor =
                   slide.accent;
                 (e.currentTarget as HTMLAnchorElement).style.color = "#fff";
               }}
-              onMouseLeave={(e) => {
+              onMouseLeave={e => {
                 (e.currentTarget as HTMLAnchorElement).style.borderColor =
                   "rgba(255,255,255,0.15)";
                 (e.currentTarget as HTMLAnchorElement).style.color =
@@ -458,7 +458,7 @@ export default function Hero() {
       >
         {[
           { fn: goToPrev, icon: "←" },
-          { fn: () => { next(); resetAuto(); }, icon: "→" },
+          { fn: () => { next(); }, icon: "→" },
         ].map((btn, i) => (
           <button
             key={i}
@@ -477,18 +477,20 @@ export default function Hero() {
               transition: "all 0.3s ease",
               fontFamily: "monospace",
             }}
-            onMouseEnter={(e) => {
+            onMouseEnter={e => {
               (e.currentTarget as HTMLButtonElement).style.background =
                 `${slide.accent}22`;
               (e.currentTarget as HTMLButtonElement).style.borderColor =
                 slide.accent;
             }}
-            onMouseLeave={(e) => {
+            onMouseLeave={e => {
               (e.currentTarget as HTMLButtonElement).style.background =
                 "rgba(255,255,255,0.04)";
               (e.currentTarget as HTMLButtonElement).style.borderColor =
                 "rgba(255,255,255,0.1)";
             }}
+            aria-label={i === 0 ? "Previous slide" : "Next slide"}
+            tabIndex={0}
           >
             {btn.icon}
           </button>
@@ -547,15 +549,13 @@ export default function Hero() {
   );
 }
 
-function FloatingShape({
-  shape,
-  color,
-  mousePos,
-}: {
+type FloatingShapeProps = {
   shape: string;
   color: string;
   mousePos: { x: number; y: number };
-}) {
+};
+
+function FloatingShape({ shape, color, mousePos }: FloatingShapeProps) {
   const x = 55 + (mousePos.x - 0.5) * 8;
   const y = 50 + (mousePos.y - 0.5) * 8;
 
@@ -568,7 +568,7 @@ function FloatingShape({
     pointerEvents: "none",
     transition: "right 0.6s ease-out, top 0.6s ease-out",
     animation: "float3d 8s ease-in-out infinite",
-    perspective: 600,
+    perspective: "600px",
     filter: `drop-shadow(0 0 40px ${color}66)`,
     opacity: 0.85,
   };
@@ -605,24 +605,24 @@ function FloatingShape({
     return (
       <div style={{ ...shapeStyle }}>
         <svg
-          width={s}
-          height={s}
+          width="100%"
+          height="100%"
           viewBox="0 0 300 300"
-          style={{ overflow: "visible" }}
+          style={{ overflow: "visible", width: s, height: s }}
         >
           <polygon
             points="150,20 290,260 10,260"
             fill={`${color}18`}
             stroke={color}
-            strokeWidth="1"
-            strokeOpacity="0.5"
+            strokeWidth={1}
+            strokeOpacity={0.5}
           />
           <polygon
             points="150,60 250,240 50,240"
             fill="none"
             stroke={color}
-            strokeWidth="0.5"
-            strokeOpacity="0.3"
+            strokeWidth={0.5}
+            strokeOpacity={0.3}
           />
         </svg>
       </div>
@@ -651,24 +651,24 @@ function FloatingShape({
     return (
       <div style={{ ...shapeStyle }}>
         <svg
-          width={s}
-          height={s}
+          width="100%"
+          height="100%"
           viewBox="0 0 300 300"
-          style={{ overflow: "visible" }}
+          style={{ overflow: "visible", width: s, height: s }}
         >
           <polygon
             points="150,10 270,75 270,225 150,290 30,225 30,75"
             fill={`${color}14`}
             stroke={color}
-            strokeWidth="1"
-            strokeOpacity="0.5"
+            strokeWidth={1}
+            strokeOpacity={0.5}
           />
           <polygon
             points="150,50 240,97 240,203 150,250 60,203 60,97"
             fill="none"
             stroke={color}
-            strokeWidth="0.5"
-            strokeOpacity="0.25"
+            strokeWidth={0.5}
+            strokeOpacity={0.25}
           />
         </svg>
       </div>
@@ -678,19 +678,24 @@ function FloatingShape({
   if (shape === "star") {
     const s = "clamp(160px, 22vw, 320px)";
     return (
-      <div style={{ ...shapeStyle, animation: "rotateStar 12s linear infinite" }}>
+      <div
+        style={{
+          ...shapeStyle,
+          animation: "rotateStar 12s linear infinite",
+        }}
+      >
         <svg
-          width={s}
-          height={s}
+          width="100%"
+          height="100%"
           viewBox="0 0 300 300"
-          style={{ overflow: "visible" }}
+          style={{ overflow: "visible", width: s, height: s }}
         >
           <polygon
             points="150,10 190,110 300,120 220,195 245,295 150,245 55,295 80,195 0,120 110,110"
             fill={`${color}18`}
             stroke={color}
-            strokeWidth="1"
-            strokeOpacity="0.5"
+            strokeWidth={1}
+            strokeOpacity={0.5}
           />
         </svg>
       </div>
