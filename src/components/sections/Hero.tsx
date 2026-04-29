@@ -169,7 +169,7 @@ export default function Hero() {
   return (
     <section
       ref={containerRef}
-      className={`relative h-[100svh] min-h-[700px] overflow-hidden bg-[#04020a] font-mono ${
+      className={`relative h-[100svh] min-h-[700px] overflow-hidden bg-[#04020a] font-mono py-[5vh] ${
         mounted ? "" : "opacity-0"
       } transition-opacity duration-700`}
       style={{
@@ -633,7 +633,7 @@ export default function Hero() {
       </div>
 
       {/* Arrow controls */}
-      <div className="absolute bottom-9 left-4 xl:left-10 flex gap-2.5 z-50">
+      <div className="absolute bottom-9 left-4 xl:left-10 flex gap-2.5 z-50 hidden">
         {[
           {
             fn: () => {

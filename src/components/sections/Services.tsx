@@ -116,7 +116,7 @@ export default function ServicesSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative pt-[2vh] pb-[8vh] overflow-hidden font-mono"
+      className="relative pt-[7vh] pb-[8vh] overflow-hidden font-mono"
       style={{
         fontFamily: `'DM Mono', 'Courier New', monospace`,
       }}
