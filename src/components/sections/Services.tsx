@@ -89,6 +89,9 @@ export default function ServicesSection() {
   const [flippedCard, setFlippedCard] = useState<number | null>(null);
   const sectionRef = useRef<HTMLElement | null>(null);
 
+  const monoFont = { fontFamily: "'DM Mono', 'Courier New', monospace" };
+  const bebasFont = { fontFamily: "'Bebas Neue', 'Impact', sans-serif" };
+
   useEffect(() => {
     let hasAnimated = false;
     const observer = new window.IntersectionObserver(
@@ -150,18 +153,17 @@ export default function ServicesSection() {
 
         {/* Header */}
         <div className="text-center max-w-[640px] mx-auto mb-[6vh]">
-          <div className="flex items-center justify-center gap-4 mb-6">
-            <span className="inline-block w-[52px] h-px bg-[#ff4d00] shadow-[0_0_12px_#ff4d00,0_0_24px_rgba(255,77,0,0.3)]" />
-            <span className="text-[10.5px] tracking-[0.38em] text-[#ff4d00] uppercase">What We Do</span>
-            <span className="inline-block w-[52px] h-px bg-[#ff4d00] shadow-[0_0_12px_#ff4d00,0_0_24px_rgba(255,77,0,0.3)]" />
+          <div className="flex items-center justify-center gap-3.5 mb-4">
+            <span className="inline-block w-10 h-px bg-[#ff4d00] shadow-[0_0_12px_#ff4d00,0_0_24px_rgba(255,77,0,0.3)]" />
+            <span className="text-[10.5px] tracking-[0.38em] text-[#ff4d00] uppercase" style={monoFont}>What we Do</span>
+            <span className="inline-block w-10 h-px bg-[#ff4d00] shadow-[0_0_12px_#ff4d00,0_0_24px_rgba(255,77,0,0.3)]" />
           </div>
-          <h2 className="font-bebas text-[clamp(38px,5.5vw,62px)] text-white leading-[1.02] tracking-[0.03em] m-0 mb-4">
+          <h2 className="leading-none text-white m-0 mb-4" style={{ ...bebasFont, fontSize: "clamp(38px,5.5vw,62px)", letterSpacing: "0.03em" }}>
             Services That<br />
-            <span className="text-[#ff4d00] drop-shadow-[0_0_50px_rgba(255,77,0,0.45)]">Deliver Results</span>
+            <span style={{ color: "#ff4d00", textShadow: "0 0 50px rgba(255,77,0,0.45)" }}>Deliver Results</span>
           </h2>
-          <p className="text-[13.5px] text-white/50 leading-[1.75] max-w-[480px] mx-auto">
-            From concept to launch, we provide end-to-end digital solutions
-            tailored to your unique goals and vision.
+          <p className="text-[13px] text-white/45 leading-[1.75] m-0" style={monoFont}>
+            From concept to launch, we provide end-to-end digital solutions tailored to your unique goals and vision.
           </p>
         </div>
 
