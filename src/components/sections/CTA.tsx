@@ -27,7 +27,7 @@ export default function CTASection() {
   return (
     <section
       ref={sectionRef}
-      className="relative py-[12vh] xl:py-[16vh] overflow-hidden font-mono"
+      className="relative pt-[6vh] pb-0 overflow-hidden font-mono"
       style={{
         fontFamily: `'DM Mono', 'Courier New', monospace`,
         background: "linear-gradient(180deg, #0a0a0f 0%, #0f0f1a 50%, #0a0a0f 100%)",

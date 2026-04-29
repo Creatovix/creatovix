@@ -17,9 +17,9 @@ export default function HomePage() {
   return (
     <>
       <Navbar />
-      {/* <Loader onComplete={function (): void {
+      <Loader onComplete={function (): void {
         throw new Error('Function not implemented.')
-      } } /> */}
+      } } />
       <main>
         <Hero />
         <Stats />

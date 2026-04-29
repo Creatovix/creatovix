@@ -116,7 +116,7 @@ export default function ServicesSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative pt-[6vh] pb-[10vh] overflow-hidden font-mono"
+      className="relative pt-[2vh] pb-[8vh] overflow-hidden font-mono"
       style={{
         fontFamily: `'DM Mono', 'Courier New', monospace`,
       }}
@@ -149,7 +149,7 @@ export default function ServicesSection() {
       <div className="max-w-[1600px] mx-auto xl:px-10 px-4 relative z-10">
 
         {/* Header */}
-        <div className="text-center max-w-[640px] mx-auto mb-20 xl:mb-24">
+        <div className="text-center max-w-[640px] mx-auto mb-[6vh]">
           <div className="flex items-center justify-center gap-4 mb-6">
             <span className="inline-block w-[52px] h-px bg-[#ff4d00] shadow-[0_0_12px_#ff4d00,0_0_24px_rgba(255,77,0,0.3)]" />
             <span className="text-[10.5px] tracking-[0.38em] text-[#ff4d00] uppercase">What We Do</span>
@@ -451,7 +451,7 @@ export default function ServicesSection() {
         </div>
 
         {/* Bottom CTA */}
-        <div className="text-center mt-20 xl:mt-24">
+        <div className="text-center mt-[12vh]">
           <a
             href="#contact"
             className="inline-flex items-center gap-3.5 py-4 px-[42px] bg-gradient-to-br from-[#ff4d00] to-[#ff8c00] text-white no-underline font-mono text-[12px] tracking-[.22em] uppercase rounded-none"
