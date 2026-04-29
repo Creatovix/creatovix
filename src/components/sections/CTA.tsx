@@ -1,121 +1,210 @@
-'use client'
+"use client";
+import { useEffect, useRef, useState } from "react";
 
-import { useEffect, useRef } from 'react'
-import Link from 'next/link'
-
-export default function CTA() {
-  const ref = useRef<HTMLElement>(null)
+export default function CTASection() {
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const init = async () => {
-      const { gsap } = await import('gsap')
-      const { ScrollTrigger } = await import('gsap/ScrollTrigger')
-      gsap.registerPlugin(ScrollTrigger)
-      gsap.fromTo('.cta-box', { opacity: 0, y: 50, scale: 0.97 }, {
-        opacity: 1, y: 0, scale: 1, duration: 0.95, ease: 'power3.out',
-        scrollTrigger: { trigger: ref.current, start: 'top 82%', once: true }
-      })
-      gsap.fromTo('.cta-el', { opacity: 0, y: 24 }, {
-        opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', stagger: 0.12,
-        scrollTrigger: { trigger: ref.current, start: 'top 78%', once: true }
-      })
-    }
-    init()
-  }, [])
+    let hasAnimated = false;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasAnimated) {
+            hasAnimated = true;
+            setIsVisible(true);
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <section ref={ref} style={{ background: '#F5F3F0', padding: 'clamp(3rem, 6vw, 5rem) 0' }}>
-      <div className="container">
-        <div className="cta-box" style={{
-          opacity: 0, position: 'relative', background: '#1A1916',
-          borderRadius: 28, overflow: 'hidden',
-          padding: 'clamp(2.5rem, 5vw, 4.5rem) clamp(2rem, 5vw, 5rem)',
+    <section
+      ref={sectionRef}
+      className="relative py-[12vh] xl:py-[16vh] overflow-hidden font-mono"
+      style={{
+        fontFamily: `'DM Mono', 'Courier New', monospace`,
+        background: "linear-gradient(180deg, #0a0a0f 0%, #0f0f1a 50%, #0a0a0f 100%)",
+      }}
+    >
+      {/* Ambient background glow */}
+      <div className="absolute inset-0 pointer-events-none" style={{
+        background: `
+          radial-gradient(ellipse 80% 50% at 20% 40%, rgba(255,77,0,0.12) 0%, transparent 50%),
+          radial-gradient(ellipse 60% 40% at 80% 60%, rgba(0,200,255,0.09) 0%, transparent 50%)
+        `,
+      }} />
+
+      {/* Animated grid background */}
+      <div className="absolute inset-0 pointer-events-none" style={{
+        backgroundImage: "linear-gradient(rgba(255,77,0,0.04) 1px, transparent 1px),linear-gradient(90deg, rgba(255,77,0,0.04) 1px, transparent 1px)",
+        backgroundSize: "64px 64px",
+        animation: "ctaGridDrift 26s linear infinite",
+        opacity: 0.6,
+      }} />
+
+      {/* Scanline effect */}
+      <div className="absolute inset-0 pointer-events-none" style={{
+        backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.02) 3px, rgba(0,0,0,0.02) 4px)",
+        opacity: 0.4,
+      }} />
+
+      {/* Decorative glows */}
+      <div className="absolute pointer-events-none rounded-full blur-[90px] w-[700px] h-[700px] top-[-120px] left-[-180px]" style={{ background: "radial-gradient(circle, rgba(255,77,0,0.12), transparent 70%)" }} />
+      <div className="absolute pointer-events-none rounded-full blur-[90px] w-[550px] h-[550px] bottom-[-80px] right-[-100px]" style={{ background: "radial-gradient(circle, rgba(16,212,160,0.10), transparent 70%)" }} />
+
+      <div className="max-w-[1600px] mx-auto xl:px-10 px-4 relative z-10">
+        
+        {/* Main CTA Card */}
+        <div className={`
+          relative rounded-3xl overflow-hidden backdrop-blur-md border border-white/10
+          p-8 sm:p-10 xl:p-16
+          transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]
+          ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}
+        `} style={{
+          background: "linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%)",
+          boxShadow: "0 20px 60px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.08)",
         }}>
-          {/* Decorative bg */}
-          <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', overflow: 'hidden' }}>
-            <div style={{ position: 'absolute', top: -120, right: -60, width: 360, height: 360, borderRadius: '50%', border: '1px solid rgba(255,255,255,0.05)' }} />
-            <div style={{ position: 'absolute', top: -40, right: 80, width: 220, height: 220, borderRadius: '50%', border: '1px solid rgba(255,255,255,0.04)' }} />
-            <div style={{ position: 'absolute', bottom: -40, left: -40, width: 280, height: 280, borderRadius: '50%', background: 'radial-gradient(circle, rgba(196,98,45,0.2) 0%, transparent 70%)', filter: 'blur(40px)' }} />
-            <div style={{ position: 'absolute', top: 0, right: 0, width: 300, height: '100%', background: 'radial-gradient(ellipse at right center, rgba(74,144,194,0.08) 0%, transparent 60%)' }} />
-          </div>
+          
+          {/* Inner glow overlay */}
+          <div className="absolute inset-0 pointer-events-none" style={{
+            background: `
+              radial-gradient(ellipse 70% 50% at 50% 0%, rgba(255,77,0,0.15) 0%, transparent 60%),
+              radial-gradient(ellipse 60% 40% at 50% 100%, rgba(0,200,255,0.08) 0%, transparent 50%)
+            `,
+          }} />
 
-          <div style={{ position: 'relative', zIndex: 1, display: 'grid', gridTemplateColumns: '1fr auto', gap: 'clamp(2rem, 4vw, 4rem)', alignItems: 'center' }} className="cta-inner">
+          {/* Decorative corners */}
+          <div className="absolute top-0 left-0 w-20 h-20 pointer-events-none" style={{
+            borderTop: "2px solid rgba(255,77,0,0.3)",
+            borderLeft: "2px solid rgba(255,77,0,0.3)",
+            borderRadius: "24px 0 0 0",
+          }} />
+          <div className="absolute bottom-0 right-0 w-20 h-20 pointer-events-none" style={{
+            borderBottom: "2px solid rgba(0,200,255,0.3)",
+            borderRight: "2px solid rgba(0,200,255,0.3)",
+            borderRadius: "0 0 24px 0",
+          }} />
 
-            <div>
-              {/* Available badge */}
-              <div className="cta-el" style={{ opacity: 0, display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 9999, padding: '7px 14px', marginBottom: '1.5rem' }}>
-                <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#4ADE80', display: 'block', animation: 'ctaPulse 2s ease infinite' }} />
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 500, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.75)' }}>Available for new projects</span>
-              </div>
-
-              <h2 className="cta-el" style={{
-                opacity: 0, fontFamily: 'var(--font-display)', fontWeight: 800,
-                letterSpacing: '-0.05em', lineHeight: 1.0, color: '#fff',
-                marginBottom: '1.25rem', fontSize: 'clamp(2rem, 4.5vw, 3.75rem)',
-              }}>
-                Ready to build something<br /><span style={{ color: '#C4622D' }}>extraordinary?</span>
-              </h2>
-
-              <p className="cta-el" style={{ opacity: 0, color: 'rgba(255,255,255,0.75)', lineHeight: 1.75, marginBottom: '2rem', maxWidth: 520, fontSize: 'clamp(13.5px, 1.5vw, 15.5px)' }}>
-                Whether you need a full-stack application, a Shopify store, a WordPress site, or a complete brand identity — we're here to make it happen.
-              </p>
-
-              <div className="cta-el" style={{ opacity: 0, display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
-                <Link href="#contact" style={{
-                  display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 13.5, fontWeight: 600,
-                  padding: '12px 24px', borderRadius: 9999, background: '#C4622D', color: '#fff',
-                  textDecoration: 'none', transition: 'all 0.2s',
-                  boxShadow: '0 4px 16px rgba(196,98,45,0.35)',
-                }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)'; (e.currentTarget as HTMLElement).style.boxShadow = '0 8px 28px rgba(196,98,45,0.45)'; }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'; (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 16px rgba(196,98,45,0.35)'; }}
-                >
-                  Start Your Project
-                  <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
-                    <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" />
-                  </svg>
-                </Link>
-                <Link href="#services" style={{
-                  display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 13.5, fontWeight: 500,
-                  padding: '12px 24px', borderRadius: 9999, border: '1px solid rgba(255,255,255,0.75)',
-                  color: 'rgba(255,255,255,0.85)', textDecoration: 'none', transition: 'all 0.2s',
-                }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = '#fff'; (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.3)'; }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.65)'; (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.15)'; }}
-                >
-                  Explore Services
-                </Link>
-              </div>
-
-              <p className="cta-el" style={{ opacity: 0, fontSize: 14, color: 'rgba(255,255,255,0.72)', marginTop: '1.25rem', letterSpacing: '0.02em' }}>
-                Free consultation · No commitment · Response within 24 hours
-              </p>
+          {/* Content */}
+          <div className="relative z-10 text-center max-w-[800px] mx-auto">
+            
+            {/* Tagline */}
+            <div className={`flex items-center justify-center gap-4 mb-6 transition-all duration-500 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
+              <span className="inline-block w-12 h-px bg-[#ff4d00] shadow-[0_0_12px_#ff4d00]" />
+              <span className="text-[10.5px] tracking-[0.38em] text-[#ff4d00] uppercase font-dmMono">Let's Build Something Great</span>
+              <span className="inline-block w-12 h-px bg-[#ff4d00] shadow-[0_0_12px_#ff4d00]" />
             </div>
 
-            {/* Right stats panel */}
-            <div className="cta-stats cta-el" style={{ opacity: 0, display: 'flex', flexDirection: 'column', gap: 2, flexShrink: 0 }}>
-              {[
-                { num: '140+', label: 'Projects Shipped', color: '#C4622D' },
-                { num: '98%', label: 'Satisfaction Rate', color: '#4A90C2' },
-                { num: '6+', label: 'Years Building', color: '#9AB84A' },
-              ].map((s, i) => (
-                <div key={i} style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 16, padding: '1.25rem 1.5rem', minWidth: 160, transition: 'background 0.2s' }}
-                  onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.07)'}
-                  onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.04)'}
-                >
-                  <p style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: '2rem', letterSpacing: '-0.05em', color: s.color, lineHeight: 1, marginBottom: 4 }}>{s.num}</p>
-                  <p style={{ fontFamily: 'var(--font-mono)', fontSize:11.5, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'rgba(255,255,255,7)' }}>{s.label}</p>
-                </div>
-              ))}
+            {/* Headline */}
+            <h2 className={`font-bebas text-[clamp(36px,6vw,64px)] text-white leading-[1.02] tracking-[0.02em] mb-6 transition-all duration-500 delay-150 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
+              Ready to <span className="text-[#ff4d00] drop-shadow-[0_0_50px_rgba(255,77,0,0.45)]">Transform</span> Your<br />
+              Digital Presence?
+            </h2>
+
+            {/* Description */}
+            <p className={`text-[14px] xl:text-[16px] text-white/60 leading-[1.75] max-w-[540px] mx-auto mb-10 transition-all duration-500 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
+              Let's discuss your vision, goals, and how we can bring your ideas to life with precision, creativity, and cutting-edge technology.
+            </p>
+
+            {/* CTA Buttons */}
+            <div className={`flex flex-col sm:flex-row items-center justify-center gap-4 mb-10 transition-all duration-500 delay-250 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
+              
+              {/* Primary CTA */}
+              <a
+                href="#contact"
+                className="inline-flex items-center gap-3 py-4 px-8 sm:px-10 bg-gradient-to-br from-[#ff4d00] to-[#ff8c00] text-white font-dmMono text-[12px] tracking-[.22em] uppercase no-underline transition-all duration-300 hover:-translate-y-0.5"
+                style={{
+                  clipPath: "polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px))",
+                  boxShadow: "0 10px 42px rgba(255,77,0,0.42)",
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLAnchorElement).style.boxShadow = "0 16px 50px rgba(255,77,0,0.55)";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLAnchorElement).style.boxShadow = "0 10px 42px rgba(255,77,0,0.42)";
+                }}
+              >
+                <span>Start Your Project</span>
+                <span className="text-[18px]">→</span>
+              </a>
+
+              {/* Secondary CTA */}
+              <a
+                href="#work"
+                className="inline-flex items-center gap-3 py-4 px-8 sm:px-10 bg-transparent text-white/80 font-dmMono text-[12px] tracking-[.22em] uppercase no-underline border border-white/15 transition-all duration-300 hover:border-[#ff4d00] hover:text-white"
+                style={{
+                  clipPath: "polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px))",
+                }}
+              >
+                <span>View Our Work</span>
+              </a>
+            </div>
+
+            {/* Trust / Contact Info */}
+            <div className={`flex flex-wrap items-center justify-center gap-4 xl:gap-8 transition-all duration-500 delay-300 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[#ff4d00] shadow-[0_0_8px_#ff4d00] animate-pulse" />
+                <span className="font-dmMono text-[11px] text-white/50">Available for new projects</span>
+              </div>
+              
+              <span className="hidden sm:block text-white/20">|</span>
+              
+              <div className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-white/40">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                  <polyline points="22,6 12,13 2,6" />
+                </svg>
+                <span className="font-dmMono text-[11px] text-white/50">hello@creativox.com</span>
+              </div>
+
+              <span className="hidden sm:block text-white/20">|</span>
+
+              <div className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-white/40">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                </svg>
+                <span className="font-dmMono text-[11px] text-white/50">+1 (555) 000-0000</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
+      {/* CSS Animations */}
       <style>{`
-        @keyframes ctaPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
-        @media (max-width: 1024px) { .cta-stats { display: none !important; } .cta-inner { grid-template-columns: 1fr !important; } }
+        @keyframes ctaGridDrift {
+          0% { background-position: 0 0; }
+          100% { background-position: 64px 64px; }
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+          * { animation: none !important; transition: none !important; }
+        }
+      `}</style>
+
+      {/* Fonts */}
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&display=swap');
+        @font-face {
+          font-family: 'Bebas Neue';
+          font-style: normal;
+          font-weight: 400;
+          src: local('Bebas Neue'), url('https://fonts.gstatic.com/s/bebasneue/v14/JTUSjIg1_i6t8kCHKm459WxRxC7m0dR7G4w.woff2') format('woff2');
+        }
+        @font-face {
+          font-family: 'DM Mono';
+          font-style: normal;
+          font-weight: 400;
+          src: local('DM Mono'), url('https://fonts.gstatic.com/s/dmmono/v5/aFTR7PB1QTsUX8KYvrGyDQ.woff2') format('woff2');
+        }
       `}</style>
     </section>
-  )
+  );
 }

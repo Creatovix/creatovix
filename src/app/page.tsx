@@ -7,7 +7,7 @@ import About from '@/components/sections/About'
 import Process from '@/components/sections/Process'
 import Portfolio from '@/components/sections/Portfolio'
 import Testimonials from '@/components/sections/Testimonials'
-import Team from '@/components/sections/Team'
+// import Team from '@/components/sections/Team'
 import CTA from '@/components/sections/CTA'
 import Contact from '@/components/sections/Contact'
 import Skills from '@/components/sections/Skills'
@@ -17,7 +17,9 @@ export default function HomePage() {
   return (
     <>
       <Navbar />
-      <Loader />
+      {/* <Loader onComplete={function (): void {
+        throw new Error('Function not implemented.')
+      } } /> */}
       <main>
         <Hero />
         <Stats />
@@ -27,7 +29,7 @@ export default function HomePage() {
         <Process />
         <Portfolio />
         <Testimonials />
-        <Team />
+        {/* <Team /> */}
         <CTA />
         <Contact />
       </main>

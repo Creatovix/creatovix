@@ -5,7 +5,7 @@ const NAV_LINKS = [
   { label: "Services", href: "#services" },
   { label: "Work", href: "#work" },
   { label: "About", href: "#about" },
-  { label: "Contact", href: "#contact" },
+  { label: "Process", href: "#process" },
 ];
 
 export default function Header() {
@@ -27,55 +27,56 @@ export default function Header() {
       <header
         ref={headerRef}
         className={`
-          fixed top-0 left-0 right-0 z-[1000] flex items-center justify-between
+          fixed top-0 left-0 right-0 z-[1000]
           transition-all duration-500 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)]
           ${scrolled ? "bg-[#04020acc] backdrop-blur-[20px] saturate-[1.5] border-b border-[rgba(255,77,0,0.12)]" : "bg-transparent border-b border-transparent"}
-          ${mounted ? "translate-y-0" : "-translate-y-full"} py-3 md:py-5 max-w-[1600px] mx-auto xl:px-10 px-4
+          ${mounted ? "translate-y-0" : "-translate-y-full"} py-3 md:py-5
         `}
       >
-        {/* Logo */}
-        <a
-          href="/"
-          className="flex items-center gap-0 relative font-bebasNeue text-[1.6rem] md:text-[1.8rem] lg:text-[2rem] 2xl:text-[2.75rem] tracking-[0.12em] text-white no-underline"
-        >
-          <span className="text-white">CREAT</span>
-          <span
-            className="text-[#ff4d00] inline-block animate-logoPulse"
-            style={{ animation: 'logoPulse 3s ease-in-out infinite' }}
-          >
-            O
-          </span>
-          <span className="text-white">VIX</span>
-          {/* Dot accent */}
-          <span
-            className="inline-block rounded-full ml-[5px] mb-[2px] align-bottom"
-            style={{
-              width: 6,
-              height: 6,
-              background: "#ff4d00",
-              boxShadow: "0 0 10px #ff4d00",
-              animation: "dotBlink 2s ease-in-out infinite",
-            }}
-          />
-        </a>
-
-        {/* Desktop Nav */}
-        <nav className="desktop-nav hidden lg:flex items-center gap-1 sm:gap-2 xl:gap-4">
-          {NAV_LINKS.map((link, i) => (
-            <NavLink
-              key={link.href}
-              href={link.href}
-              label={link.label}
-              delay={i * 60}
-              isActive={activeLink === link.href}
-              onHover={setActiveLink}
-            />
-          ))}
-
-          {/* CTA Button */}
+        <div className="max-w-[1600px] mx-auto xl:px-10 px-4 flex items-center justify-between">
+          {/* Logo */}
           <a
-            href="#contact"
-            className={`
+            href="/"
+            className="flex items-center gap-0 relative font-bebasNeue text-[1.6rem] md:text-[1.8rem] lg:text-[2rem] 2xl:text-[2.75rem] tracking-[0.12em] text-white no-underline"
+          >
+            <span className="text-white">CREAT</span>
+            <span
+              className="text-[#ff4d00] inline-block animate-logoPulse"
+              style={{ animation: 'logoPulse 3s ease-in-out infinite' }}
+            >
+              O
+            </span>
+            <span className="text-white">VIX</span>
+            {/* Dot accent */}
+            <span
+              className="inline-block rounded-full ml-[5px] mb-[2px] align-bottom"
+              style={{
+                width: 6,
+                height: 6,
+                background: "#ff4d00",
+                boxShadow: "0 0 10px #ff4d00",
+                animation: "dotBlink 2s ease-in-out infinite",
+              }}
+            />
+          </a>
+
+          {/* Desktop Nav */}
+          <nav className="desktop-nav hidden lg:flex items-center gap-1 sm:gap-2 xl:gap-4">
+            {NAV_LINKS.map((link, i) => (
+              <NavLink
+                key={link.href}
+                href={link.href}
+                label={link.label}
+                delay={i * 60}
+                isActive={activeLink === link.href}
+                onHover={setActiveLink}
+              />
+            ))}
+
+            {/* CTA Button */}
+            <a
+              href="#contact"
+              className={`
               ml-3 md:ml-6 py-[9px] px-5 md:py-[11px] md:px-7
               bg-gradient-to-tr from-[#ff4d00] to-[#ff8c00]
               text-white font-mono text-xs md:text-[14px] font-bold tracking-[0.2em] uppercase
@@ -85,42 +86,43 @@ export default function Header() {
               inline-block
               hover:-translate-y-[2px] hover:shadow-[0_8px_30px_rgba(255,77,0,0.4)]
             `}
-            style={{
-              fontFamily: "'Courier New', monospace",
-            }}
-          >
-            Start Project
-          </a>
-        </nav>
+              style={{
+                fontFamily: "'Courier New', monospace",
+              }}
+            >
+              Start Project
+            </a>
+          </nav>
 
-        {/* Mobile burger */}
-        <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="mobile-burger flex flex-col gap-[6px] p-2 bg-none border-none cursor-pointer lg:hidden"
-          aria-label="Toggle menu"
-          type="button"
-        >
-          {[0, 1, 2].map((i) => (
-            <span
-              key={i}
-              className={`
+          {/* Mobile burger */}
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="mobile-burger flex flex-col gap-[6px] p-2 bg-none border-none cursor-pointer lg:hidden"
+            aria-label="Toggle menu"
+            type="button"
+          >
+            {[0, 1, 2].map((i) => (
+              <span
+                key={i}
+                className={`
                 block transition-all duration-300
                 ${i === 1 ? "bg-[#ff4d00] w-[22px]" : "bg-white w-[30px]"}
                 h-[2px]
                 origin-center
               `}
-              style={{
-                transform: menuOpen
-                  ? i === 0
-                    ? "rotate(45deg) translate(5px, 6px)"
-                    : i === 2
-                    ? "rotate(-45deg) translate(5px, -6px)"
-                    : "scaleX(0)"
-                  : "none",
-              }}
-            />
-          ))}
-        </button>
+                style={{
+                  transform: menuOpen
+                    ? i === 0
+                      ? "rotate(45deg) translate(5px, 6px)"
+                      : i === 2
+                        ? "rotate(-45deg) translate(5px, -6px)"
+                        : "scaleX(0)"
+                    : "none",
+                }}
+              />
+            ))}
+          </button>
+        </div>
       </header>
 
       {/* Mobile Menu Overlay */}

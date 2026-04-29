@@ -1,217 +1,188 @@
-'use client'
+"use client";
+import { useEffect, useRef, useState } from "react";
 
-import { useEffect, useRef, useState } from 'react'
-
-const services = [
-  'Full Stack Development', 'Web Design', 'WordPress Development',
-  'Shopify Development', 'Graphic Design', 'UI/UX Strategy', 'Not sure yet — let\'s talk',
-]
-
-const budgets = ['Under $2k', '$2k – $5k', '$5k – $15k', '$15k+']
-
-export default function Contact() {
-  const ref = useRef<HTMLElement>(null)
-  const [form, setForm] = useState({ name: '', email: '', service: '', budget: '', message: '' })
-  const [submitted, setSubmitted] = useState(false)
-  const [loading, setLoading] = useState(false)
-  const [focused, setFocused] = useState<string | null>(null)
+export default function ContactSection() {
+  const [isVisible, setIsVisible] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    service: "",
+    message: "",
+  });
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const init = async () => {
-      const { gsap } = await import('gsap')
-      const { ScrollTrigger } = await import('gsap/ScrollTrigger')
-      gsap.registerPlugin(ScrollTrigger)
-      gsap.fromTo('.contact-left', { opacity: 0, x: -40 }, {
-        opacity: 1, x: 0, duration: 0.9, ease: 'power3.out',
-        scrollTrigger: { trigger: ref.current, start: 'top 75%', once: true }
-      })
-      gsap.fromTo('.contact-right', { opacity: 0, x: 40 }, {
-        opacity: 1, x: 0, duration: 0.9, ease: 'power3.out',
-        scrollTrigger: { trigger: ref.current, start: 'top 75%', once: true }
-      })
-    }
-    init()
-  }, [])
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setForm(p => ({ ...p, [e.target.name]: e.target.value }))
-  }
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
-    await new Promise(r => setTimeout(r, 1200))
-    setLoading(false)
-    setSubmitted(true)
-  }
-
-  const inputStyle = (name: string) => ({
-    width: '100%', padding: '13px 16px',
-    fontFamily: 'var(--font-body)', fontSize: 14, color: '#1A1916',
-    background: focused === name ? '#fff' : '#F9F8F6',
-    border: focused === name ? '1.5px solid #C4622D' : '1.5px solid #E0DDD8',
-    borderRadius: 12, outline: 'none', transition: 'all 0.2s',
-    boxShadow: focused === name ? '0 0 0 4px rgba(196,98,45,0.08)' : 'none',
-  })
+    e.preventDefault();
+    setIsSubmitting(true);
+    // Simulate API call
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+    setIsSubmitting(false);
+    setIsSuccess(true);
+    setFormData({ name: "", email: "", service: "", message: "" });
+    setTimeout(() => setIsSuccess(false), 4000);
+  };
 
   return (
-    <section ref={ref} id="contact" style={{ background: '#F5F3F0', padding: 'clamp(4rem, 8vw, 8rem) 0' }}>
-      <div className="container">
-        <div style={{ display: 'grid', gridTemplateColumns: '5fr 7fr', gap: 'clamp(2rem, 5vw, 6rem)', alignItems: 'start' }} className="contact-grid">
+    <section
+      ref={sectionRef}
+      className="relative py-[10vh] xl:py-[14vh] overflow-hidden font-mono"
+      style={{ fontFamily: `'DM Mono', 'Courier New', monospace`, background: "linear-gradient(180deg, #0a0a0f 0%, #0f0f1a 50%, #0a0a0f 100%)" }}
+    >
+      {/* Backgrounds */}
+      <div className="absolute inset-0 pointer-events-none" style={{ background: `radial-gradient(ellipse 80% 50% at 20% 40%, rgba(255,77,0,0.10) 0%, transparent 50%), radial-gradient(ellipse 60% 40% at 80% 60%, rgba(0,200,255,0.08) 0%, transparent 50%)` }} />
+      <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "linear-gradient(rgba(255,77,0,0.04) 1px, transparent 1px),linear-gradient(90deg, rgba(255,77,0,0.04) 1px, transparent 1px)", backgroundSize: "64px 64px", animation: "contactGridDrift 28s linear infinite", opacity: 0.6 }} />
+      <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.02) 3px, rgba(0,0,0,0.02) 4px)", opacity: 0.4 }} />
+      <div className="absolute pointer-events-none rounded-full blur-[90px] w-[700px] h-[700px] top-[-120px] left-[-180px]" style={{ background: "radial-gradient(circle, rgba(255,77,0,0.11), transparent 70%)" }} />
 
-          {/* Left */}
-          <div className="contact-left" style={{ opacity: 0, position: 'sticky', top: 120 }}>
-            <span className="tag" style={{ marginBottom: '1.5rem', display: 'inline-flex' }}>Contact Us</span>
-            <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 800, letterSpacing: '-0.05em', lineHeight: 1.0, fontSize: 'clamp(2rem, 3.5vw, 3rem)', marginBottom: '1.25rem' }}>
-              Let's build something<br /><span style={{ color: '#C4622D' }}>great together.</span>
-            </h2>
-            <p style={{ fontSize: 16, color: '#6B6860', lineHeight: 1.25, marginBottom: '2rem' }}>
-              Tell us about your project and we'll get back to you within 24 hours with a free consultation.
-            </p>
-
-            {/* Contact methods */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: '2rem' }}>
-              {[
-                { icon: '✉️', label: 'Email', value: 'hello@devcraftstudio.com', href: 'mailto:hello@devcraftstudio.com' },
-                { icon: '💬', label: 'WhatsApp', value: '+1 (234) 567-8900', href: 'https://wa.me/1234567890' },
-                { icon: '⏱', label: 'Response Time', value: 'Within 24 hours', href: null },
-              ].map((item, i) => (
-                <div key={i} style={{
-                  display: 'flex', alignItems: 'center', gap: 14, padding: '14px 16px',
-                  background: '#fff', border: '1px solid #E8E6E1', borderRadius: 14,
-                  transition: 'all 0.2s',
-                }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = '#C4622D30'; (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 16px rgba(26,25,22,0.06)'; }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = '#E8E6E1'; (e.currentTarget as HTMLElement).style.boxShadow = 'none'; }}
-                >
-                  <div style={{
-                    width: 42, height: 42, background: '#F4F3EF', borderRadius: 10,
-                    display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, flexShrink: 0,
-                  }}>{item.icon}</div>
-                  <div>
-                    <p style={{ fontFamily: 'var(--font-mono)', fontSize: 13, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#9B9891', margin: '0 0 2px' }}>{item.label}</p>
-                    {item.href ? (
-                      <a href={item.href} style={{ fontWeight: 600, fontSize: 16, color: '#1A1916', textDecoration: 'none', letterSpacing: '-0.02em' }}>{item.value}</a>
-                    ) : (
-                      <p style={{ fontWeight: 600, fontSize: 13.5, color: '#1A1916', margin: 0, letterSpacing: '-0.02em' }}>{item.value}</p>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Trust points */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-              {['Free initial consultation', 'Transparent pricing', 'On-time delivery', 'Dedicated project support'].map((p, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                  <div style={{ width: 30, height: 30, borderRadius: '50%', background: 'rgba(196,98,45,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <svg width="16" height="16" fill="none" stroke="#C4622D" viewBox="0 0 24 24" strokeWidth={3}>
-                      <path d="M5 13l4 4L19 7" strokeLinecap="round" />
-                    </svg>
-                  </div>
-                  <span style={{ fontSize: 16, color: '#6B6860' }}>{p}</span>
-                </div>
-              ))}
-            </div>
+      <div className="max-w-[1600px] mx-auto xl:px-10 px-4 relative z-10">
+        {/* Header */}
+        <div className={`text-center max-w-[640px] mx-auto mb-12 xl:mb-16 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+          <div className="flex items-center justify-center gap-4 mb-6">
+            <span className="inline-block w-[52px] h-px bg-[#ff4d00] shadow-[0_0_12px_#ff4d00,0_0_24px_rgba(255,77,0,0.3)]" />
+            <span className="text-[10.5px] tracking-[0.38em] text-[#ff4d00] uppercase">Get In Touch</span>
+            <span className="inline-block w-[52px] h-px bg-[#ff4d00] shadow-[0_0_12px_#ff4d00,0_0_24px_rgba(255,77,0,0.3)]" />
           </div>
+          <h2 className="font-bebas text-[clamp(38px,5.5vw,62px)] text-white leading-[1.02] tracking-[0.03em] m-0 mb-4">
+            Let's Build<br />
+            <span className="text-[#ff4d00] drop-shadow-[0_0_50px_rgba(255,77,0,0.45)]">Something Great</span>
+          </h2>
+          <p className="text-[13.5px] text-white/50 leading-[1.75] max-w-[480px] mx-auto">
+            Ready to start your project? Fill out the form below and we'll get back to you within 24 hours.
+          </p>
+        </div>
 
-          {/* Right — Form */}
-          <div className="contact-right" style={{ opacity: 0 }}>
-            {submitted ? (
-              <div style={{
-                background: '#fff', border: '1px solid #E8E6E1', borderRadius: 24,
-                padding: 'clamp(2.5rem, 5vw, 4rem)', textAlign: 'center',
-              }}>
-                <div style={{ width: 72, height: 72, borderRadius: '50%', background: 'rgba(74,222,128,0.12)', border: '1px solid rgba(74,222,128,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem' }}>
-                  <svg width="32" height="32" fill="none" stroke="#22C55E" viewBox="0 0 24 24" strokeWidth={2.5}>
-                    <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </div>
-                <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1.75rem', letterSpacing: '-0.04em', marginBottom: '0.75rem' }}>Message Sent!</h3>
-                <p style={{ fontSize: 14.5, color: '#6B6860', marginBottom: '2rem', lineHeight: 1.7 }}>We'll review your project details and get back to you within 24 hours with a free consultation.</p>
-                <button onClick={() => { setSubmitted(false); setForm({ name: '', email: '', service: '', budget: '', message: '' }) }} className="btn-outline">Send Another Message</button>
+        {/* Grid Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 xl:gap-16">
+          
+          {/* Form */}
+          <form onSubmit={handleSubmit} className={`lg:col-span-3 space-y-5 transition-all duration-700 delay-100 ease-[cubic-bezier(0.16,1,0.3,1)] ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div>
+                <label className="font-dmMono text-[11px] tracking-[0.2em] uppercase text-white/60 mb-2 block">Full Name</label>
+                <input type="text" name="name" value={formData.name} onChange={handleChange} required className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/30 focus:outline-none focus:border-[#ff4d00] focus:bg-white/10 focus:shadow-[0_0_20px_rgba(255,77,0,0.15)] transition-all duration-300 backdrop-blur-sm" placeholder="John Doe" />
               </div>
-            ) : (
-              <form onSubmit={handleSubmit} style={{ background: '#fff', border: '1px solid #E8E6E1', borderRadius: 24, padding: 'clamp(1.75rem, 3.5vw, 2.75rem)', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                <div>
-                  <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1.9rem', letterSpacing: '-0.04em', marginBottom: '0.375rem' }}>Tell us about your project</h3>
-                  <p style={{ fontSize: 15, color: '#9B9891' }}>Fields marked * are required</p>
-                </div>
+              <div>
+                <label className="font-dmMono text-[11px] tracking-[0.2em] uppercase text-white/60 mb-2 block">Email Address</label>
+                <input type="email" name="email" value={formData.email} onChange={handleChange} required className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/30 focus:outline-none focus:border-[#ff4d00] focus:bg-white/10 focus:shadow-[0_0_20px_rgba(255,77,0,0.15)] transition-all duration-300 backdrop-blur-sm" placeholder="john@example.com" />
+              </div>
+            </div>
+            
+            <div>
+              <label className="font-dmMono text-[11px] tracking-[0.2em] uppercase text-white/60 mb-2 block">Service Interested In</label>
+              <select name="service" value={formData.service} onChange={handleChange} className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-[#ff4d00] focus:bg-white/10 focus:shadow-[0_0_20px_rgba(255,77,0,0.15)] transition-all duration-300 backdrop-blur-sm appearance-none cursor-pointer">
+                <option value="" className="bg-[#0a0a0f]">Select a service</option>
+                <option value="web-design" className="bg-[#0a0a0f]">Web Design</option>
+                <option value="graphic-design" className="bg-[#0a0a0f]">Graphic Design</option>
+                <option value="web-development" className="bg-[#0a0a0f]">Web Development</option>
+                <option value="full-stack" className="bg-[#0a0a0f]">Full Stack</option>
+                <option value="shopify" className="bg-[#0a0a0f]">Shopify</option>
+                <option value="other" className="bg-[#0a0a0f]">Other</option>
+              </select>
+            </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }} className="form-row">
+            <div>
+              <label className="font-dmMono text-[11px] tracking-[0.2em] uppercase text-white/60 mb-2 block">Project Details</label>
+              <textarea name="message" value={formData.message} onChange={handleChange} required rows={5} className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/30 focus:outline-none focus:border-[#ff4d00] focus:bg-white/10 focus:shadow-[0_0_20px_rgba(255,77,0,0.15)] transition-all duration-300 backdrop-blur-sm resize-none min-h-[140px]" placeholder="Tell us about your goals, timeline, and budget..." />
+            </div>
+
+            <button type="submit" disabled={isSubmitting} className={`
+              inline-flex items-center justify-center gap-3 py-4 px-10 w-full sm:w-auto font-dmMono text-[12px] tracking-[.22em] uppercase text-white no-underline rounded-xl
+              transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]
+              ${isSubmitting ? "bg-white/20 cursor-not-allowed" : "bg-gradient-to-br from-[#ff4d00] to-[#ff8c00] hover:-translate-y-0.5 hover:shadow-[0_12px_40px_rgba(255,77,0,0.45)]"}
+            `}>
+              {isSubmitting ? (
+                <>
+                  <span className="animate-spin">⏳</span>
+                  <span>Sending...</span>
+                </>
+              ) : isSuccess ? (
+                <>✅ Message Sent!</>
+              ) : (
+                <>Send Message <span>→</span></>
+              )}
+            </button>
+          </form>
+
+          {/* Contact Info */}
+          <div className={`lg:col-span-2 space-y-8 transition-all duration-700 delay-200 ease-[cubic-bezier(0.16,1,0.3,1)] ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+            <div className="p-6 rounded-2xl backdrop-blur-md border border-white/10 bg-white/5">
+              <h3 className="font-bebas text-[24px] text-white leading-none mb-4 tracking-[0.02em]">Contact Information</h3>
+              <ul className="space-y-4">
+                <li className="flex items-start gap-3">
+                  <span className="text-[#ff4d00] mt-1">✉</span>
                   <div>
-                    <label style={{ display: 'block', fontSize: 14, fontWeight: 600, color: '#6B6860', marginBottom: 7, letterSpacing: '-0.01em' }}>Your Name *</label>
-                    <input type="text" name="name" required value={form.name} onChange={handleChange} placeholder="John Smith"
-                      style={inputStyle('name')} onFocus={() => setFocused('name')} onBlur={() => setFocused(null)} />
+                    <span className="font-dmMono text-[11px] text-white/50 tracking-[0.15em] uppercase block mb-1">Email</span>
+                    <a href="mailto:hello@creativox.com" className="text-white hover:text-[#ff4d00] transition-colors">hello@creativox.com</a>
                   </div>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-[#00c8ff] mt-1">📞</span>
                   <div>
-                    <label style={{ display: 'block', fontSize: 14, fontWeight: 600, color: '#6B6860', marginBottom: 7, letterSpacing: '-0.01em' }}>Email Address *</label>
-                    <input type="email" name="email" required value={form.email} onChange={handleChange} placeholder="john@company.com"
-                      style={inputStyle('email')} onFocus={() => setFocused('email')} onBlur={() => setFocused(null)} />
+                    <span className="font-dmMono text-[11px] text-white/50 tracking-[0.15em] uppercase block mb-1">Phone</span>
+                    <a href="tel:+15550000000" className="text-white hover:text-[#00c8ff] transition-colors">+1 (555) 000-0000</a>
                   </div>
-                </div>
-
-                <div className="form-row">
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-[#a855f7] mt-1">📍</span>
                   <div>
-                    <label style={{ display: 'block', fontSize: 14, fontWeight: 600, color: '#6B6860', marginBottom: 7, letterSpacing: '-0.01em' }}>Service Needed *</label>
-                    <select name="service" required value={form.service} onChange={handleChange}
-                      style={{ ...inputStyle('service'), cursor: 'pointer' }} onFocus={() => setFocused('service')} onBlur={() => setFocused(null)}>
-                      <option value="">Select a service...</option>
-                      {services.map(s => <option key={s} value={s}>{s}</option>)}
-                    </select>
+                    <span className="font-dmMono text-[11px] text-white/50 tracking-[0.15em] uppercase block mb-1">Location</span>
+                    <span className="text-white">Remote Worldwide • NYC Based</span>
                   </div>
-                </div>
+                </li>
+              </ul>
+            </div>
 
-                <div>
-                  <label style={{ display: 'block', fontSize: 14, fontWeight: 600, color: '#6B6860', marginBottom: 7, letterSpacing: '-0.01em' }}>Project Details *</label>
-                  <textarea name="message" required rows={5} value={form.message} onChange={handleChange}
-                    placeholder="Describe what you want to build, your goals, timeline, and any relevant details..."
-                    style={{ ...inputStyle('message'), resize: 'none', lineHeight: 1.65 }}
-                    onFocus={() => setFocused('message')} onBlur={() => setFocused(null)} />
-                </div>
+            <div className="p-6 rounded-2xl backdrop-blur-md border border-white/10 bg-white/5">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="w-2 h-2 rounded-full bg-[#10d4a0] animate-pulse shadow-[0_0_8px_#10d4a0]" />
+                <span className="font-dmMono text-[11px] text-white/60 tracking-[0.2em] uppercase">Response Time</span>
+              </div>
+              <p className="text-[13px] text-white/50 leading-[1.6]">We typically respond within 24 hours on business days. For urgent inquiries, please call or DM us on social.</p>
+            </div>
 
-                <button type="submit" disabled={loading} style={{
-                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
-                  width: '100%', padding: '15px 24px', borderRadius: 12, border: 'none',
-                  background: loading ? '#6B6860' : '#1A1916',
-                  color: '#fff', fontSize: 14.5, fontWeight: 600, cursor: loading ? 'not-allowed' : 'pointer',
-                  transition: 'all 0.25s', letterSpacing: '-0.01em',
-                  boxShadow: '0 4px 16px rgba(26,25,22,0.15)',
-                }}
-                  onMouseEnter={e => { if (!loading) { (e.currentTarget as HTMLElement).style.background = '#C4622D'; (e.currentTarget as HTMLElement).style.boxShadow = '0 8px 28px rgba(196,98,45,0.35)'; } }}
-                  onMouseLeave={e => { if (!loading) { (e.currentTarget as HTMLElement).style.background = '#1A1916'; (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 16px rgba(26,25,22,0.15)'; } }}
-                >
-                  {loading ? (
-                    <>
-                      <svg style={{ animation: 'spin 1s linear infinite' }} width="16" height="16" fill="none" viewBox="0 0 24 24">
-                        <circle style={{ opacity: 0.25 }} cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                        <path style={{ opacity: 0.75 }} fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                      </svg>
-                      Sending...
-                    </>
-                  ) : (
-                    <>Send Message
-                      <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
-                        <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" />
-                      </svg>
-                    </>
-                  )}
-                </button>
-
-                <p style={{ fontSize: 14, color: '#9B9891', textAlign: 'center' }}>
-                  Free consultation · No commitment · Response within 24 hours
-                </p>
-              </form>
-            )}
+            <div>
+              <span className="font-dmMono text-[11px] text-white/40 tracking-[0.25em] uppercase block mb-4">Follow Us</span>
+              <div className="flex gap-3">
+                {["Twitter", "LinkedIn", "GitHub", "Dribbble"].map((platform, i) => (
+                  <a key={i} href="#" className="w-10 h-10 rounded-xl flex items-center justify-center bg-white/5 border border-white/10 text-white/60 hover:text-white hover:border-[#ff4d00] hover:bg-white/10 transition-all duration-300" aria-label={platform}>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d={i === 0 ? "M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" : i === 1 ? "M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" : i === 2 ? "M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" : "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"} /></svg>
+                  </a>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
       <style>{`
-        @keyframes spin { to { transform: rotate(360deg); } }
-        @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr !important; } .contact-left { position: static !important; } }
-        @media (max-width: 600px) { .form-row { grid-template-columns: 1fr !important; } }
+        @keyframes contactGridDrift { 0% { background-position: 0 0; } 100% { background-position: 64px 64px; } }
+        @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+      `}</style>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&display=swap');
+        @font-face { font-family: 'Bebas Neue'; font-style: normal; font-weight: 400; src: local('Bebas Neue'), url('https://fonts.gstatic.com/s/bebasneue/v14/JTUSjIg1_i6t8kCHKm459WxRxC7m0dR7G4w.woff2') format('woff2'); }
+        @font-face { font-family: 'DM Mono'; font-style: normal; font-weight: 400; src: local('DM Mono'), url('https://fonts.gstatic.com/s/dmmono/v5/aFTR7PB1QTsUX8KYvrGyDQ.woff2') format('woff2'); }
       `}</style>
     </section>
-  )
+  );
 }

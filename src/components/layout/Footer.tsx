@@ -1,394 +1,100 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 
-const SERVICES = [
-  "Web Design",
-  "Graphic Design",
-  "Web Development",
-  "Full Stack",
-  "Shopify",
-];
-
-const LINKS = {
-  Company: ["About Us", "Our Work", "Careers", "Blog"],
-  Services: SERVICES,
-  Connect: ["hello@creatovix.com", "Instagram", "LinkedIn", "Twitter/X"],
-};
-
-function useInView(threshold = 0.2) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setInView(true);
-      },
-      { threshold }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [threshold]);
-  return { ref, inView };
-}
-
 export default function Footer() {
-  const { ref, inView } = useInView(0.15);
-  const [email, setEmail] = useState("");
-  const [subscribed, setSubscribed] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const footerRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setIsVisible(true); observer.disconnect(); } },
+      { threshold: 0.1 }
+    );
+    if (footerRef.current) observer.observe(footerRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
-    <footer
-      ref={ref}
-      style={{
-        background: "#04020a",
-        position: "relative",
-        overflow: "hidden",
-        borderTop: "1px solid rgba(255,77,0,0.12)",
-      }}
-    >
-      {/* Animated grid lines */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          backgroundImage: `
-            linear-gradient(rgba(255,77,0,0.03) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,77,0,0.03) 1px, transparent 1px)
-          `,
-          backgroundSize: "80px 80px",
-        }}
-      />
-
-      {/* Glow */}
-      <div
-        style={{
-          position: "absolute",
-          bottom: -100,
-          left: "50%",
-          transform: "translateX(-50%)",
-          width: 800,
-          height: 400,
-          background:
-            "radial-gradient(ellipse, rgba(255,77,0,0.08) 0%, transparent 70%)",
-          pointerEvents: "none",
-        }}
-      />
-
-      <div
-        style={{
-          margin: "0 auto",
-          padding: "clamp(60px, 8vw, 100px) 50px",
-          position: "relative",
-          zIndex: 1,
-        }}
-      >
-        {/* Top section */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "clamp(40px, 6vw, 80px)",
-            marginBottom: "clamp(60px, 8vw, 100px)",
-            alignItems: "start",
-          }}
-        >
-          {/* Left: Brand */}
-          <div
-            style={{
-              opacity: inView ? 1 : 0,
-              transform: inView ? "translateY(0)" : "translateY(40px)",
-              transition: "all 0.8s cubic-bezier(0.16,1,0.3,1)",
-            }}
-          >
-            <div
-              style={{
-                fontFamily: "'Bebas Neue', 'Impact', sans-serif",
-                fontSize: "clamp(48px, 7vw, 80px)",
-                letterSpacing: "0.08em",
-                lineHeight: 1,
-                marginBottom: 24,
-              }}
-            >
-              <span style={{ color: "#fff" }}>CREAT</span>
-              <span
-                style={{
-                  color: "#ff4d00",
-                  textShadow: "0 0 40px rgba(255,77,0,0.6)",
-                }}
-              >
-                O
-              </span>
-              <span style={{ color: "#fff" }}>VIX</span>
-            </div>
-            <p
-              style={{
-                fontFamily: "'DM Mono', 'Courier New', monospace",
-                fontSize: 14,
-                lineHeight: 1.8,
-                color: "rgba(255,255,255,0.4)",
-                maxWidth: 380,
-                marginBottom: 40,
-              }}
-            >
-              We are a digital agency that transforms ideas into extraordinary
-              digital experiences. Bold design. Clean code. Real results.
+    <footer ref={footerRef} className="relative bg-[#05030d] border-t border-white/10 pt-16 pb-8 font-mono" style={{ fontFamily: `'DM Mono', 'Courier New', monospace` }}>
+      {/* Subtle background */}
+      <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "linear-gradient(rgba(255,77,0,0.02) 1px, transparent 1px),linear-gradient(90deg, rgba(255,77,0,0.02) 1px, transparent 1px)", backgroundSize: "48px 48px", opacity: 0.5 }} />
+      
+      <div className="max-w-[1600px] mx-auto xl:px-10 px-4 relative z-10">
+        <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 xl:gap-16 mb-16 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+          
+          {/* Brand */}
+          <div className="lg:col-span-1">
+            <a href="/" className="inline-flex items-center gap-0 font-bebas text-[1.8rem] tracking-[0.12em] text-white no-underline mb-4">
+              <span className="text-white">CREAT</span><span className="text-[#ff4d00]">O</span><span className="text-white">VIX</span>
+            </a>
+            <p className="text-[13px] text-white/40 leading-[1.7] mb-6 max-w-[280px]">
+              Crafting premium digital experiences that captivate, convert, and scale. Let's build your next big thing.
             </p>
-
-            {/* Newsletter */}
-            <div
-              style={{
-                display: "flex",
-                gap: 0,
-                maxWidth: 380,
-              }}
-            >
-              <input
-                type="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                style={{
-                  flex: 1,
-                  padding: "12px 16px",
-                  background: "rgba(255,255,255,0.04)",
-                  border: "1px solid rgba(255,255,255,0.1)",
-                  borderRight: "none",
-                  color: "#fff",
-                  fontFamily: "'DM Mono', monospace",
-                  fontSize: 12,
-                  letterSpacing: "0.05em",
-                  outline: "none",
-                }}
-                onFocus={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(255,77,0,0.4)";
-                }}
-                onBlur={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)";
-                }}
-              />
-              <button
-                onClick={() => {
-                  if (email) {
-                    setSubscribed(true);
-                    setEmail("");
-                  }
-                }}
-                style={{
-                  padding: "12px 20px",
-                  background: "linear-gradient(135deg, #ff4d00, #ff8c00)",
-                  border: "none",
-                  color: "#fff",
-                  fontFamily: "'DM Mono', monospace",
-                  fontSize: 11,
-                  letterSpacing: "0.15em",
-                  textTransform: "uppercase",
-                  cursor: "pointer",
-                  whiteSpace: "nowrap",
-                  transition: "all 0.3s ease",
-                }}
-              >
-                {subscribed ? "✓ Done" : "Subscribe"}
-              </button>
+            <div className="flex gap-3">
+              {["Tw", "Li", "Gh", "Dr"].map((p, i) => (
+                <a key={i} href="#" className="w-9 h-9 rounded-lg flex items-center justify-center bg-white/5 border border-white/10 text-white/50 hover:text-white hover:border-[#ff4d00] hover:bg-white/10 transition-all duration-300 text-xs font-dmMono">
+                  {p}
+                </a>
+              ))}
             </div>
           </div>
 
-          {/* Right: Links */}
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: 32,
-            }}
-          >
-            {Object.entries(LINKS).map(([title, items], colIdx) => (
-              <div
-                key={title}
-                style={{
-                  opacity: inView ? 1 : 0,
-                  transform: inView ? "translateY(0)" : "translateY(40px)",
-                  transition: `all 0.8s cubic-bezier(0.16,1,0.3,1) ${0.1 + colIdx * 0.1}s`,
-                }}
-              >
-                <div
-                  style={{
-                    fontFamily: "'DM Mono', monospace",
-                    fontSize: 10,
-                    letterSpacing: "0.35em",
-                    textTransform: "uppercase",
-                    color: "#ff4d00",
-                    marginBottom: 20,
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 8,
-                  }}
-                >
-                  <span
-                    style={{
-                      display: "inline-block",
-                      width: 16,
-                      height: 1,
-                      background: "#ff4d00",
-                    }}
-                  />
-                  {title}
-                </div>
-                <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-                  {items.map((item, itemIdx) => (
-                    <li key={item} style={{ marginBottom: 12 }}>
-                      <FooterLink label={item} delay={itemIdx * 30} />
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+          {/* Quick Links */}
+          <div>
+            <h4 className="font-dmMono text-[11px] tracking-[0.3em] uppercase text-[#ff4d00] mb-5">Quick Links</h4>
+            <ul className="space-y-3">
+              {["Home", "About", "Services", "Portfolio", "Process"].map((link, i) => (
+                <li key={i}><a href={`#${link.toLowerCase()}`} className="text-[13px] text-white/50 hover:text-white transition-colors duration-300 block">{link}</a></li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Services */}
+          <div>
+            <h4 className="font-dmMono text-[11px] tracking-[0.3em] uppercase text-[#00c8ff] mb-5">Services</h4>
+            <ul className="space-y-3">
+              {["Web Design", "Graphic Design", "Web Development", "Full Stack", "Shopify"].map((s, i) => (
+                <li key={i}><a href="#services" className="text-[13px] text-white/50 hover:text-white transition-colors duration-300 block">{s}</a></li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Newsletter */}
+          <div>
+            <h4 className="font-dmMono text-[11px] tracking-[0.3em] uppercase text-[#a855f7] mb-5">Stay Updated</h4>
+            <p className="text-[13px] text-white/40 leading-[1.6] mb-4">Subscribe for design tips, dev insights, and agency updates.</p>
+            <form className="flex">
+              <input type="email" placeholder="your@email.com" className="flex-1 px-3 py-2.5 rounded-l-lg bg-white/5 border border-white/10 border-r-0 text-white placeholder-white/30 focus:outline-none focus:border-[#a855f7] text-sm" />
+              <button type="button" className="px-4 py-2.5 rounded-r-lg bg-gradient-to-r from-[#a855f7] to-[#10d4a0] text-white text-sm hover:opacity-90 transition-opacity">→</button>
+            </form>
           </div>
         </div>
 
-        {/* Divider with animated line */}
-        <div
-          style={{
-            height: 1,
-            background: "rgba(255,255,255,0.06)",
-            position: "relative",
-            overflow: "hidden",
-          }}
-        >
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              background:
-                "linear-gradient(90deg, transparent, #ff4d00, transparent)",
-              transform: inView ? "translateX(0)" : "translateX(-100%)",
-              transition: "transform 1.5s ease 0.5s",
-            }}
-          />
-        </div>
-
-        {/* Bottom bar */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            padding: "24px 0",
-            flexWrap: "wrap",
-            gap: 16,
-          }}
-        >
-          <div
-            style={{
-              fontFamily: "'DM Mono', monospace",
-              fontSize: 11,
-              color: "rgba(255,255,255,0.25)",
-              letterSpacing: "0.1em",
-            }}
-          >
-            © 2025 Creatovix. All rights reserved.
-          </div>
-
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 8,
-              fontFamily: "'DM Mono', monospace",
-              fontSize: 11,
-              color: "rgba(255,255,255,0.2)",
-              letterSpacing: "0.08em",
-            }}
-          >
-            Crafted with
-            <span
-              style={{
-                color: "#ff4d00",
-                animation: "heartbeat 1.5s ease-in-out infinite",
-                display: "inline-block",
-              }}
-            >
-              ♥
-            </span>
-            by Creatovix Team
-          </div>
-
-          <div style={{ display: "flex", gap: 20 }}>
-            {["Privacy", "Terms", "Cookies"].map((item) => (
-              <a
-                key={item}
-                href="#"
-                style={{
-                  fontFamily: "'DM Mono', monospace",
-                  fontSize: 11,
-                  color: "rgba(255,255,255,0.25)",
-                  textDecoration: "none",
-                  letterSpacing: "0.1em",
-                  transition: "color 0.2s ease",
-                }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLAnchorElement).style.color = "#ff4d00";
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLAnchorElement).style.color =
-                    "rgba(255,255,255,0.25)";
-                }}
-              >
-                {item}
-              </a>
-            ))}
+        {/* Bottom Bar */}
+        <div className={`border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 transition-all duration-700 delay-200 ease-[cubic-bezier(0.16,1,0.3,1)] ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
+          <p className="text-[12px] text-white/30 font-dmMono tracking-wide">
+            © {new Date().getFullYear()} CREATOVIX. All rights reserved.
+          </p>
+          <div className="flex items-center gap-6">
+            <a href="#" className="text-[11px] text-white/30 hover:text-white transition-colors">Privacy Policy</a>
+            <a href="#" className="text-[11px] text-white/30 hover:text-white transition-colors">Terms of Service</a>
+            <button onClick={scrollToTop} className="text-[11px] text-white/50 hover:text-[#ff4d00] transition-colors flex items-center gap-1 font-dmMono">
+              Back to Top ↑
+            </button>
           </div>
         </div>
       </div>
 
       <style>{`
+        @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+      `}</style>
+      <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&display=swap');
-        @keyframes heartbeat {
-          0%, 100% { transform: scale(1); }
-          50% { transform: scale(1.3); }
-        }
-        @media (max-width: 768px) {
-          footer > div > div:first-child {
-            grid-template-columns: 1fr !important;
-          }
-          footer > div > div:first-child > div:last-child {
-            grid-template-columns: repeat(2, 1fr) !important;
-          }
-        }
+        @font-face { font-family: 'Bebas Neue'; font-style: normal; font-weight: 400; src: local('Bebas Neue'), url('https://fonts.gstatic.com/s/bebasneue/v14/JTUSjIg1_i6t8kCHKm459WxRxC7m0dR7G4w.woff2') format('woff2'); }
+        @font-face { font-family: 'DM Mono'; font-style: normal; font-weight: 400; src: local('DM Mono'), url('https://fonts.gstatic.com/s/dmmono/v5/aFTR7PB1QTsUX8KYvrGyDQ.woff2') format('woff2'); }
       `}</style>
     </footer>
-  );
-}
-
-function FooterLink({ label, delay }: { label: string; delay: number }) {
-  const [hovered, setHovered] = useState(false);
-  return (
-    <a
-      href="#"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      style={{
-        fontFamily: "'DM Mono', monospace",
-        fontSize: 13,
-        color: hovered ? "#fff" : "rgba(255,255,255,0.35)",
-        textDecoration: "none",
-        display: "flex",
-        alignItems: "center",
-        gap: 6,
-        transition: "color 0.2s ease",
-      }}
-    >
-      <span
-        style={{
-          display: "inline-block",
-          width: hovered ? 16 : 0,
-          height: 1,
-          background: "#ff4d00",
-          transition: "width 0.3s ease",
-          flexShrink: 0,
-        }}
-      />
-      {label}
-    </a>
   );
 }

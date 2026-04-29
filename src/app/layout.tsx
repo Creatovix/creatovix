@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'CodeCraft Studio — Full Stack, Shopify, WordPress & Design Agency',
-  description: 'CodeCraft Studio is a full-service digital agency. We build high-performance websites, Shopify stores, WordPress sites, and stunning brand identities that grow your business.',
+  title: 'Creatovix Studio — Full Stack, Shopify, WordPress & Design Agency',
+  description: 'Creatovix Studio is a full-service digital agency. We build high-performance websites, Shopify stores, WordPress sites, and stunning brand identities that grow your business.',
   keywords: [
     'full stack development agency',
     'shopify development agency',
@@ -13,18 +13,13 @@ export const metadata: Metadata = {
     'UI UX design services',
     'digital agency',
   ],
-  authors: [{ name: 'CodeCraft Studio' }],
+  authors: [{ name: 'Creatovix Studio' }],
   openGraph: {
-    title: 'CodeCraft Studio — Full Stack, Shopify, WordPress & Design Agency',
+    title: 'Creatovix Studio — Full Stack, Shopify, WordPress & Design Agency',
     description: 'We craft modern digital experiences that convert — from full-stack apps to stunning e-commerce stores.',
     type: 'website',
     locale: 'en_US',
-    siteName: 'CodeCraft Studio',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'CodeCraft Studio',
-    description: 'Full Stack · Shopify · WordPress · Graphic & Web Design.',
+    siteName: 'Creatovix Studio',
   },
 }
 
