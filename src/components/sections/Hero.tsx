@@ -169,7 +169,7 @@ export default function Hero() {
   return (
     <section
       ref={containerRef}
-      className={`relative h-[100svh] min-h-[700px] overflow-hidden bg-[#04020a] font-mono py-[5vh] ${
+      className={`relative h-[100svh] min-h-[700px] overflow-hidden bg-[#04020a] font-mono pb-[5vh] pt-[10vh]${
         mounted ? "" : "opacity-0"
       } transition-opacity duration-700`}
       style={{
