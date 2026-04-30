@@ -147,7 +147,7 @@ function StatCard({
           style={{
             ...bebasFont,
             fontSize: "36px",
-            color: "rgba(255,255,255,0.05)",
+            color: "rgba(255,255,255,0.35)",
             letterSpacing: "0.04em",
             lineHeight: 1,
           }}
@@ -183,11 +183,11 @@ function StatCard({
         </span>
       </div>
       {/* Card Label */}
-      <div className="uppercase text-[10px] tracking-[0.25em] text-white/50 mb-3">
+      <div className="uppercase text-[10px] tracking-[0.25em] text-[#A8B4CC] mb-3">
         {stat.label}
       </div>
       {/* Card Description */}
-      <p className="text-[11.5px] text-white/40 leading-[1.68] mb-4">
+      <p className="text-[11.5px] text-[#A8B4CC] leading-[1.68] mb-4">
         {stat.description}
       </p>
       {/* Bar */}
@@ -208,7 +208,7 @@ function StatCard({
           }}
         />
       </div>
-      <div className="flex items-center justify-between text-[8.5px] text-white/25 tracking-widest uppercase">
+      <div className="flex items-center justify-between text-[8.5px] text-[#A8B4CC] tracking-widest uppercase">
         <span>Progress</span>
         <span style={{ color: stat.accent }}>{stat.barWidth}</span>
       </div>
@@ -370,7 +370,7 @@ export default function StatsSection() {
             </h2>
           </div>
           <div>
-            <p className="text-[14px] text-white/50 leading-[1.78] mb-6 max-w-[520px]">
+            <p className="text-[14px] text-[#A8B4CC] leading-[1.78] mb-6 max-w-[520px]">
               We don't just build websites — we build businesses. Every metric here
               represents real clients, real projects, and real growth we've delivered together.
             </p>
@@ -393,7 +393,7 @@ export default function StatsSection() {
               >
                 Start a Project <span>→</span>
               </a>
-              <div className="flex items-center gap-2.5 text-[10.5px] text-white/40 tracking-[0.08em]">
+              <div className="flex items-center gap-2.5 text-[10.5px] text-[#A8B4CC] tracking-[0.08em]">
                 <span
                   className="w-[7px] h-[7px] rounded-full"
                   style={{

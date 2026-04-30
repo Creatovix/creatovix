@@ -119,7 +119,7 @@ export default function ContactSection() {
             {/* Corner accent */}
             <div className="absolute top-0 right-0 w-28 h-28 opacity-50 pointer-events-none" style={{ background: "linear-gradient(135deg,#ff4d00,transparent)", clipPath: "polygon(100% 0,0 0,100% 100%)" }} />
             {/* Ghost text */}
-            <div className="absolute bottom-4 right-6 select-none pointer-events-none text-white/[0.03] leading-none" style={{ ...bebasFont, fontSize: 88, letterSpacing: "0.04em" }}>HELLO</div>
+            <div className="absolute bottom-4 right-6 select-none pointer-events-none text-white/[0.25] leading-none" style={{ ...bebasFont, fontSize: 88, letterSpacing: "0.04em" }}>HELLO</div>
 
             <form onSubmit={handleSubmit} className="relative z-10 p-7 xl:p-10 flex flex-col gap-5">
               {/* Name + Email */}

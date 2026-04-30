@@ -349,7 +349,7 @@ export default function Hero() {
             {/* Sub */}
             <p
               key={`sub-${current}`}
-              className="text-[clamp(13px,1.4vw,15px)] text-white/50 leading-[1.75] max-w-[500px] mb-5"
+              className="text-[clamp(13px,1.4vw,15px)] text-[#A8B4CC] leading-[1.75] max-w-[500px] mb-5"
               style={{
                 animation:
                   "heroFadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.3s both",
@@ -366,7 +366,7 @@ export default function Hero() {
               {slide.tags.map((tag, i) => (
                 <span
                   key={i}
-                  className="text-[10px] tracking-[0.15em] uppercase text-white/45 border px-3 py-1 rounded-2xl bg-white/5"
+                  className="text-[10px] tracking-[0.15em] uppercase text-[#A8B4CC] border px-3 py-1 rounded-2xl bg-white/5"
                   style={{
                     animationDelay: `${0.3 + i * 0.06}s`,
                     borderColor: `rgba(${slide.accentRgb},0.25)`,
@@ -413,7 +413,7 @@ export default function Hero() {
               </a>
               <a
                 href="#work"
-                className="inline-flex items-center px-7 py-[13px] border bg-transparent text-white/65 no-underline text-[11.5px] tracking-[0.22em] uppercase transition-colors duration-200"
+                className="inline-flex items-center px-7 py-[13px] border bg-transparent text-[#A8B4CC] no-underline text-[11.5px] tracking-[0.22em] uppercase transition-colors duration-200"
                 style={{
                   borderColor: `rgba(${slide.accentRgb},0.25)`,
                 }}
@@ -453,7 +453,7 @@ export default function Hero() {
                   }}
                 >
                   <span className="text-[13px]">{b.icon}</span>
-                  <span className="text-[10.5px] text-white/65 tracking-[0.05em]">
+                  <span className="text-[10.5px] text-[#A8B4CC] tracking-[0.05em]">
                     {b.text}
                   </span>
                 </div>
@@ -515,7 +515,7 @@ export default function Hero() {
                 >
                   {slide.stat.value}
                 </div>
-                <div className="text-[11px] tracking-[0.25em] text-white/40 uppercase mb-4">
+                <div className="text-[11px] tracking-[0.25em] text-[#A8B4CC] uppercase mb-4">
                   {slide.stat.label}
                 </div>
                 <div className="flex flex-col gap-1.5">
@@ -532,7 +532,7 @@ export default function Hero() {
                       key={`bar-${current}`}
                     />
                   </div>
-                  <span className="text-[9px] text-white/25 tracking-[0.18em] uppercase">
+                  <span className="text-[9px] text-[#A8B4CC] tracking-[0.18em] uppercase">
                     Performance Index
                   </span>
                 </div>
@@ -546,7 +546,7 @@ export default function Hero() {
                     >
                       24/7
                     </span>
-                    <span className="text-[8px] text-white/30 tracking-[0.18em] uppercase">
+                    <span className="text-[8px] text-[#A8B4CC] tracking-[0.18em] uppercase">
                       Support
                     </span>
                   </div>
@@ -563,7 +563,7 @@ export default function Hero() {
                     >
                       ∞
                     </span>
-                    <span className="text-[8px] text-white/30 tracking-[0.18em] uppercase">
+                    <span className="text-[8px] text-[#A8B4CC] tracking-[0.18em] uppercase">
                       Revisions
                     </span>
                   </div>
@@ -580,7 +580,7 @@ export default function Hero() {
                     >
                       100%
                     </span>
-                    <span className="text-[8px] text-white/30 tracking-[0.18em] uppercase">
+                    <span className="text-[8px] text-[#A8B4CC] tracking-[0.18em] uppercase">
                       Dedicated
                     </span>
                   </div>
