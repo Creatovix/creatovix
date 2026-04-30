@@ -2,29 +2,29 @@
 import { useEffect, useRef, useState } from "react";
 
 const SERVICES = [
-  { value: "web-design",       label: "Web Design" },
-  { value: "graphic-design",   label: "Graphic Design" },
-  { value: "web-development",  label: "Web Development" },
-  { value: "full-stack",       label: "Full Stack" },
-  { value: "shopify",          label: "Shopify" },
-  { value: "other",            label: "Other" },
+  { value: "web-design", label: "Web Design" },
+  { value: "graphic-design", label: "Graphic Design" },
+  { value: "web-development", label: "Web Development" },
+  { value: "full-stack", label: "Full Stack" },
+  { value: "shopify", label: "Shopify" },
+  { value: "other", label: "Other" },
 ];
 
 const SOCIALS = [
-  { label: "Instagram", icon: <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg> },
-  { label: "LinkedIn",  icon: <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg> },
-  { label: "Twitter/X", icon: <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg> },
-  { label: "Dribbble",  icon: <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg> },
+  { label: "Instagram", icon: <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" /></svg> },
+  { label: "LinkedIn", icon: <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect x="2" y="9" width="4" height="12" /><circle cx="4" cy="4" r="2" /></svg> },
+  { label: "Twitter/X", icon: <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" /></svg> },
+  { label: "Dribbble", icon: <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" /><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32" /></svg> },
 ];
 
 const CONTACT_INFO = [
-  { accent: "#ff4d00", label: "Email",    value: "contact@creatovix.com",      href: "mailto:contact@creatovix.com",  icon: "✉" },
-  { accent: "#00c8ff", label: "Phone",    value: "+92 3097909914",         href: "tel:+923097909914",             icon: "☎" },
-  { accent: "#a855f7", label: "Location", value: "Remote Worldwide · PKbased", href: null,                          icon: "◎" },
+  { accent: "#ff4d00", label: "Email", value: "contact@creatovix.com", href: "mailto:contact@creatovix.com", icon: "✉" },
+  { accent: "#00c8ff", label: "Phone", value: "+92 3097909914", href: "tel:+923097909914", icon: "☎" },
+  { accent: "#a855f7", label: "Location", value: "Remote Worldwide · PKbased", href: null, icon: "◎" },
 ];
 
 const bebasFont = { fontFamily: "'Bebas Neue','Impact',sans-serif" };
-const monoFont  = { fontFamily: "'DM Mono','Courier New',monospace" };
+const monoFont = { fontFamily: "'DM Mono','Courier New',monospace" };
 
 function useInView(threshold = 0.1) {
   const ref = useRef<HTMLElement>(null);
@@ -53,20 +53,59 @@ const inputBase = "w-full px-4 py-3.5 bg-white/[0.05] border border-white/10 tex
 export default function ContactSection() {
   const { ref, inView } = useInView(0.1);
   const [submitting, setSubmitting] = useState(false);
-  const [success, setSuccess]       = useState(false);
+  const [success, setSuccess] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", service: "", budget: "", message: "" });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
     setForm(p => ({ ...p, [e.target.name]: e.target.value }));
 
+  // Inside ContactSection component
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
-    await new Promise(r => setTimeout(r, 1600));
-    setSubmitting(false);
-    setSuccess(true);
-    setForm({ name: "", email: "", service: "", budget: "", message: "" });
-    setTimeout(() => setSuccess(false), 5000);
+    setSuccess(false);
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+        // 🔹 Optional: Add timeout
+        signal: AbortSignal.timeout(10000),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || "Submission failed");
+      }
+
+      // ✅ Success
+      setSuccess(true);
+      setForm({ name: "", email: "", service: "", budget: "", message: "" });
+
+      // 🔹 Optional: Track conversion (Google Analytics, Plausible, etc.)
+      if (typeof window !== "undefined" && (window as any).gtag) {
+        (window as any).gtag("event", "contact_form_submit", {
+          event_category: "engagement",
+          event_label: result.id,
+        });
+      }
+
+    } catch (error: any) {
+      console.error("❌ Form submission error:", error);
+
+      // 🔹 Show user-friendly error (you could add an error state)
+      alert(
+        error.message === "Validation failed"
+          ? "Please check your input and try again."
+          : "Something went wrong. Please try again or email us directly at contact@creatovix.com"
+      );
+    } finally {
+      setSubmitting(false);
+      // Keep success message visible for 5 seconds
+      if (success) setTimeout(() => setSuccess(false), 5000);
+    }
   };
 
   return (
@@ -151,7 +190,7 @@ export default function ContactSection() {
                     <select name="budget" value={form.budget} onChange={handleChange}
                       className={`${inputBase} appearance-none cursor-pointer`} style={monoFont}>
                       <option value="" className="bg-[#050310]">Select budget</option>
-                      {["$1k – $5k","$5k – $15k","$15k – $30k","$30k – $60k","$60k+"].map(b => (
+                      {["$1k – $5k", "$5k – $15k", "$15k – $30k", "$30k – $60k", "$60k+"].map(b => (
                         <option key={b} value={b} className="bg-[#050310]">{b}</option>
                       ))}
                     </select>
