@@ -70,7 +70,7 @@ export default function ProcessSection() {
   const active = STEPS.find(s => s.id === activeStep)!;
 
   return (
-    <section ref={ref} id="process" className="relative overflow-hidden py-[8vh]"
+    <section ref={ref} id="process" className="relative overflow-hidden pt-[6vh] xl:pb-[20vh] pb-[10vh]"
       style={{ fontFamily: "'DM Mono','Courier New',monospace", background: "linear-gradient(165deg,#050310 0%,#0a0818 45%,#050310 100%)" }}>
       {/* Backgrounds */}
       <div className="absolute inset-0 pointer-events-none z-0" style={{ backgroundImage: "linear-gradient(rgba(255,77,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,77,0,0.03) 1px,transparent 1px)", backgroundSize: "64px 64px", animation: "sectionGridDrift 32s linear infinite" }} />
@@ -93,10 +93,10 @@ export default function ProcessSection() {
             </h2>
           </div>
           <div style={{ opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(40px)", transition: "all 0.8s cubic-bezier(0.16,1,0.3,1) 0.1s" }}>
-            <p className="text-[14px] text-white/50 leading-[1.78] mb-6 max-w-[520px]" style={monoFont}>
+            <p className="text-[15px] text-[#a8b4cc] leading-[1.78] mb-6 max-w-[520px]" style={monoFont}>
               From discovery to launch, our proven methodology ensures clarity, collaboration, and exceptional outcomes at every stage — no surprises, just results.
             </p>
-            <a href="#contact" className="inline-flex items-center gap-2.5 px-7 py-3 bg-gradient-to-br from-[#ff4d00] to-[#ff8c00] text-white no-underline text-[11px] tracking-[0.22em] uppercase shadow-[0_6px_28px_rgba(255,77,0,0.4)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_40px_rgba(255,77,0,0.55)]"
+            <a href="#contact" className="inline-flex items-center gap-2.5 px-7 py-3 bg-gradient-to-br from-[#ff4d00] to-[#ff8c00] text-white no-underline text-[12.5px] tracking-[0.22em] uppercase shadow-[0_6px_28px_rgba(255,77,0,0.4)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_40px_rgba(255,77,0,0.55)]"
               style={{ clipPath: "polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px))", ...monoFont }}>
               Start Your Project <span>→</span>
             </a>
@@ -130,16 +130,16 @@ export default function ProcessSection() {
                       border: isActive ? `2px solid ${step.accent}` : "1px solid rgba(255,255,255,0.12)",
                       boxShadow: isActive ? `0 0 0 3px ${step.accent}33, 0 12px 40px rgba(0,0,0,0.4)` : "0 4px 16px rgba(0,0,0,0.2)",
                     }}>
-                    <span className="text-xl" style={{ color: isActive || isDone ? step.accent : "rgba(255,255,255,0.3)", transition: "color 0.3s" }}>{step.icon}</span>
+                    <span className="text-xl" style={{ color: isActive || isDone ? step.accent : "#697a90", transition: "color 0.3s" }}>{step.icon}</span>
                   </div>
                   {/* Text */}
                   <div className="pt-1 flex-1">
                     <div className="flex items-center gap-3 mb-0.5">
                       <span className="text-[9px] tracking-[0.3em] uppercase" style={{ ...monoFont, color: step.accent }}>{step.number}</span>
-                      <span className="text-[9px] tracking-[0.2em] uppercase text-white/30" style={monoFont}>{step.duration}</span>
+                      <span className="text-[9px] tracking-[0.2em] uppercase text-[#5e6e84]" style={monoFont}>{step.duration}</span>
                     </div>
                     <div style={{ ...bebasFont, fontSize: 22, color: isActive ? "#fff" : "rgba(255,255,255,0.55)", letterSpacing: "0.03em", lineHeight: 1, transition: "color 0.3s" }}>{step.title}</div>
-                    <div className="text-[10.5px] text-white/30 mt-0.5 transition-colors duration-300" style={{ ...monoFont, ...(isActive ? { color: "rgba(255,255,255,0.55)" } : {}) }}>{step.tagline}</div>
+                    <div className="text-[10.5px] text-[#5e6e84] mt-0.5 transition-colors duration-300" style={{ ...monoFont, ...(isActive ? { color: "#9eb0c8" } : {}) }}>{step.tagline}</div>
                   </div>
                   {/* Active bar */}
                   {isActive && <div className="absolute right-0 top-0 bottom-0 w-[2px] rounded-full" style={{ background: `linear-gradient(180deg,${step.accent},${step.accent}44)`, boxShadow: `0 0 8px ${step.accent}` }} />}
@@ -173,7 +173,7 @@ export default function ProcessSection() {
                 </div>
               </div>
 
-              <p className="text-[13.5px] text-white/60 leading-[1.8] mb-7" style={monoFont}>{active.description}</p>
+              <p className="text-[14px] text-[#9eb0c8] leading-[1.8] mb-7" style={monoFont}>{active.description}</p>
 
               {/* Duration badge */}
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-7" style={{ background: "rgba(5,3,16,0.8)", border: `1px solid ${active.accent}44` }}>
@@ -183,12 +183,12 @@ export default function ProcessSection() {
 
               {/* Deliverables */}
               <div>
-                <span className="text-[9.5px] tracking-[0.3em] text-white/35 uppercase block mb-3" style={monoFont}>Deliverables</span>
+                <span className="text-[9.5px] tracking-[0.3em] text-[#697a90] uppercase block mb-3" style={monoFont}>Deliverables</span>
                 <div className="grid grid-cols-2 gap-2.5">
                   {active.deliverables.map((d, i) => (
                     <div key={i} className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-white/[0.05] border border-white/10">
                       <span className="w-[5px] h-[5px] rounded-full flex-shrink-0" style={{ background: active.accent, boxShadow: `0 0 6px ${active.accent}` }} />
-                      <span className="text-[11px] text-white/65" style={monoFont}>{d}</span>
+                      <span className="text-[12.5px] text-[#b8c8de]" style={monoFont}>{d}</span>
                     </div>
                   ))}
                 </div>
@@ -212,7 +212,7 @@ export default function ProcessSection() {
               style={{ opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(28px)", transition: `all 0.7s cubic-bezier(0.16,1,0.3,1) ${0.6 + i * 0.1}s`, boxShadow: "0 8px 32px rgba(0,0,0,0.3)" }}>
               <div className="text-2xl mb-4">{b.icon}</div>
               <h4 style={{ ...bebasFont, fontSize: 20, color: "#fff", letterSpacing: "0.03em", lineHeight: 1, marginBottom: 8 }}>{b.title}</h4>
-              <p className="text-[12px] text-white/45 leading-[1.65] m-0" style={monoFont}>{b.desc}</p>
+              <p className="text-[13.5px] text-[#9eb0c8] leading-[1.65] m-0" style={monoFont}>{b.desc}</p>
             </div>
           ))}
         </div>

@@ -55,7 +55,7 @@ function MarqueeItem({ name, category, accent, icon }: typeof TECH_STACK[0]) {
           {name}
         </span>
         <span
-          className="text-white/35 text-[8.5px] uppercase tracking-[0.24em]"
+          className="text-[#697a90] text-[8.5px] uppercase tracking-[0.24em]"
           style={monoFont}
         >
           {category}
@@ -74,7 +74,7 @@ function MarqueeItem({ name, category, accent, icon }: typeof TECH_STACK[0]) {
 export default function TechStackSection() {
   return (
     <section
-      className="relative overflow-hidden py-20 xl:py-28"
+      className="relative overflow-hidden py-[4vh]"
       style={{ fontFamily: "'DM Mono','Courier New',monospace", background: "linear-gradient(165deg,#050310 0%,#0a0818 45%,#050310 100%)" }}
     >
       {/* grid bg */}
@@ -105,7 +105,7 @@ export default function TechStackSection() {
             Powered By<br />
             <span style={{ color: "#ff4d00", textShadow: "0 0 50px rgba(255,77,0,0.45)" }}>Modern Technology</span>
           </h2>
-          <p className="text-[13px] text-white/45 leading-[1.75] m-0" style={monoFont}>
+          <p className="text-[14px] text-[#9eb0c8] leading-[1.75] m-0" style={monoFont}>
             We wield a battle-tested arsenal of tools and frameworks to build digital products that are fast, scalable, and built to outlast trends.
           </p>
         </div>

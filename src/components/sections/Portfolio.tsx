@@ -53,7 +53,7 @@ export default function PortfolioSection() {
   };
 
   return (
-    <section ref={ref} id="work" className="relative overflow-hidden py-24 xl:py-36"
+    <section ref={ref} id="work" className="relative overflow-hidden py-[4vh]"
       style={{ fontFamily: "'DM Mono','Courier New',monospace", background: "linear-gradient(165deg,#050310 0%,#0a0818 45%,#050310 100%)" }}>
 
       {/* Backgrounds */}
@@ -77,7 +77,7 @@ export default function PortfolioSection() {
             </h2>
           </div>
           <div style={{ opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(40px)", transition: "all 0.8s cubic-bezier(0.16,1,0.3,1) 0.1s" }}>
-            <p className="text-[14px] text-white/50 leading-[1.78] mb-6 max-w-[520px]" style={monoFont}>
+            <p className="text-[15px] text-[#a8b4cc] leading-[1.78] mb-6 max-w-[520px]" style={monoFont}>
               Explore our latest work and see how we've helped brands transform their digital presence with bold design and clean code.
             </p>
             {/* Filter pills */}
@@ -154,7 +154,7 @@ export default function PortfolioSection() {
           <div className="flex justify-center"
             style={{ opacity: inView ? 1 : 0, transition: "opacity 0.6s ease 0.5s" }}>
             <button onClick={loadMore} disabled={loadingMore}
-              className="inline-flex items-center gap-3 py-4 px-10 text-white text-[11px] tracking-[0.22em] uppercase transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_44px_rgba(255,77,0,0.5)] disabled:opacity-50 disabled:cursor-not-allowed active:scale-95"
+              className="inline-flex items-center gap-3 py-4 px-10 text-white text-[12.5px] tracking-[0.22em] uppercase transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_44px_rgba(255,77,0,0.5)] disabled:opacity-50 disabled:cursor-not-allowed active:scale-95"
               style={{ ...monoFont, background: "linear-gradient(135deg,#ff4d00,#ff8c00)", clipPath: "polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px))", boxShadow: "0 8px 32px rgba(255,77,0,0.38)" }}>
               {loadingMore ? "Loading…" : "Load More Projects"}
               <span className="text-base">→</span>
@@ -208,17 +208,17 @@ function FeaturedCard({ project, tall }: { project: typeof PROJECTS[0]; tall?: b
             style={{ ...monoFont, background: "rgba(5,3,16,0.88)", border: `1px solid ${project.color}55`, color: project.color }}>
             ★ Featured · {project.category}
           </span>
-          <span className="text-[9px] tracking-[0.2em] text-white/28 uppercase" style={monoFont}>{project.year}</span>
+          <span className="text-[9px] tracking-[0.2em] text-[#5a6a7e] uppercase" style={monoFont}>{project.year}</span>
         </div>
 
         {/* Bottom block */}
         <div className="max-w-[560px]">
-          <div className="text-[10.5px] tracking-[0.22em] text-white/38 uppercase mb-2" style={monoFont}>{project.client}</div>
+          <div className="text-[10.5px] tracking-[0.22em] text-[#6e8098] uppercase mb-2" style={monoFont}>{project.client}</div>
           <h3 style={{ ...bebasFont, fontSize: "clamp(32px,4.8vw,66px)", color: "#fff", letterSpacing: "0.02em", lineHeight: 0.94, marginBottom: 14 }}>{project.title}</h3>
-          <p className="text-[12.5px] text-white/52 leading-[1.72] mb-5 max-w-[420px]" style={monoFont}>{project.description}</p>
+          <p className="text-[14px] text-[#9eb0c8] leading-[1.72] mb-5 max-w-[420px]" style={monoFont}>{project.description}</p>
           <div className="flex flex-wrap gap-2 mb-6">
             {project.tags.map((t, i) => (
-              <span key={i} className="px-2.5 py-1 text-[9.5px] border border-white/15 text-white/55 bg-white/[0.07]" style={monoFont}>{t}</span>
+              <span key={i} className="px-2.5 py-1 text-[9.5px] border border-white/15 text-[#9eb0c8] bg-white/[0.07]" style={monoFont}>{t}</span>
             ))}
           </div>
           <div className="flex items-center gap-2.5 group cursor-pointer" style={{ color: project.color }}>
@@ -294,19 +294,19 @@ function GridCard({ project, compact }: { project: typeof PROJECTS[0]; compact?:
         {/* Default overlay text */}
         <div className={`absolute bottom-0 left-0 right-0 p-4 transition-opacity duration-350 ${hovered ? "opacity-0 pointer-events-none" : "opacity-100"}`}>
           <h4 style={{ ...bebasFont, fontSize: compact ? 20 : 24, color: "#fff", letterSpacing: "0.03em", lineHeight: 1, marginBottom: 4 }}>{project.title}</h4>
-          <p className="text-[11px] text-white/40 leading-[1.55] m-0"
+          <p className="text-[12.5px] text-[#7688a0] leading-[1.55] m-0"
             style={{ ...monoFont, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{project.description}</p>
         </div>
 
         {/* Hovered overlay */}
         <div className={`absolute inset-0 p-4 flex flex-col justify-end transition-opacity duration-350 ${hovered ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
-          <div className="text-[8.5px] tracking-[0.2em] text-white/45 uppercase mb-1" style={monoFont}>{project.client} · {project.year}</div>
+          <div className="text-[8.5px] tracking-[0.2em] text-[#8496b0] uppercase mb-1" style={monoFont}>{project.client} · {project.year}</div>
           <h4 style={{ ...bebasFont, fontSize: compact ? 20 : 26, color: "#fff", letterSpacing: "0.03em", lineHeight: 1, marginBottom: 6 }}>{project.title}</h4>
-          <p className="text-[11px] text-white/62 leading-[1.6] mb-3 m-0"
+          <p className="text-[12.5px] text-[#b0bdd0] leading-[1.6] mb-3 m-0"
             style={{ ...monoFont, display: "-webkit-box", WebkitLineClamp: compact ? 2 : 3, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{project.description}</p>
           <div className="flex flex-wrap gap-1.5 mb-3">
             {project.tags.slice(0, 3).map((t, i) => (
-              <span key={i} className="px-2 py-0.5 text-[9px] border border-white/15 text-white/55 bg-white/[0.07]" style={monoFont}>{t}</span>
+              <span key={i} className="px-2 py-0.5 text-[9px] border border-white/15 text-[#9eb0c8] bg-white/[0.07]" style={monoFont}>{t}</span>
             ))}
           </div>
           <div className="flex items-center gap-2" style={{ color: project.color }}>

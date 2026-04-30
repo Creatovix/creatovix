@@ -274,7 +274,7 @@ export default function StatsSection() {
   return (
     <section
       ref={sectionRef}
-      className={`relative overflow-hidden py-24 xl:py-36 font-mono`}
+      className={`relative overflow-hidden py-[8vh] font-mono`}
       style={{
         fontFamily: `'DM Mono', 'Courier New', monospace`,
       }}
@@ -339,7 +339,7 @@ export default function StatsSection() {
       <div className="max-w-[1600px] mx-auto xl:px-10 px-4 relative z-10">
         {/* Header */}
         <div
-          className="grid grid-cols-1 gap-7 xl:grid-cols-2 xl:gap-[60px] mb-16 xl:mb-20 items-end"
+          className="grid grid-cols-1 gap-7 xl:grid-cols-2 xl:gap-[60px] md:mb-16 xl:mb-20 items-end"
         >
           <div>
             <div className="flex items-center gap-3.5 mb-3.5">
@@ -429,7 +429,7 @@ export default function StatsSection() {
         {/* Clients logos */}
         <div
           className={`
-            px-8 pt-9 pb-9 rounded-2xl
+            md:px-8 px-3 pt-9 pb-9 rounded-2xl
             bg-gradient-to-br from-white/10 to-white/5
             border border-white/10
             opacity-0 translate-y-6
@@ -441,7 +441,7 @@ export default function StatsSection() {
           <p className="uppercase text-center text-[10px] tracking-[0.32em] mb-7">
             Trusted by innovative brands worldwide
           </p>
-          <div className="flex flex-wrap justify-center items-center gap-y-3">
+          <div className="md:flex grid grid-cols-2 md:flex-wrap md:justify-center text-center items-center gap-x-3 gap-y-3">
             {[
               "TechCorp",
               "DesignHub",
@@ -450,10 +450,10 @@ export default function StatsSection() {
               "Innovate",
               "BuildCo",
             ].map((name, i) => (
-              <div key={i} className="px-6">
+              <div key={i} className="md:px-6">
                 <div
                   className={`
-                    px-5 py-2.5 border border-white/10 rounded
+                    md:px-5 px-3 py-2.5 border border-white/10 rounded
                     bg-white/5
                     hover:border-orange-500/30
                     hover:bg-orange-500/10

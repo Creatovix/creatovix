@@ -51,7 +51,7 @@ export default function AboutSection() {
     <section
       ref={ref}
       id="about"
-      className="relative overflow-hidden py-[10vh]"
+      className="relative overflow-hidden py-[8vh]"
       style={{ fontFamily: "'DM Mono','Courier New',monospace", background: "linear-gradient(165deg,#050310 0%,#0a0818 45%,#050310 100%)" }}
     >
       {/* Backgrounds */}
@@ -76,15 +76,15 @@ export default function AboutSection() {
             </h2>
           </div>
           <div style={{ opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(40px)", transition: "all 0.8s cubic-bezier(0.16,1,0.3,1) 0.1s" }}>
-            <p className="text-[14px] text-white/50 leading-[1.78] mb-6 max-w-[520px]" style={monoFont}>
+            <p className="text-[15px] text-[#a8b4cc] leading-[1.78] mb-6 max-w-[520px]" style={monoFont}>
               We're a passionate team of designers, developers, and strategists dedicated to transforming bold ideas into exceptional digital experiences that drive real business results.
             </p>
             <div className="flex items-center gap-5 flex-wrap">
-              <a href="#contact" className="inline-flex items-center gap-2.5 px-7 py-3 bg-gradient-to-br from-[#ff4d00] to-[#ff8c00] text-white no-underline text-[11px] tracking-[0.22em] uppercase shadow-[0_6px_28px_rgba(255,77,0,0.4)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_40px_rgba(255,77,0,0.55)]"
+              <a href="#contact" className="inline-flex items-center gap-2.5 px-7 py-3 bg-gradient-to-br from-[#ff4d00] to-[#ff8c00] text-white no-underline text-[12.5px] tracking-[0.22em] uppercase shadow-[0_6px_28px_rgba(255,77,0,0.4)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_40px_rgba(255,77,0,0.55)]"
                 style={{ clipPath: "polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px))", ...monoFont }}>
                 Work With Us <span>→</span>
               </a>
-              <div className="flex items-center gap-2.5 text-[10.5px] text-white/40 tracking-[0.08em]" style={monoFont}>
+              <div className="flex items-center gap-2.5 text-[10.5px] text-[#7688a0] tracking-[0.08em]" style={monoFont}>
                 <span className="w-[7px] h-[7px] rounded-full" style={{ background: "#10d4a0", boxShadow: "0 0 10px #10d4a0", animation: "aboutPulse 1.8s ease-in-out infinite" }} />
                 <span>Est. 2019 · Remote Worldwide</span>
               </div>
@@ -103,10 +103,10 @@ export default function AboutSection() {
                 <span className="inline-block w-6 h-px bg-[#ff4d00]" />
                 <span className="text-[9.5px] tracking-[0.32em] text-[#ff4d00] uppercase" style={monoFont}>Our Story</span>
               </div>
-              <p className="text-[13.5px] text-white/55 leading-[1.82] mb-3" style={monoFont}>
+              <p className="text-[14px] text-[#9eb0c8] leading-[1.82] mb-3" style={monoFont}>
                 Founded in 2019 with a simple belief: great digital experiences shouldn't be complicated. What began as a two-person studio obsessed with craft has grown into a full-service agency trusted by startups and enterprises worldwide.
               </p>
-              <p className="text-[13.5px] text-white/45 leading-[1.82]" style={monoFont}>
+              <p className="text-[14px] text-[#9eb0c8] leading-[1.82]" style={monoFont}>
                 Today, we combine strategic thinking, creative excellence, and technical depth to deliver products that don't just look great — they drive measurable growth.
               </p>
             </div>
@@ -137,11 +137,11 @@ export default function AboutSection() {
               <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between">
                 <div>
                   <div style={{ ...bebasFont, fontSize: 32, color: "#ff4d00", lineHeight: 1, textShadow: "0 0 30px rgba(255,77,0,0.6)" }}>5+ Years</div>
-                  <div className="text-[9px] tracking-[0.25em] text-white/40 uppercase mt-1" style={monoFont}>Of Digital Excellence</div>
+                  <div className="text-[9px] tracking-[0.25em] text-[#7688a0] uppercase mt-1" style={monoFont}>Of Digital Excellence</div>
                 </div>
                 <div className="flex flex-col items-end gap-1">
                   {["150+ Projects", "80+ Brands", "98% Happy"].map((t, i) => (
-                    <span key={i} className="text-[9px] tracking-[0.15em] text-white/50 uppercase" style={monoFont}>{t}</span>
+                    <span key={i} className="text-[9px] tracking-[0.15em] text-[#8899b4] uppercase" style={monoFont}>{t}</span>
                   ))}
                 </div>
               </div>
@@ -160,7 +160,7 @@ export default function AboutSection() {
           <div className="relative">
             {/* Horizontal line — hidden on mobile */}
             <div className="hidden md:block absolute left-[14px] right-[14px] top-[20px] h-px bg-gradient-to-r from-[#ff4d00] via-white/10 to-transparent" style={{ boxShadow: "0 0 8px rgba(255,77,0,0.3)" }} />
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-4">
               {MILESTONES.map((m, i) => (
                 <div key={i} className="flex flex-col gap-3" style={{ opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(20px)", transition: `all 0.6s cubic-bezier(0.16,1,0.3,1) ${0.45 + i * 0.1}s` }}>
                   <div className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: "rgba(255,77,0,0.15)", border: "1px solid rgba(255,77,0,0.5)", boxShadow: "0 0 16px rgba(255,77,0,0.3)" }}>
@@ -169,7 +169,7 @@ export default function AboutSection() {
                   <div>
                     <span style={{ ...bebasFont, fontSize: 22, color: "#ff4d00", letterSpacing: "0.05em", lineHeight: 1, display: "block" }}>{m.year}</span>
                     <span className="text-[12px] text-white/85 font-medium tracking-wide block mt-0.5" style={monoFont}>{m.event}</span>
-                    <span className="text-[11px] text-white/38 leading-[1.5] block mt-1" style={monoFont}>{m.detail}</span>
+                    <span className="text-[12.5px] text-[#6e8098] leading-[1.5] block mt-1" style={monoFont}>{m.detail}</span>
                   </div>
                 </div>
               ))}
@@ -219,7 +219,7 @@ function ValueCard({ value, index, inView }: { value: typeof VALUES[0]; index: n
         {value.icon}
       </div>
       <h4 style={{ ...bebasFont, fontSize: 18, color: hovered ? value.accent : "#fff", letterSpacing: "0.03em", lineHeight: 1, marginBottom: 6, transition: "color 0.3s" }}>{value.title}</h4>
-      <p className="text-[11px] text-white/45 leading-[1.65] m-0" style={{ fontFamily: "'DM Mono','Courier New',monospace" }}>{value.description}</p>
+      <p className="text-[12.5px] text-[#8496b0] leading-[1.65] m-0" style={{ fontFamily: "'DM Mono','Courier New',monospace" }}>{value.description}</p>
     </div>
   );
 }
@@ -245,7 +245,7 @@ function TeamCard({ member, index, visible }: { member: typeof TEAM[0]; index: n
       </div>
       <div className="p-4">
         <div style={{ ...bebasFont, fontSize: 20, color: "#fff", letterSpacing: "0.03em", lineHeight: 1, marginBottom: 4, transition: "color 0.3s", ...(hovered ? { color: member.accent } : {}) }}>{member.name}</div>
-        <div className="text-[9.5px] tracking-[0.22em] text-white/40 uppercase" style={{ fontFamily: "'DM Mono','Courier New',monospace" }}>{member.role}</div>
+        <div className="text-[9.5px] tracking-[0.22em] text-[#7688a0] uppercase" style={{ fontFamily: "'DM Mono','Courier New',monospace" }}>{member.role}</div>
       </div>
     </div>
   );

@@ -1,40 +1,51 @@
-import type { Metadata } from 'next'
-import './globals.css'
+import type { Metadata } from "next";
+import "./globals.css";
 
 export const metadata: Metadata = {
-  title: 'Creatovix Studio — Full Stack, Shopify, WordPress & Design Agency',
-  description: 'Creatovix Studio is a full-service digital agency. We build high-performance websites, Shopify stores, WordPress sites, and stunning brand identities that grow your business.',
+  title: "Creatovix — Digital Agency | Web Design, Development & Shopify",
+  description:
+    "Creatovix helps businesses grow with high-converting websites, powerful branding, and result-driven digital strategies. Web design, full stack development, and Shopify experts.",
   keywords: [
-    'full stack development agency',
-    'shopify development agency',
-    'wordpress development agency',
-    'web design agency',
-    'graphic design agency',
-    'UI UX design services',
-    'digital agency',
+    "digital agency",
+    "web design agency",
+    "web development agency",
+    "full stack development",
+    "shopify development",
+    "graphic design agency",
+    "UI UX design",
+    "brand identity",
+    "creatovix",
   ],
-  authors: [{ name: 'Creatovix Studio' }],
+  authors: [{ name: "Creatovix" }],
   openGraph: {
-    title: 'Creatovix Studio — Full Stack, Shopify, WordPress & Design Agency',
-    description: 'We craft modern digital experiences that convert — from full-stack apps to stunning e-commerce stores.',
-    type: 'website',
-    locale: 'en_US',
-    siteName: 'Creatovix Studio',
+    title: "Creatovix — We Build Digital Experiences That Turn Visitors Into Paying Clients",
+    description:
+      "Creatovix helps businesses grow with high-converting websites, powerful branding, and result-driven digital strategies.",
+    type: "website",
+    locale: "en_US",
+    siteName: "Creatovix",
   },
-}
+  twitter: {
+    card: "summary_large_image",
+    title: "Creatovix — Digital Agency",
+    description: "High-converting websites, powerful branding, and result-driven digital strategies.",
+  },
+};
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&display=swap"
+          rel="stylesheet"
+        />
       </head>
-      <body className="antialiased">{children}</body>
+      <body className="antialiased bg-[#04020a] text-white overflow-x-hidden">
+        {children}
+      </body>
     </html>
-  )
+  );
 }

@@ -97,7 +97,7 @@ export default function Footer() {
         style={{ background: "radial-gradient(circle,rgba(168,85,247,0.06),transparent 70%)" }} />
 
       {/* ── BIG BRAND STATEMENT ── */}
-      <div className="relative z-10 pt-[5vh] pb-0 px-4 md:px-8 xl:px-10 max-w-[1600px] mx-auto overflow-hidden">
+      <div className="relative z-10 md:pt-20 pt-[4vh] xl:pt-28 pb-0 px-4 md:px-8 xl:px-10 max-w-[1600px] mx-auto overflow-hidden">
         <div
           className="mb-12 xl:mb-16"
           style={{ opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(50px)", transition: "all 1s cubic-bezier(0.16,1,0.3,1)" }}
@@ -129,14 +129,14 @@ export default function Footer() {
           {/* CTA row */}
           <div className="flex items-center gap-5 mt-10 flex-wrap">
             <a href="#contact"
-              className="inline-flex items-center gap-3 py-4 px-9 text-white text-[11px] tracking-[0.24em] uppercase no-underline transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_16px_50px_rgba(255,77,0,0.5)] active:scale-95"
+              className="inline-flex items-center gap-3 py-4 px-9 text-white text-[12.5px] tracking-[0.24em] uppercase no-underline transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_16px_50px_rgba(255,77,0,0.5)] active:scale-95"
               style={{ ...monoFont, background: "linear-gradient(135deg,#ff4d00,#ff8c00)", clipPath: "polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px))", boxShadow: "0 8px 32px rgba(255,77,0,0.38)" }}>
               Start a Project <span className="text-base">→</span>
             </a>
-            <a href="mailto:contact@creatovix.com"
-              className="inline-flex items-center gap-2 text-white/45 text-[12px] no-underline transition-colors duration-300 hover:text-white"
+            <a href="mailto:hello@creatovix.com"
+              className="inline-flex items-center gap-2 text-[#8496b0] text-[12px] no-underline transition-colors duration-300 hover:text-white"
               style={monoFont}>
-              contact@creatovix.com
+              hello@creatovix.com
               <span className="text-[#ff4d00]">↗</span>
             </a>
           </div>
@@ -150,7 +150,7 @@ export default function Footer() {
               className="flex items-center gap-3 px-5 py-3 border border-white/10 bg-white/[0.04]"
               style={{ transition: `all 0.6s cubic-bezier(0.16,1,0.3,1) ${0.2 + i * 0.07}s` }}>
               <span style={{ ...bebasFont, fontSize: 24, color: "#ff4d00", lineHeight: 1, textShadow: "0 0 20px rgba(255,77,0,0.5)" }}>{b.value}</span>
-              <span className="text-[9px] tracking-[0.24em] text-white/35 uppercase" style={monoFont}>{b.label}</span>
+              <span className="text-[9px] tracking-[0.24em] text-[#697a90] uppercase" style={monoFont}>{b.label}</span>
             </div>
           ))}
         </div>
@@ -176,13 +176,13 @@ export default function Footer() {
               <span className="inline-block rounded-full ml-[4px] mb-[5px] flex-shrink-0"
                 style={{ width: 5, height: 5, background: "#ff4d00", boxShadow: "0 0 8px #ff4d00" }} />
             </a>
-            <p className="text-[12.5px] text-white/38 leading-[1.8] mb-6 max-w-[240px]" style={monoFont}>
+            <p className="text-[13px] text-[#8899b4] leading-[1.8] mb-6 max-w-[240px]" style={monoFont}>
               Crafting premium digital experiences that captivate, convert, and scale worldwide.
             </p>
             {/* Availability dot */}
             <div className="flex items-center gap-2.5">
               <span className="w-[6px] h-[6px] rounded-full" style={{ background: "#10d4a0", boxShadow: "0 0 8px #10d4a0", animation: "footerPulse 1.8s ease-in-out infinite" }} />
-              <span className="text-[9.5px] tracking-[0.18em] text-white/35 uppercase" style={monoFont}>Accepting New Projects</span>
+              <span className="text-[9.5px] tracking-[0.18em] text-[#697a90] uppercase" style={monoFont}>Accepting New Projects</span>
             </div>
           </div>
 
@@ -209,7 +209,7 @@ export default function Footer() {
               <span className="inline-block w-5 h-px bg-[#10d4a0]" style={{ boxShadow: "0 0 8px #10d4a0" }} />
               <h4 className="text-[9.5px] tracking-[0.34em] text-[#10d4a0] uppercase m-0" style={monoFont}>Newsletter</h4>
             </div>
-            <p className="text-[12px] text-white/38 leading-[1.72] mb-5" style={monoFont}>
+            <p className="text-[13px] text-[#8899b4] leading-[1.72] mb-5" style={monoFont}>
               Design tips, dev insights, and agency updates — no spam.
             </p>
             <form onSubmit={handleSubscribe} className="flex flex-col gap-2.5">
@@ -237,7 +237,7 @@ export default function Footer() {
           className="border-t border-white/[0.07] py-7 flex flex-col md:flex-row items-center justify-between gap-4"
           style={{ opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(16px)", transition: "all 0.7s cubic-bezier(0.16,1,0.3,1) 0.4s" }}
         >
-          <p className="text-[11px] text-white/25 tracking-[0.1em] m-0" style={monoFont}>
+          <p className="text-[12.5px] text-[#546272] tracking-[0.1em] m-0" style={monoFont}>
             © {new Date().getFullYear()} CREATOVIX. All rights reserved. Made with{" "}
             <span className="text-[#ff4d00]" style={{ animation: "footerHeart 1.4s ease-in-out infinite" }}>♥</span>{" "}
             in Pakistan.
@@ -246,7 +246,7 @@ export default function Footer() {
           <div className="flex items-center gap-6 flex-wrap justify-center">
             {["Privacy Policy", "Terms of Service", "Cookie Policy"].map((item, i) => (
               <a key={i} href="#"
-                className="text-[10.5px] text-white/25 no-underline transition-colors duration-200 hover:text-white/70 tracking-[0.1em]"
+                className="text-[10.5px] text-[#546272] no-underline transition-colors duration-200 hover:text-[#c2cfe0] tracking-[0.1em]"
                 style={monoFont}>
                 {item}
               </a>
@@ -254,7 +254,7 @@ export default function Footer() {
             {/* Back to top */}
             <button
               onClick={scrollToTop}
-              className="flex items-center gap-2 text-[10.5px] text-white/35 bg-transparent border-none cursor-pointer transition-all duration-300 hover:text-[#ff4d00] group"
+              className="flex items-center gap-2 text-[10.5px] text-[#697a90] bg-transparent border-none cursor-pointer transition-all duration-300 hover:text-[#ff4d00] group"
               style={monoFont}
             >
               <span className="tracking-[0.1em]">Back to Top</span>
@@ -286,7 +286,7 @@ function FooterLink({ href, label, accent }: { href: string; label: string; acce
     <a
       href={href}
       className="no-underline flex items-center gap-2 transition-all duration-250 group"
-      style={{ color: hovered ? "#fff" : "rgba(255,255,255,0.38)", fontFamily: "'DM Mono','Courier New',monospace", fontSize: 13 }}
+      style={{ color: hovered ? "#fff" : "#8899b4", fontFamily: "'DM Mono','Courier New',monospace", fontSize: 13 }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >

@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 
-// ... [Keep your SERVICES, SOCIALS, CONTACT_INFO, fonts, and useInView hook exactly as they were] ...
 const SERVICES = [
   { value: "web-design",       label: "Web Design" },
   { value: "graphic-design",   label: "Graphic Design" },
@@ -19,8 +18,8 @@ const SOCIALS = [
 ];
 
 const CONTACT_INFO = [
-  { accent: "#ff4d00", label: "Email",    value: "contact@creatovix.com",      href: "mailto:contact@creatovix.com",  icon: "✉" },
-  { accent: "#00c8ff", label: "Phone",    value: "+92 3097909914",         href: "tel:+923097909914",             icon: "☎" },
+  { accent: "#ff4d00", label: "Email",    value: "hello@creatovix.com",      href: "mailto:hello@creatovix.com",  icon: "✉" },
+  { accent: "#00c8ff", label: "Phone",    value: "+1 (555) 000-0000",         href: "tel:+15550000000",             icon: "☎" },
   { accent: "#a855f7", label: "Location", value: "Remote Worldwide · PKbased", href: null,                          icon: "◎" },
 ];
 
@@ -43,7 +42,7 @@ function FormField({
 }: { label: string; children: React.ReactNode; delay: number; inView: boolean }) {
   return (
     <div style={{ opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(20px)", transition: `all 0.7s cubic-bezier(0.16,1,0.3,1) ${delay}s` }}>
-      <label className="block text-[9.5px] tracking-[0.32em] text-white/45 uppercase mb-2" style={monoFont}>{label}</label>
+      <label className="block text-[9.5px] tracking-[0.32em] text-[#8496b0] uppercase mb-2" style={monoFont}>{label}</label>
       {children}
     </div>
   );
@@ -55,7 +54,6 @@ export default function ContactSection() {
   const { ref, inView } = useInView(0.1);
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess]       = useState(false);
-  const [error, setError]           = useState<string | null>(null); // Added error state
   const [form, setForm] = useState({ name: "", email: "", service: "", budget: "", message: "" });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
@@ -64,35 +62,15 @@ export default function ContactSection() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
-    setError(null);
-    setSuccess(false);
-
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to send message');
-      }
-
-      setSuccess(true);
-      setForm({ name: "", email: "", service: "", budget: "", message: "" });
-      
-      // Reset success message after 5 seconds
-      setTimeout(() => setSuccess(false), 5000);
-    } catch (err) {
-      console.error(err);
-      setError("Something went wrong. Please try again or email us directly.");
-    } finally {
-      setSubmitting(false);
-    }
+    await new Promise(r => setTimeout(r, 1600));
+    setSubmitting(false);
+    setSuccess(true);
+    setForm({ name: "", email: "", service: "", budget: "", message: "" });
+    setTimeout(() => setSuccess(false), 5000);
   };
 
   return (
-    <section ref={ref} id="contact" className="relative overflow-hidden py-24 xl:py-36"
+    <section ref={ref} id="contact" className="relative overflow-hidden py-[8vh]"
       style={{ fontFamily: "'DM Mono','Courier New',monospace", background: "linear-gradient(165deg,#050310 0%,#0a0818 45%,#050310 100%)" }}>
 
       {/* ── Backgrounds ── */}
@@ -109,7 +87,7 @@ export default function ContactSection() {
 
       <div className="max-w-[1600px] mx-auto px-4 md:px-8 xl:px-10 relative z-10">
 
-        {/* ── Section header ── */}
+        {/* ── Section header (same 2-col pattern) ── */}
         <div className="grid grid-cols-1 gap-7 xl:grid-cols-2 xl:gap-[60px] mb-16 xl:mb-20 items-end">
           <div style={{ opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(40px)", transition: "all 0.8s cubic-bezier(0.16,1,0.3,1)" }}>
             <div className="flex items-center gap-3.5 mb-3.5">
@@ -122,12 +100,12 @@ export default function ContactSection() {
             </h2>
           </div>
           <div style={{ opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(40px)", transition: "all 0.8s cubic-bezier(0.16,1,0.3,1) 0.1s" }}>
-            <p className="text-[14px] text-white/50 leading-[1.78] mb-6 max-w-[520px]" style={monoFont}>
+            <p className="text-[15px] text-[#a8b4cc] leading-[1.78] mb-6 max-w-[520px]" style={monoFont}>
               Ready to start your project? Tell us about your vision and we'll get back to you within 24 hours with a tailored proposal.
             </p>
             <div className="flex items-center gap-2.5" style={monoFont}>
               <span className="w-[7px] h-[7px] rounded-full" style={{ background: "#10d4a0", boxShadow: "0 0 10px #10d4a0", animation: "contactPulse 1.8s ease-in-out infinite" }} />
-              <span className="text-[10.5px] text-white/40 tracking-[0.08em]">Currently accepting new projects</span>
+              <span className="text-[10.5px] text-[#7688a0] tracking-[0.08em]">Currently accepting new projects</span>
             </div>
           </div>
         </div>
@@ -165,7 +143,7 @@ export default function ContactSection() {
                       <option value="" className="bg-[#050310]">Select a service</option>
                       {SERVICES.map(s => <option key={s.value} value={s.value} className="bg-[#050310]">{s.label}</option>)}
                     </select>
-                    <span className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30 pointer-events-none text-xs">▼</span>
+                    <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[#5e6e84] pointer-events-none text-xs">▼</span>
                   </div>
                 </FormField>
                 <FormField label="Budget Range" delay={0.4} inView={inView}>
@@ -177,7 +155,7 @@ export default function ContactSection() {
                         <option key={b} value={b} className="bg-[#050310]">{b}</option>
                       ))}
                     </select>
-                    <span className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30 pointer-events-none text-xs">▼</span>
+                    <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[#5e6e84] pointer-events-none text-xs">▼</span>
                   </div>
                 </FormField>
               </div>
@@ -188,18 +166,10 @@ export default function ContactSection() {
                   className={`${inputBase} resize-none`} placeholder="Tell us about your goals, timeline, and any specific requirements…" style={monoFont} />
               </FormField>
 
-              {/* Submit & Status Messages */}
+              {/* Submit */}
               <div style={{ opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(16px)", transition: "all 0.7s cubic-bezier(0.16,1,0.3,1) 0.52s" }}>
-                
-                {/* Error Message */}
-                {error && (
-                  <div className="mb-4 p-3 rounded bg-red-500/10 border border-red-500/20 text-red-400 text-[11px]" style={monoFont}>
-                    {error}
-                  </div>
-                )}
-
                 <button type="submit" disabled={submitting || success}
-                  className="relative overflow-hidden inline-flex items-center justify-center gap-3 py-4 px-10 text-white text-[11px] tracking-[0.24em] uppercase transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_16px_50px_rgba(255,77,0,0.5)] disabled:opacity-60 disabled:cursor-not-allowed active:scale-[0.98] w-full sm:w-auto"
+                  className="relative overflow-hidden inline-flex items-center justify-center gap-3 py-4 px-10 text-white text-[12.5px] tracking-[0.24em] uppercase transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_16px_50px_rgba(255,77,0,0.5)] disabled:opacity-60 disabled:cursor-not-allowed active:scale-[0.98] w-full sm:w-auto"
                   style={{ ...monoFont, background: success ? "linear-gradient(135deg,#10d4a0,#0ea87e)" : "linear-gradient(135deg,#ff4d00,#ff8c00)", clipPath: "polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px))", boxShadow: success ? "0 8px 32px rgba(16,212,160,0.4)" : "0 8px 32px rgba(255,77,0,0.38)" }}>
                   {/* Shimmer on hover */}
                   <span className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(90deg,transparent 0%,rgba(255,255,255,0.12) 50%,transparent 100%)", animation: submitting ? "btnShimmer 1.2s linear infinite" : "none" }} />
@@ -211,15 +181,16 @@ export default function ContactSection() {
                     <><span>Send Message</span><span className="text-base">→</span></>
                   )}
                 </button>
-                <p className="text-[10px] text-white/25 mt-3 tracking-[0.1em]" style={monoFont}>
+                <p className="text-[10px] text-[#546272] mt-3 tracking-[0.1em]" style={monoFont}>
                   We respond within 24 hours · No spam, ever
                 </p>
               </div>
             </form>
           </div>
 
-          {/* ── Right column (Unchanged) ── */}
+          {/* ── Right column ── */}
           <div className="flex flex-col gap-5">
+
             {/* Contact info card */}
             <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.07] to-white/[0.03] p-7"
               style={{ boxShadow: "0 12px 40px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06)", opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(32px)", transition: "all 0.8s cubic-bezier(0.16,1,0.3,1) 0.3s" }}>
@@ -237,7 +208,7 @@ export default function ContactSection() {
                       {item.icon}
                     </div>
                     <div>
-                      <span className="text-[9px] tracking-[0.28em] text-white/35 uppercase block mb-0.5" style={monoFont}>{item.label}</span>
+                      <span className="text-[9px] tracking-[0.28em] text-[#697a90] uppercase block mb-0.5" style={monoFont}>{item.label}</span>
                       {item.href ? (
                         <a href={item.href} className="text-[13px] text-white transition-colors duration-200 hover:text-[#ff4d00] no-underline" style={monoFont}>{item.value}</a>
                       ) : (
@@ -254,18 +225,18 @@ export default function ContactSection() {
               style={{ boxShadow: "0 12px 40px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06)", opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(32px)", transition: "all 0.8s cubic-bezier(0.16,1,0.3,1) 0.4s" }}>
               <div className="flex items-center gap-3 mb-5">
                 <span className="w-2 h-2 rounded-full" style={{ background: "#10d4a0", boxShadow: "0 0 10px #10d4a0", animation: "contactPulse 1.8s ease-in-out infinite" }} />
-                <span className="text-[9.5px] tracking-[0.3em] text-white/55 uppercase" style={monoFont}>Currently Available</span>
+                <span className="text-[9.5px] tracking-[0.3em] text-[#9eb0c8] uppercase" style={monoFont}>Currently Available</span>
               </div>
               <div style={{ ...bebasFont, fontSize: 28, color: "#fff", letterSpacing: "0.02em", lineHeight: 1, marginBottom: 8 }}>
                 Taking on<br /><span style={{ color: "#10d4a0", textShadow: "0 0 30px rgba(16,212,160,0.5)" }}>New Projects</span>
               </div>
-              <p className="text-[12px] text-white/40 leading-[1.65] m-0" style={monoFont}>
+              <p className="text-[13px] text-[#8899b4] leading-[1.65] m-0" style={monoFont}>
                 We typically respond within 24 hours on business days. For urgent needs, reach us directly via email or phone.
               </p>
               {/* Mini process pills */}
               <div className="flex flex-wrap gap-2 mt-5">
                 {["Free Consult", "No Obligation", "24h Response"].map((tag, i) => (
-                  <span key={i} className="px-3 py-1.5 rounded-full text-[9px] tracking-[0.18em] uppercase text-white/50 border border-white/10 bg-white/[0.04]" style={monoFont}>{tag}</span>
+                  <span key={i} className="px-3 py-1.5 rounded-full text-[9px] tracking-[0.18em] uppercase text-[#8899b4] border border-white/10 bg-white/[0.04]" style={monoFont}>{tag}</span>
                 ))}
               </div>
             </div>
@@ -280,7 +251,7 @@ export default function ContactSection() {
               <div className="grid grid-cols-2 gap-2.5">
                 {SOCIALS.map((s, i) => (
                   <a key={i} href="#" aria-label={s.label}
-                    className="flex items-center gap-3 px-4 py-3 rounded-xl border border-white/10 bg-white/[0.04] text-white/50 no-underline transition-all duration-300 hover:text-white hover:border-[rgba(255,77,0,0.4)] hover:bg-[rgba(255,77,0,0.07)] group"
+                    className="flex items-center gap-3 px-4 py-3 rounded-xl border border-white/10 bg-white/[0.04] text-[#8899b4] no-underline transition-all duration-300 hover:text-white hover:border-[rgba(255,77,0,0.4)] hover:bg-[rgba(255,77,0,0.07)] group"
                     style={{ opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(12px)", transition: `all 0.6s cubic-bezier(0.16,1,0.3,1) ${0.55 + i * 0.07}s` }}>
                     <span className="transition-colors duration-300">{s.icon}</span>
                     <span className="text-[10px] tracking-[0.18em] uppercase" style={monoFont}>{s.label}</span>
