@@ -481,3 +481,7 @@ body {
 .marquee-container:hover .marquee-track-reverse {
   animation-play-state: paused;
 }
+
+button, a {
+  cursor:  pointer !important;
+}

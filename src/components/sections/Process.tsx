@@ -70,7 +70,7 @@ export default function ProcessSection() {
   const active = STEPS.find(s => s.id === activeStep)!;
 
   return (
-    <section ref={ref} id="process" className="relative overflow-hidden py-24 xl:py-36"
+    <section ref={ref} id="process" className="relative overflow-hidden py-[8vh]"
       style={{ fontFamily: "'DM Mono','Courier New',monospace", background: "linear-gradient(165deg,#050310 0%,#0a0818 45%,#050310 100%)" }}>
       {/* Backgrounds */}
       <div className="absolute inset-0 pointer-events-none z-0" style={{ backgroundImage: "linear-gradient(rgba(255,77,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,77,0,0.03) 1px,transparent 1px)", backgroundSize: "64px 64px", animation: "sectionGridDrift 32s linear infinite" }} />

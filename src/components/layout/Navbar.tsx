@@ -36,7 +36,7 @@ export default function Header() {
         <div className="max-w-[1600px] mx-auto xl:px-10 px-4 flex items-center justify-between">
           {/* Logo */}
           <a
-            href="/"
+            href="#"
             className="flex items-center gap-0 relative font-bebasNeue text-[1.6rem] md:text-[1.8rem] lg:text-[2rem] 2xl:text-[2.75rem] tracking-[0.12em] text-white no-underline"
           >
             <span className="text-white">CREAT</span>

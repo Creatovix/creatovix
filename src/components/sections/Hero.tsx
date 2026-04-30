@@ -14,7 +14,7 @@ const SLIDES = [
     sub: "Crafting digital experiences that captivate, convert, and leave a lasting impression.",
     accent: "#ff4d00",
     accentRgb: "255,77,0",
-    image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=1600&q=80",
+    image: "/web-design.webp",
     stat: { value: "150+", label: "Projects Delivered" },
     badges: [
       { icon: "⭐", text: "4.9/5 Rating" },
@@ -30,7 +30,7 @@ const SLIDES = [
     sub: "Brand identities and visual systems that make your audience stop scrolling instantly.",
     accent: "#00c8ff",
     accentRgb: "0,200,255",
-    image: "https://images.unsplash.com/photo-1626785774573-4b7993125651?auto=format&fit=crop&w=1600&q=80",
+    image: "/graphic-design.webp",
     stat: { value: "98%", label: "Client Satisfaction" },
     badges: [
       { icon: "🎨", text: "Award-Winning" },
@@ -46,7 +46,7 @@ const SLIDES = [
     sub: "Blazing-fast, scalable web applications built with modern tech stacks and clean architecture.",
     accent: "#a855f7",
     accentRgb: "168,85,247",
-    image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1600&q=80",
+    image: "/web-dev.webp",
     stat: { value: "99.9%", label: "Uptime Guarantee" },
     badges: [
       { icon: "🔒", text: "Secure & Fast" },
@@ -62,7 +62,7 @@ const SLIDES = [
     sub: "From database architecture to pixel-perfect UIs — we handle the entire digital stack.",
     accent: "#10d4a0",
     accentRgb: "16,212,160",
-    image: "https://images.unsplash.com/photo-1558494949-ef526b0042a0?auto=format&fit=crop&w=1600&q=80",
+    image: "/full-stack.webp",
     stat: { value: "5x", label: "Faster Delivery" },
     badges: [
       { icon: "🗄️", text: "DB Expertise" },
@@ -78,7 +78,7 @@ const SLIDES = [
     sub: "Custom Shopify themes and apps that transform browsers into loyal, repeat buyers.",
     accent: "#f59e0b",
     accentRgb: "245,158,11",
-    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1600&q=80",
+    image: "/shopify.webp",
     stat: { value: "3x", label: "Average ROI Boost" },
     badges: [
       { icon: "💰", text: "3x ROI" },
@@ -168,6 +168,7 @@ export default function Hero() {
 
   return (
     <section
+    id="#"
       ref={containerRef}
       className={`relative h-[100svh] min-h-[700px] overflow-hidden bg-[#04020a] font-mono pb-[5vh] pt-[10vh]${
         mounted ? "" : "opacity-0"

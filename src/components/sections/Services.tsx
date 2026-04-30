@@ -13,7 +13,7 @@ const SERVICES = [
     accent: "#ff4d00",
     glowColor: "rgba(255,77,0,0.35)",
     image:
-      "https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=800&q=80",
+      "/web-design.webp",
     features: ["UI/UX Strategy", "Responsive Design", "Prototyping", "Design Systems"],
     link: "#contact",
     stat: { value: "150+", label: "Projects" },
@@ -29,7 +29,7 @@ const SERVICES = [
     accent: "#00c8ff",
     glowColor: "rgba(0,200,255,0.35)",
     image:
-      "https://images.unsplash.com/photo-1626785774573-4b7993125651?auto=format&fit=crop&w=800&q=80",
+      "/graphic-design.webp",
     features: ["Brand Identity", "Print Design", "Illustration", "Motion Graphics"],
     link: "#contact",
     stat: { value: "98%", label: "Satisfaction" },
@@ -45,7 +45,7 @@ const SERVICES = [
     accent: "#a855f7",
     glowColor: "rgba(168,85,247,0.35)",
     image:
-      "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=800&q=80",
+      "/web-dev.webp",
     features: ["React/Next.js", "API Integration", "Performance", "Testing & QA"],
     link: "#contact",
     stat: { value: "99.9%", label: "Uptime" },
@@ -61,7 +61,7 @@ const SERVICES = [
     accent: "#10d4a0",
     glowColor: "rgba(16,212,160,0.35)",
     image:
-      "https://images.unsplash.com/photo-1558494949-ef526b0042a0?auto=format&fit=crop&w=800&q=80",
+      "/full-stack.webp",
     features: ["Backend Architecture", "Cloud Infrastructure", "DevOps", "Security"],
     link: "#contact",
     stat: { value: "5x", label: "Faster" },
@@ -77,7 +77,7 @@ const SERVICES = [
     accent: "#f59e0b",
     glowColor: "rgba(245,158,11,0.35)",
     image:
-      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80",
+      "/shopify.webp",
     features: ["Custom Themes", "App Development", "Conversion Optimization", "Analytics"],
     link: "#contact",
     stat: { value: "3x", label: "ROI Boost" },
@@ -119,6 +119,7 @@ export default function ServicesSection() {
   return (
     <section
       ref={sectionRef}
+      id="services"
       className="relative pt-[7vh] pb-[8vh] overflow-hidden font-mono"
       style={{
         fontFamily: `'DM Mono', 'Courier New', monospace`,
