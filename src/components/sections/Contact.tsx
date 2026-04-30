@@ -18,8 +18,8 @@ const SOCIALS = [
 ];
 
 const CONTACT_INFO = [
-  { accent: "#ff4d00", label: "Email",    value: "hello@creatovix.com",      href: "mailto:hello@creatovix.com",  icon: "✉" },
-  { accent: "#00c8ff", label: "Phone",    value: "+1 (555) 000-0000",         href: "tel:+15550000000",             icon: "☎" },
+  { accent: "#ff4d00", label: "Email",    value: "contact@creatovix.com",      href: "mailto:contact@creatovix.com",  icon: "✉" },
+  { accent: "#00c8ff", label: "Phone",    value: "+92 3097909914",         href: "tel:+923097909914",             icon: "☎" },
   { accent: "#a855f7", label: "Location", value: "Remote Worldwide · PKbased", href: null,                          icon: "◎" },
 ];
 

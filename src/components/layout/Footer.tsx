@@ -133,10 +133,10 @@ export default function Footer() {
               style={{ ...monoFont, background: "linear-gradient(135deg,#ff4d00,#ff8c00)", clipPath: "polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px))", boxShadow: "0 8px 32px rgba(255,77,0,0.38)" }}>
               Start a Project <span className="text-base">→</span>
             </a>
-            <a href="mailto:hello@creatovix.com"
+            <a href="mailto:contact@creatovix.com"
               className="inline-flex items-center gap-2 text-[#8496b0] text-[12px] no-underline transition-colors duration-300 hover:text-white"
               style={monoFont}>
-              hello@creatovix.com
+              contact@creatovix.com
               <span className="text-[#ff4d00]">↗</span>
             </a>
           </div>
