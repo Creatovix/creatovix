@@ -1,6 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import StructuredData from "@/components/StructuredData";
+import SmoothScrollProvider from "@/providers/SmoothScrollProvider";
+import Footer from "@/components/layout/Footer";
+import Header from "@/components/layout/Navbar";
 
 export const viewport: Viewport = {
   themeColor: "#04020a",
@@ -18,7 +21,7 @@ export const metadata: Metadata = {
   },
   description:
     "Creatovix helps businesses grow with high-converting websites, powerful branding, and result-driven digital strategies. Expert web design, full-stack development, and Shopify solutions.",
-  
+
   // 🔹 Canonical & Base URL
   metadataBase: new URL("https://www.creatovix.com"),
   alternates: {
@@ -77,7 +80,8 @@ export const metadata: Metadata = {
     site: "@creatovix",
     creator: "@creatovix",
     title: "Creatovix — Digital Agency",
-    description: "High-converting websites, powerful branding, and result-driven digital strategies.",
+    description:
+      "High-converting websites, powerful branding, and result-driven digital strategies.",
     images: ["https://www.creatovix.com/og-image.jpg"],
   },
 
@@ -96,7 +100,8 @@ export const metadata: Metadata = {
 
   // 🔹 Verification (replace with your actual codes)
   verification: {
-    google: "google-site-verification=JrbhqyPA2MelAMaCyCLmZKE3G5msBLgw_JFiZnt6c_A",
+    google:
+      "google-site-verification=JrbhqyPA2MelAMaCyCLmZKE3G5msBLgw_JFiZnt6c_A",
   },
 
   // 🔹 App & Mobile
@@ -125,36 +130,50 @@ export default function RootLayout({
       <head>
         {/* 🔹 Preconnect for Performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+
+        <script
+          src="https://analytics.ahrefs.com/analytics.js"
+          data-key="WfTmF8PCqmcfkO5fhVtz3w"
+          async
+        ></script>
+
         {/* 🔹 Fonts */}
         <link
           href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&display=swap"
           rel="stylesheet"
         />
-        
+
         {/* 🔹 Favicons */}
         <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+        <link rel="icon" href="/logo.png" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/icon-192.png" />
-        
+
         {/* 🔹 PWA Manifest */}
         <link rel="manifest" href="/manifest.json" />
-        
+
         {/* 🔹 DNS Prefetch for External Resources (if used) */}
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
       </head>
-      
+
       <body className="antialiased bg-[#04020a] text-white overflow-x-hidden">
         {/* 🔹 JSON-LD Structured Data */}
-        <StructuredData />
-        
-        {/* 🔹 Page Content */}
-        {children}
-        
+        <SmoothScrollProvider>
+          <StructuredData />
+
+          {/* 🔹 Page Content */}
+          <Header />
+          {children}
+          <Footer />
+        </SmoothScrollProvider>
+
         {/* 🔹 Optional: Add a hidden skip link for accessibility */}
-        <a 
-          href="#main-content" 
+        <a
+          href="#main-content"
           className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:bg-white focus:text-black focus:p-3 focus:rounded focus:z-50"
         >
           Skip to content

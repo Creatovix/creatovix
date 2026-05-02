@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 const NAV_COLS = [
@@ -98,62 +99,6 @@ export default function Footer() {
 
       {/* ── BIG BRAND STATEMENT ── */}
       <div className="relative z-10 md:pt-20 pt-[4vh] xl:pt-28 pb-0 px-4 md:px-8 xl:px-10 max-w-[1600px] mx-auto overflow-hidden">
-        <div
-          className="mb-12 xl:mb-16"
-          style={{ opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(50px)", transition: "all 1s cubic-bezier(0.16,1,0.3,1)" }}
-        >
-          {/* Eyebrow */}
-          <div className="flex items-center gap-3 mb-6">
-            <span className="inline-block w-10 h-px bg-[#ff4d00] shadow-[0_0_10px_#ff4d00]" />
-            <span className="text-[10px] tracking-[0.38em] text-[#ff4d00] uppercase" style={monoFont}>Ready to Start?</span>
-          </div>
-
-          {/* Giant headline */}
-          <div className="relative">
-            <h2
-              className="leading-none text-white m-0 select-none"
-              style={{ ...bebasFont, fontSize: "clamp(52px,9vw,130px)", letterSpacing: "0.02em", lineHeight: 0.92 }}
-            >
-              LET'S BUILD<br />
-              <span style={{ color: "#ff4d00", textShadow: "0 0 80px rgba(255,77,0,0.5)", WebkitTextStroke: "0px" }}>SOMETHING</span>
-              <br />
-              <span className="text-white/12" style={{ WebkitTextStroke: "1px rgba(255,255,255,0.15)" }}>REMARKABLE</span>
-            </h2>
-            {/* Ghost large text behind */}
-            <div className="absolute -bottom-4 right-0 select-none pointer-events-none hidden xl:block"
-              style={{ ...bebasFont, fontSize: 160, color: "rgba(255,77,0,0.04)", lineHeight: 1, letterSpacing: "0.04em" }}>
-              2025
-            </div>
-          </div>
-
-          {/* CTA row */}
-          <div className="flex items-center gap-5 mt-10 flex-wrap">
-            <a href="#contact"
-              className="inline-flex items-center gap-3 py-4 px-9 text-white text-[12.5px] tracking-[0.24em] uppercase no-underline transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_16px_50px_rgba(255,77,0,0.5)] active:scale-95"
-              style={{ ...monoFont, background: "linear-gradient(135deg,#ff4d00,#ff8c00)", clipPath: "polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px))", boxShadow: "0 8px 32px rgba(255,77,0,0.38)" }}>
-              Start a Project <span className="text-base">→</span>
-            </a>
-            <a href="mailto:contact@creatovix.com"
-              className="inline-flex items-center gap-2 text-[#8496b0] text-[12px] no-underline transition-colors duration-300 hover:text-white"
-              style={monoFont}>
-              contact@creatovix.com
-              <span className="text-[#ff4d00]">↗</span>
-            </a>
-          </div>
-        </div>
-
-        {/* ── Stats badges row ── */}
-        <div className="flex flex-wrap gap-3 mb-16 xl:mb-20"
-          style={{ opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(24px)", transition: "all 0.8s cubic-bezier(0.16,1,0.3,1) 0.15s" }}>
-          {BADGES.map((b, i) => (
-            <div key={i}
-              className="flex items-center gap-3 px-5 py-3 border border-white/10 bg-white/[0.04]"
-              style={{ transition: `all 0.6s cubic-bezier(0.16,1,0.3,1) ${0.2 + i * 0.07}s` }}>
-              <span style={{ ...bebasFont, fontSize: 24, color: "#ff4d00", lineHeight: 1, textShadow: "0 0 20px rgba(255,77,0,0.5)" }}>{b.value}</span>
-              <span className="text-[9px] tracking-[0.24em] text-[#697a90] uppercase" style={monoFont}>{b.label}</span>
-            </div>
-          ))}
-        </div>
 
         {/* ── Animated divider ── */}
         <div className="relative h-px overflow-hidden mb-16 xl:mb-20"
@@ -168,14 +113,7 @@ export default function Footer() {
 
           {/* Brand col */}
           <div>
-            <a href="/" className="inline-flex items-end gap-0 no-underline mb-5 block"
-              style={{ ...bebasFont }}>
-              <span className="text-white text-[1.8rem] tracking-[0.12em] leading-none">CREAT</span>
-              <span className="text-[#ff4d00] text-[1.8rem] tracking-[0.12em] leading-none inline-block" style={{ animation: "footerLogoPulse 3s ease-in-out infinite" }}>O</span>
-              <span className="text-white text-[1.8rem] tracking-[0.12em] leading-none">VIX</span>
-              <span className="inline-block rounded-full ml-[4px] mb-[5px] flex-shrink-0"
-                style={{ width: 5, height: 5, background: "#ff4d00", boxShadow: "0 0 8px #ff4d00" }} />
-            </a>
+            <Image src={"/logo.svg"} alt="logo" width={100} height={100} className="w-[120px] h-auto pb-[1vh]" />
             <p className="text-[13px] text-[#8899b4] leading-[1.8] mb-6 max-w-[240px]" style={monoFont}>
               Crafting premium digital experiences that captivate, convert, and scale worldwide.
             </p>

@@ -1,11 +1,15 @@
 "use client";
+import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 const NAV_LINKS = [
   { label: "Services", href: "#services" },
-  { label: "Work", href: "#work" },
+  { label: "Portfolio", href: "/portfolio" },
   { label: "About", href: "#about" },
   { label: "Process", href: "#process" },
+  { label: "Blog", href: "/blog" },
+  { label: "Team", href: "#team" },
 ];
 
 export default function Header() {
@@ -30,35 +34,20 @@ export default function Header() {
           fixed top-0 left-0 right-0 z-[1000]
           transition-all duration-500 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)]
           ${scrolled ? "bg-[#04020acc] backdrop-blur-[20px] saturate-[1.5] border-b border-[rgba(255,77,0,0.12)]" : "bg-transparent border-b border-transparent"}
-          ${mounted ? "translate-y-0" : "-translate-y-full"} py-3 md:py-5
+          ${mounted ? "translate-y-0" : "-translate-y-full"} py-3
         `}
       >
         <div className="max-w-[1600px] mx-auto xl:px-10 px-4 flex items-center justify-between">
           {/* Logo */}
-          <a
-            href="#"
-            className="flex items-center gap-0 relative font-bebasNeue text-[1.6rem] md:text-[1.8rem] lg:text-[2rem] 2xl:text-[2.75rem] tracking-[0.12em] text-white no-underline"
-          >
-            <span className="text-white">CREAT</span>
-            <span
-              className="text-[#ff4d00] inline-block animate-logoPulse"
-              style={{ animation: 'logoPulse 3s ease-in-out infinite' }}
-            >
-              O
-            </span>
-            <span className="text-white">VIX</span>
-            {/* Dot accent */}
-            <span
-              className="inline-block rounded-full ml-[5px] mb-[2px] align-bottom"
-              style={{
-                width: 6,
-                height: 6,
-                background: "#ff4d00",
-                boxShadow: "0 0 10px #ff4d00",
-                animation: "dotBlink 2s ease-in-out infinite",
-              }}
+          <Link href={"/"}>
+            <Image
+              src="/logo.svg"
+              alt="logo"
+              height={100}
+              width={100}
+              className="xl:w-[140px] md:w-[120px] w-[90px] h-auto"
             />
-          </a>
+          </Link>
 
           {/* Desktop Nav */}
           <nav className="desktop-nav hidden lg:flex items-center gap-1 sm:gap-2 xl:gap-4">
@@ -150,8 +139,12 @@ export default function Header() {
               transitionDelay: `${i * 80 + 100}ms`,
               fontFamily: "'Bebas Neue', 'Impact', sans-serif",
             }}
-            onMouseEnter={e => ((e.currentTarget as HTMLAnchorElement).style.color = "#ff4d00")}
-            onMouseLeave={e => ((e.currentTarget as HTMLAnchorElement).style.color = "#fff")}
+            onMouseEnter={(e) =>
+              ((e.currentTarget as HTMLAnchorElement).style.color = "#ff4d00")
+            }
+            onMouseLeave={(e) =>
+              ((e.currentTarget as HTMLAnchorElement).style.color = "#fff")
+            }
           >
             {link.label}
           </a>
@@ -235,7 +228,7 @@ function NavLink({
         relative py-2 px-2 sm:px-4 xl:px-5 2xl:px-6
         font-dmMono font-medium text-xs sm:text-[13px] tracking-[0.12em] uppercase inline-block
         transition-colors duration-300
-        ${hovered ? "text-[#ff4d00]" : "text-white/70"}
+        ${hovered ? "text-[#ff4d00]" : "text-[#A8B4CC]"}
       `}
       style={{
         fontFamily: "'DM Mono', 'Courier New', monospace",

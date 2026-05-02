@@ -158,7 +158,7 @@ export default function ContactSection() {
             {/* Corner accent */}
             <div className="absolute top-0 right-0 w-28 h-28 opacity-50 pointer-events-none" style={{ background: "linear-gradient(135deg,#ff4d00,transparent)", clipPath: "polygon(100% 0,0 0,100% 100%)" }} />
             {/* Ghost text */}
-            <div className="absolute bottom-4 right-6 select-none pointer-events-none text-white/[0.25] leading-none" style={{ ...bebasFont, fontSize: 88, letterSpacing: "0.04em" }}>HELLO</div>
+            <div className="absolute bottom-4 right-6 select-none pointer-events-none text-white/[0.25] leading-none" style={{ ...bebasFont, fontSize: 88, letterSpacing: "0.04em" }}>Creatovix</div>
 
             <form onSubmit={handleSubmit} className="relative z-10 p-7 xl:p-10 flex flex-col gap-5">
               {/* Name + Email */}
@@ -174,25 +174,13 @@ export default function ContactSection() {
               </div>
 
               {/* Service + Budget */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 gap-5">
                 <FormField label="Service Needed" delay={0.35} inView={inView}>
                   <div className="relative">
                     <select name="service" value={form.service} onChange={handleChange}
                       className={`${inputBase} appearance-none cursor-pointer`} style={monoFont}>
                       <option value="" className="bg-[#050310]">Select a service</option>
                       {SERVICES.map(s => <option key={s.value} value={s.value} className="bg-[#050310]">{s.label}</option>)}
-                    </select>
-                    <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[#5e6e84] pointer-events-none text-xs">▼</span>
-                  </div>
-                </FormField>
-                <FormField label="Budget Range" delay={0.4} inView={inView}>
-                  <div className="relative">
-                    <select name="budget" value={form.budget} onChange={handleChange}
-                      className={`${inputBase} appearance-none cursor-pointer`} style={monoFont}>
-                      <option value="" className="bg-[#050310]">Select budget</option>
-                      {["$1k – $5k", "$5k – $15k", "$15k – $30k", "$30k – $60k", "$60k+"].map(b => (
-                        <option key={b} value={b} className="bg-[#050310]">{b}</option>
-                      ))}
                     </select>
                     <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[#5e6e84] pointer-events-none text-xs">▼</span>
                   </div>

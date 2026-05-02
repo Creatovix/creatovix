@@ -20,6 +20,10 @@ const TEAM = [
   { id: 2, name: "Jordan Chen",  role: "Lead Developer",       image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80", accent: "#00c8ff" },
   { id: 3, name: "Sam Taylor",   role: "UX Strategist",        image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80", accent: "#a855f7" },
   { id: 4, name: "Morgan Lee",   role: "Full Stack Engineer",  image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400&q=80", accent: "#10d4a0" },
+  { id: 1, name: "Alex Rivera",  role: "Creative Director",    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80", accent: "#ff4d00" },
+  { id: 2, name: "Jordan Chen",  role: "Lead Developer",       image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80", accent: "#00c8ff" },
+  { id: 3, name: "Sam Taylor",   role: "UX Strategist",        image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80", accent: "#a855f7" },
+  { id: 4, name: "Morgan Lee",   role: "Full Stack Engineer",  image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400&q=80", accent: "#10d4a0" },
 ];
 
 const bebasFont = { fontFamily: "'Bebas Neue','Impact',sans-serif" };
@@ -121,36 +125,19 @@ export default function AboutSection() {
 
           {/* Right: 3D stacked images + floating badge */}
           <div className="relative" style={{ opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(32px)", transition: "all 0.9s cubic-bezier(0.16,1,0.3,1) 0.2s" }}>
-            {/* Back image (offset) */}
-            <div className="absolute top-4 left-4 right-0 rounded-2xl overflow-hidden border border-white/[0.07]"
-              style={{ height: "clamp(300px,40vw,480px)", background: "rgba(255,255,255,0.03)", boxShadow: "0 30px 80px rgba(0,0,0,0.5)" }}>
-              <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80" alt="" className="w-full h-full object-cover opacity-40" />
-            </div>
             {/* Front image */}
-            <div className="relative -top-4 -left-4 mr-4 rounded-2xl overflow-hidden border border-white/10"
-              style={{ height: "clamp(300px,40vw,480px)", boxShadow: "0 30px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.08)" }}>
+            <div className="relative -top-4 lg:-left-4 lg:mr-4 rounded-2xl overflow-hidden border border-white/10"
+              style={{ height: "clamp(320px,50vw,535px)", boxShadow: "0 30px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.08)" }}>
               <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80" alt="Our team" className="w-full h-full object-cover" />
               <div className="absolute inset-0" style={{ background: "linear-gradient(180deg,transparent 40%,rgba(5,3,16,0.9) 100%)" }} />
               {/* Corner accent */}
               <div className="absolute top-0 right-0 w-20 h-20 opacity-70" style={{ background: "linear-gradient(135deg,#ff4d00,transparent)", clipPath: "polygon(100% 0,0 0,100% 100%)" }} />
-              {/* Bottom label */}
-              <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between">
-                <div>
-                  <div style={{ ...bebasFont, fontSize: 32, color: "#ff4d00", lineHeight: 1, textShadow: "0 0 30px rgba(255,77,0,0.6)" }}>5+ Years</div>
-                  <div className="text-[9px] tracking-[0.25em] text-[#7688a0] uppercase mt-1" style={monoFont}>Of Digital Excellence</div>
-                </div>
-                <div className="flex flex-col items-end gap-1">
-                  {["150+ Projects", "80+ Brands", "98% Happy"].map((t, i) => (
-                    <span key={i} className="text-[9px] tracking-[0.15em] text-[#8899b4] uppercase" style={monoFont}>{t}</span>
-                  ))}
-                </div>
-              </div>
             </div>
           </div>
         </div>
 
         {/* ── Timeline Rail ── */}
-        <div style={{ opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(32px)", transition: "all 0.8s cubic-bezier(0.16,1,0.3,1) 0.35s" }}
+        <div id="team" style={{ opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(32px)", transition: "all 0.8s cubic-bezier(0.16,1,0.3,1) 0.35s" }}
           className="mb-16 xl:mb-20 px-7 pt-8 pb-8 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border border-white/10 shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.06)]">
           <div className="flex items-center gap-3.5 mb-8">
             <span className="inline-block w-10 h-px bg-[#ff4d00] shadow-[0_0_12px_#ff4d00]" />

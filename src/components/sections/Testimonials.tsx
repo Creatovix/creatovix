@@ -135,8 +135,8 @@ export default function TestimonialsSection() {
             className="!overflow-visible !pl-4 !pr-4"
             breakpoints={{
               640: { slidesPerView: 1.3, spaceBetween: 24 },
-              1024: { slidesPerView: 1.45, spaceBetween: 28 },
-              1440: { slidesPerView: 1.6, spaceBetween: 32 }
+              1024: { slidesPerView: 2.45, spaceBetween: 28 },
+              1440: { slidesPerView: 3.6, spaceBetween: 32 }
             }}
           >
             {TESTIMONIALS.map((t) => (

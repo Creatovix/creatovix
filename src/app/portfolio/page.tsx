@@ -169,7 +169,8 @@ export default function PortfolioSection() {
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden"
+      id="work"
+      className="relative overflow-hidden pt-[20vh] pb-[10vh]"
       style={{
         fontFamily: "'DM Mono','Courier New',monospace",
         background:
@@ -208,7 +209,7 @@ export default function PortfolioSection() {
         }}
       />
 
-      <div className="max-w-[1600px] mx-auto px-4 xl:px-10 relative z-10 portfolio">
+      <div className="max-w-[1600px] mx-auto px-4 md:px-8 xl:px-10 relative z-10">
         {/* ── Section header ── */}
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-7 xl:gap-[60px] mb-12 xl:mb-14 items-end">
           <div
