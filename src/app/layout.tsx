@@ -4,6 +4,7 @@ import StructuredData from "@/components/StructuredData";
 import SmoothScrollProvider from "@/providers/SmoothScrollProvider";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Navbar";
+import LayoutWrapper from "@/components/LayoutWrapper";
 
 export const viewport: Viewport = {
   themeColor: "#04020a",
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
     template: "%s | Creatovix",
   },
   description:
-    "Creatovix helps businesses grow with high-converting websites, powerful branding, and result-driven digital strategies. Expert web design, full-stack development, and Shopify solutions.",
+    "Creatovix helps businesses grow with high-converting websites, powerful branding, and result-driven digital strategies.",
 
   // 🔹 Canonical & Base URL
   metadataBase: new URL("https://www.creatovix.com"),
@@ -166,9 +167,9 @@ export default function RootLayout({
           <StructuredData />
 
           {/* 🔹 Page Content */}
-          <Header />
-          {children}
-          <Footer />
+          <LayoutWrapper>
+            {children}
+          </LayoutWrapper>
         </SmoothScrollProvider>
 
         {/* 🔹 Optional: Add a hidden skip link for accessibility */}
