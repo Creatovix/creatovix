@@ -226,7 +226,7 @@ function NavLink({
         relative py-2 px-2 sm:px-4 xl:px-5 2xl:px-6
         font-dmMono font-medium text-xs sm:text-[13px] tracking-[0.12em] uppercase inline-block
         transition-colors duration-300
-        ${hovered ? "text-[#ff4d00]" : "text-white/70"}
+        ${hovered ? "text-[#ff4d00]" : "text-[#A8B4CC]"}
       `}
       style={{
         fontFamily: "'DM Mono', 'Courier New', monospace",
