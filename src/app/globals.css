@@ -123,6 +123,10 @@ body {
   overflow-x: hidden !important;
 }
 
+section {
+  scroll-margin-top: 20vh !important;
+}
+
 ::selection {
   background: var(--color-accent-warm);
   color: #fff;

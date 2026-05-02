@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 const NAV_COLS = [
@@ -168,14 +169,7 @@ export default function Footer() {
 
           {/* Brand col */}
           <div>
-            <a href="/" className="inline-flex items-end gap-0 no-underline mb-5 block"
-              style={{ ...bebasFont }}>
-              <span className="text-white text-[1.8rem] tracking-[0.12em] leading-none">CREAT</span>
-              <span className="text-[#ff4d00] text-[1.8rem] tracking-[0.12em] leading-none inline-block" style={{ animation: "footerLogoPulse 3s ease-in-out infinite" }}>O</span>
-              <span className="text-white text-[1.8rem] tracking-[0.12em] leading-none">VIX</span>
-              <span className="inline-block rounded-full ml-[4px] mb-[5px] flex-shrink-0"
-                style={{ width: 5, height: 5, background: "#ff4d00", boxShadow: "0 0 8px #ff4d00" }} />
-            </a>
+            <Image src={"/logo.svg"} alt="logo" width={100} height={100} className="w-[120px] h-auto pb-[1vh]" />
             <p className="text-[13px] text-[#8899b4] leading-[1.8] mb-6 max-w-[240px]" style={monoFont}>
               Crafting premium digital experiences that captivate, convert, and scale worldwide.
             </p>
