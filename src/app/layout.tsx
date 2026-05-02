@@ -134,6 +134,12 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
 
+        <script
+          src="https://analytics.ahrefs.com/analytics.js"
+          data-key="WfTmF8PCqmcfkO5fhVtz3w"
+          async
+        ></script>
+
         {/* 🔹 Fonts */}
         <link
           href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&display=swap"
