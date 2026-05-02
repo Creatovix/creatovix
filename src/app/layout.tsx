@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import StructuredData from "@/components/StructuredData";
 import SmoothScrollProvider from "@/providers/SmoothScrollProvider";
+import Footer from "@/components/layout/Footer";
+import Header from "@/components/layout/Navbar";
 
 export const viewport: Viewport = {
   themeColor: "#04020a",
@@ -164,7 +166,9 @@ export default function RootLayout({
           <StructuredData />
 
           {/* 🔹 Page Content */}
+          <Header />
           {children}
+          <Footer />
         </SmoothScrollProvider>
 
         {/* 🔹 Optional: Add a hidden skip link for accessibility */}

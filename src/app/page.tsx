@@ -30,7 +30,6 @@ export default function HomePage() {
           visibility: loaderDone ? "visible" : "hidden",
         }}
       ></div>
-      <Navbar />
       <main>
         <Hero />
         <Stats />
@@ -44,7 +43,6 @@ export default function HomePage() {
         <CTA />
         <Contact />
       </main>
-      <Footer />
     </>
   );
 }
