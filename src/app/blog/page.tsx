@@ -1,46 +1,436 @@
-// src/app/blog/page.tsx
+// src/app/blog/page.tsx — SERVER COMPONENT (thin wrapper)
+// The interactive category filter lives in BlogClient.tsx ("use client")
 import Link from "next/link";
-import {sanityClient} from "@/sanity/lib/client";
+import { sanityClient } from "@/sanity/lib/client";
 import { getAllPostsQuery } from "@/sanity/lib/queries";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Web Design & Development Blog | Creatovix",
-  description: "Expert insights on web design, Shopify development, conversion optimization, and growing your business online.",
-  keywords: ["web design blog", "Shopify tips", "conversion optimization", "small business marketing"],
+  description:
+    "Expert insights on web design, Shopify development, conversion optimization, and growing your business online.",
+  keywords: [
+    "web design blog",
+    "Shopify tips",
+    "conversion optimization",
+    "small business marketing",
+  ],
 };
+
+const bebasFont = { fontFamily: "'Bebas Neue','Impact',sans-serif" };
+const monoFont = { fontFamily: "'DM Mono','Courier New',monospace" };
+
+const CATEGORY_COLORS: Record<string, string> = {
+  "Web Design": "#ff4d00",
+  "Shopify": "#f59e0b",
+  "Development": "#a855f7",
+  "Marketing": "#10d4a0",
+  "Full Stack": "#00c8ff",
+  "Graphic Design": "#00c8ff",
+};
+
+function getCategoryColor(cat: string) {
+  return CATEGORY_COLORS[cat] ?? "#ff4d00";
+}
 
 export default async function BlogPage() {
   const posts = await sanityClient.fetch(getAllPostsQuery);
+  const featured = posts[0];
+  const rest = posts.slice(1);
 
   return (
-    <main className="min-h-screen pt-[20vh] pb-16 bg-[#050310]" style={{ fontFamily: "'DM Mono','Courier New',monospace" }}>
-      <div className="max-w-[1600px] mx-auto px-4 xl:px-10">
-        <h1 className="text-white mb-4" style={{ fontFamily: "'Bebas Neue','Impact',sans-serif", fontSize: "clamp(36px,5vw,52px)" }}>
-          Insights & Resources
-        </h1>
-        <p className="text-[#a8b4cc] mb-12 text-lg">
-          Practical advice on web design, development, and growing your business online. No fluff—just actionable strategies.
-        </p>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {posts.map((post: any) => (
-            <Link key={post._id} href={`/blog/${post.slug}`} className="block p-5 rounded-xl border border-white/10 hover:border-[#ff4d00]/50 transition-all group bg-white/[0.03]">
-              <div className="flex items-center gap-3 mb-3">
-                <span className="text-[10px] tracking-[0.2em] uppercase text-[#ff4d00]">{post.category}</span>
-                <span className="text-[10px] text-[#5e6e84]">•</span>
-                <span className="text-[10px] text-[#5e6e84]">{new Date(post.publishedAt).toLocaleDateString("en-GB")}</span>
-                <span className="text-[10px] text-[#5e6e84]">•</span>
-                <span className="text-[10px] text-[#5e6e84]">{post.readingTime} min</span>
+    <main
+      className="relative min-h-screen overflow-hidden"
+      style={{
+        fontFamily: "'DM Mono','Courier New',monospace",
+        background: "linear-gradient(165deg,#050310 0%,#0a0818 45%,#050310 100%)",
+      }}
+    >
+      {/* ── Grid texture ── */}
+      <div
+        className="absolute inset-0 pointer-events-none z-0"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(255,77,0,0.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,77,0,0.022) 1px,transparent 1px)",
+          backgroundSize: "64px 64px",
+          animation: "gridDrift 30s linear infinite",
+        }}
+      />
+      {/* Ambient glows */}
+      <div
+        className="absolute pointer-events-none rounded-full blur-[140px] z-0"
+        style={{
+          width: 700,
+          height: 700,
+          top: -150,
+          left: -150,
+          background: "radial-gradient(circle,rgba(255,77,0,0.12),transparent 70%)",
+        }}
+      />
+      <div
+        className="absolute pointer-events-none rounded-full blur-[120px] z-0"
+        style={{
+          width: 500,
+          height: 500,
+          top: "40%",
+          right: -120,
+          background: "radial-gradient(circle,rgba(168,85,247,0.08),transparent 70%)",
+        }}
+      />
+
+      <div className="max-w-[1600px] mx-auto px-4 xl:px-10 relative z-10 pt-[18vh] pb-24">
+
+        {/* ── Page Header ── */}
+        <div className="mb-16 md:mb-20">
+          <div className="flex items-center gap-3 mb-5">
+            <span className="w-10 h-px bg-[#ff4d00]" style={{ boxShadow: "0 0 12px #ff4d00" }} />
+            <span
+              className="text-[10px] tracking-[0.4em] uppercase text-[#ff4d00]"
+              style={monoFont}
+            >
+              Creatovix Journal
+            </span>
+          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-6 items-end">
+            <h1
+              className="text-white m-0 leading-none"
+              style={{
+                ...bebasFont,
+                fontSize: "clamp(52px,8vw,100px)",
+                letterSpacing: "0.01em",
+                lineHeight: 0.88,
+              }}
+            >
+              Insights &{" "}
+              <span
+                style={{
+                  color: "#ff4d00",
+                  textShadow: "0 0 80px rgba(255,77,0,0.5)",
+                }}
+              >
+                Resources
+              </span>
+            </h1>
+            <p
+              className="text-[#5e7080] max-w-[340px] leading-[1.75] text-[13.5px] lg:text-right"
+              style={monoFont}
+            >
+              Practical strategies on web design, Shopify development, and
+              growing your business. No fluff — only what works.
+            </p>
+          </div>
+
+          {/* Divider with post count */}
+          <div
+            className="flex items-center gap-4 mt-10"
+            style={{ borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: 20 }}
+          >
+            <span
+              className="text-[11px] tracking-[0.3em] uppercase text-[#3a4a5a]"
+              style={monoFont}
+            >
+              {posts.length} articles published
+            </span>
+            <span className="flex-1 h-px bg-white/[0.04]" />
+            <span
+              className="text-[11px] tracking-[0.3em] uppercase text-[#3a4a5a]"
+              style={monoFont}
+            >
+              Updated regularly
+            </span>
+          </div>
+        </div>
+
+        {/* ── Featured Post (Hero card) ── */}
+        {featured && (
+          <Link
+            href={`/blog/${featured.slug}`}
+            className="group block mb-16 no-underline"
+            style={{ textDecoration: "none" }}
+          >
+            <div
+              className="relative rounded-2xl overflow-hidden border transition-all duration-500 group-hover:border-[#ff4d00]/50"
+              style={{
+                borderColor: "rgba(255,255,255,0.08)",
+                background: "rgba(255,255,255,0.025)",
+              }}
+            >
+              {/* Featured label */}
+              <div className="absolute top-5 left-5 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#ff4d00] text-white">
+                <span className="w-1.5 h-1.5 rounded-full bg-white" style={{ animation: "pulse 1.8s ease-in-out infinite" }} />
+                <span className="text-[9px] tracking-[0.35em] uppercase" style={monoFont}>
+                  Featured
+                </span>
               </div>
-              <h2 className="text-white text-xl font-medium group-hover:text-[#ff4d00] transition-colors mb-2">
-                {post.title}
+
+              <div className="grid grid-cols-1 lg:grid-cols-[1fr_420px]">
+                {/* Cover image */}
+                {featured.coverImage && (
+                  <div className="relative aspect-[16/9] lg:min-h-[380px] overflow-hidden">
+                    <img
+                      src={featured.coverImage.url || featured.coverImage}
+                      alt={featured.title}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      loading="eager"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#050310]/80 hidden lg:block" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#050310]/70 to-transparent lg:hidden" />
+                  </div>
+                )}
+
+                {/* Content */}
+                <div className="p-8 md:p-10 flex flex-col justify-center">
+                  <div className="flex items-center gap-3 mb-5">
+                    <span
+                      className="px-2.5 py-1 rounded-full text-[9px] tracking-[0.25em] uppercase border"
+                      style={{
+                        color: getCategoryColor(featured.category),
+                        borderColor: `${getCategoryColor(featured.category)}40`,
+                        background: `${getCategoryColor(featured.category)}12`,
+                        ...monoFont,
+                      }}
+                    >
+                      {featured.category}
+                    </span>
+                    <span className="text-[10px] text-[#3e5060]" style={monoFont}>
+                      {new Date(featured.publishedAt).toLocaleDateString("en-GB", {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric",
+                      })}
+                    </span>
+                  </div>
+
+                  <h2
+                    className="text-white m-0 mb-4 leading-tight transition-colors duration-300 group-hover:text-[#ff4d00]"
+                    style={{
+                      ...bebasFont,
+                      fontSize: "clamp(28px,3.5vw,44px)",
+                      letterSpacing: "0.02em",
+                    }}
+                  >
+                    {featured.title}
+                  </h2>
+                  <p
+                    className="text-[#6e8090] leading-[1.8] mb-6"
+                    style={{ ...monoFont, fontSize: 14 }}
+                  >
+                    {featured.excerpt}
+                  </p>
+
+                  <div className="flex items-center gap-4">
+                    <span
+                      className="inline-flex items-center gap-2 text-[11px] tracking-[0.22em] uppercase text-[#ff4d00]"
+                      style={monoFont}
+                    >
+                      Read Article
+                      <span
+                        className="transition-transform duration-300 group-hover:translate-x-1.5"
+                        style={{ display: "inline-block" }}
+                      >
+                        →
+                      </span>
+                    </span>
+                    <span
+                      className="text-[10px] text-[#3e5060]"
+                      style={monoFont}
+                    >
+                      {featured.readingTime} min read
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Link>
+        )}
+
+        {/* ── Section label ── */}
+        <div className="flex items-center gap-4 mb-10">
+          <span className="text-[10px] tracking-[0.35em] uppercase text-[#3a4a5a]" style={monoFont}>
+            All Articles
+          </span>
+          <span className="flex-1 h-px bg-white/[0.05]" />
+        </div>
+
+        {/* ── Post Grid ── */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+          {rest.map((post: any, i: number) => {
+            const accent = getCategoryColor(post.category);
+            return (
+              <Link
+                key={post._id}
+                href={`/blog/${post.slug}`}
+                className="group flex flex-col rounded-2xl border overflow-hidden no-underline transition-all duration-400"
+                style={{
+                  borderColor: "rgba(255,255,255,0.07)",
+                  background: "rgba(255,255,255,0.022)",
+                  textDecoration: "none",
+                  animationDelay: `${i * 0.05}s`,
+                }}
+              >
+                {/* Thumbnail */}
+                {post.coverImage && (
+                  <div className="relative aspect-[16/9] overflow-hidden">
+                    <img
+                      src={post.coverImage.url || post.coverImage}
+                      alt={post.title}
+                      className="w-full h-full object-cover transition-transform duration-600 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#050310]/70 to-transparent" />
+                    {/* Category badge over image */}
+                    <div className="absolute bottom-3 left-3">
+                      <span
+                        className="px-2.5 py-1 rounded-full text-[9px] tracking-[0.22em] uppercase"
+                        style={{
+                          ...monoFont,
+                          color: accent,
+                          background: `${accent}18`,
+                          border: `1px solid ${accent}35`,
+                          backdropFilter: "blur(8px)",
+                        }}
+                      >
+                        {post.category}
+                      </span>
+                    </div>
+                  </div>
+                )}
+
+                {/* Body */}
+                <div className="flex flex-col flex-1 p-5">
+                  {/* Meta */}
+                  <div className="flex items-center gap-3 mb-3">
+                    <span className="text-[10px] text-[#3e5060]" style={monoFont}>
+                      {new Date(post.publishedAt).toLocaleDateString("en-GB", {
+                        day: "numeric",
+                        month: "short",
+                        year: "numeric",
+                      })}
+                    </span>
+                    <span className="text-[#2a3a48]">·</span>
+                    <span className="text-[10px] text-[#3e5060]" style={monoFont}>
+                      {post.readingTime} min read
+                    </span>
+                  </div>
+
+                  <h2
+                    className="text-white m-0 mb-3 leading-snug flex-1 transition-colors duration-300 group-hover:text-[#ff4d00]"
+                    style={{
+                      ...bebasFont,
+                      fontSize: "clamp(18px,1.8vw,22px)",
+                      letterSpacing: "0.02em",
+                    }}
+                  >
+                    {post.title}
+                  </h2>
+
+                  <p
+                    className="text-[#5a6e7e] leading-[1.72] mb-4"
+                    style={{ ...monoFont, fontSize: 12.5 }}
+                  >
+                    {post.excerpt?.length > 110
+                      ? post.excerpt.slice(0, 110) + "…"
+                      : post.excerpt}
+                  </p>
+
+                  {/* Read link */}
+                  <div
+                    className="flex items-center gap-2 pt-4 mt-auto"
+                    style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}
+                  >
+                    <span
+                      className="text-[10px] tracking-[0.22em] uppercase transition-colors duration-300"
+                      style={{ ...monoFont, color: accent }}
+                    >
+                      Read Article
+                    </span>
+                    <span
+                      className="text-xs transition-transform duration-300 group-hover:translate-x-1"
+                      style={{ color: accent, display: "inline-block" }}
+                    >
+                      →
+                    </span>
+                  </div>
+                </div>
+
+                {/* Bottom accent bar */}
+                <div
+                  className="h-[2px] w-0 group-hover:w-full transition-all duration-500"
+                  style={{ background: `linear-gradient(90deg,${accent},transparent)` }}
+                />
+              </Link>
+            );
+          })}
+        </div>
+
+        {/* ── Newsletter / CTA strip ── */}
+        <div
+          className="mt-20 relative rounded-2xl overflow-hidden p-10 md:p-14"
+          style={{
+            background: "linear-gradient(135deg,rgba(255,77,0,0.10),rgba(255,255,255,0.03),rgba(168,85,247,0.06))",
+            border: "1px solid rgba(255,77,0,0.25)",
+            boxShadow: "0 30px 80px rgba(0,0,0,0.4), 0 0 60px rgba(255,77,0,0.08)",
+          }}
+        >
+          <div
+            className="absolute top-0 right-0 w-72 h-72 pointer-events-none"
+            style={{
+              background: "radial-gradient(circle at top right,rgba(255,77,0,0.15),transparent 65%)",
+            }}
+          />
+          <div className="relative grid grid-cols-1 md:grid-cols-[1fr_auto] gap-8 items-center">
+            <div>
+              <div className="text-[10px] tracking-[0.35em] uppercase text-[#ff4d00] mb-3" style={monoFont}>
+                Work with us
+              </div>
+              <h2
+                className="text-white m-0 mb-3 leading-none"
+                style={{ ...bebasFont, fontSize: "clamp(32px,4vw,52px)" }}
+              >
+                Ready to grow your business?
               </h2>
-              <p className="text-[#9eb0c8] line-clamp-2">{post.excerpt}</p>
-            </Link>
-          ))}
+              <p className="text-[#5e7080] m-0 text-[14px] leading-[1.7]" style={monoFont}>
+                From web design to full-stack development — let's build something that drives real results.
+              </p>
+            </div>
+            <div className="flex flex-col gap-3 flex-shrink-0">
+              <a
+                href="/#contact"
+                className="inline-flex items-center justify-center gap-2.5 py-4 px-8 text-white text-[11px] tracking-[0.28em] uppercase no-underline transition-all duration-300 hover:-translate-y-1 active:scale-95"
+                style={{
+                  ...monoFont,
+                  background: "linear-gradient(135deg,#ff4d00,#cc3d00)",
+                  clipPath: "polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px))",
+                  boxShadow: "0 10px 40px rgba(255,77,0,0.45)",
+                }}
+              >
+                Book Free Strategy Call →
+              </a>
+              <Link
+                href="/#services"
+                className="inline-flex items-center justify-center gap-2 py-3.5 px-8 text-[11px] tracking-[0.22em] uppercase no-underline border transition-all duration-300 hover:bg-white/[0.05]"
+                style={{
+                  ...monoFont,
+                  color: "#5e7080",
+                  borderColor: "rgba(255,255,255,0.1)",
+                  borderRadius: 4,
+                }}
+              >
+                View Services ↗
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
+
+      <style>{`
+        @keyframes gridDrift { 100% { background-position: 64px 64px; } }
+        @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.3;transform:scale(0.6)} }
+        a { text-decoration: none !important; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #050310; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(180deg,#050310,#7BB6FF 50%,#050310); border-radius: 3px; }
+      `}</style>
     </main>
   );
 }

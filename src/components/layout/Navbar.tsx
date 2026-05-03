@@ -4,12 +4,12 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 const NAV_LINKS = [
-  { label: "Services", href: "#services" },
+  { label: "Services", href: "/#services" },
   { label: "Portfolio", href: "/portfolio" },
-  { label: "About", href: "#about" },
-  { label: "Process", href: "#process" },
+  { label: "About", href: "/#about" },
+  { label: "Process", href: "/#process" },
   { label: "Blog", href: "/blog" },
-  { label: "Team", href: "#team" },
+  { label: "Team", href: "/#team" },
 ];
 
 export default function Header() {
@@ -39,7 +39,7 @@ export default function Header() {
       >
         <div className="max-w-[1600px] mx-auto xl:px-10 px-4 flex items-center justify-between">
           {/* Logo */}
-          <Link href={"/"}>
+          <Link href={"/#"}>
             <Image
               src="/logo.svg"
               alt="logo"
@@ -64,7 +64,7 @@ export default function Header() {
 
             {/* CTA Button */}
             <a
-              href="#contact"
+              href="/#contact"
               className={`
               ml-3 md:ml-6 py-[9px] px-5 md:py-[11px] md:px-7
               bg-gradient-to-tr from-[#ff4d00] to-[#ff8c00]

@@ -74,13 +74,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
           name: "Creatovix",
           url: "https://creatovix.com",
           logo: "https://creatovix.com/logo.png",
-          phone: "+44 XXX XXX XXXX",
-          address: {
-            street: "123 Design Street",
-            locality: "London",
-            postalCode: "SW1A 1AA",
-            addressCountry: "GB"
-          },
+          phone: "+92 3097909914",
           priceRange: "££"
         }} 
       />

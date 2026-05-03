@@ -20,10 +20,10 @@ const TEAM = [
   { id: 2, name: "Jordan Chen",  role: "Lead Developer",       image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80", accent: "#00c8ff" },
   { id: 3, name: "Sam Taylor",   role: "UX Strategist",        image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80", accent: "#a855f7" },
   { id: 4, name: "Morgan Lee",   role: "Full Stack Engineer",  image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400&q=80", accent: "#10d4a0" },
-  { id: 1, name: "Alex Rivera",  role: "Creative Director",    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80", accent: "#ff4d00" },
-  { id: 2, name: "Jordan Chen",  role: "Lead Developer",       image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80", accent: "#00c8ff" },
-  { id: 3, name: "Sam Taylor",   role: "UX Strategist",        image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80", accent: "#a855f7" },
-  { id: 4, name: "Morgan Lee",   role: "Full Stack Engineer",  image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400&q=80", accent: "#10d4a0" },
+  { id: 5, name: "Alex Rivera",  role: "Creative Director",    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80", accent: "#ff4d00" },
+  { id: 6, name: "Jordan Chen",  role: "Lead Developer",       image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80", accent: "#00c8ff" },
+  { id: 7, name: "Sam Taylor",   role: "UX Strategist",        image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80", accent: "#a855f7" },
+  { id: 8, name: "Morgan Lee",   role: "Full Stack Engineer",  image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400&q=80", accent: "#10d4a0" },
 ];
 
 const bebasFont = { fontFamily: "'Bebas Neue','Impact',sans-serif" };

@@ -124,7 +124,7 @@ body {
 }
 
 section {
-  scroll-margin-top: 20vh !important;
+  scroll-margin-top: 10vh !important;
 }
 
 ::selection {

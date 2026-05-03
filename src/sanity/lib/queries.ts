@@ -21,10 +21,10 @@ export const getPostBySlugQuery = groq`
     "slug": slug.current,
     excerpt,
     "coverImage": {
-      "url": asset->url,
-      "alt": asset->metadata?.tags[0].title,
-      "width": metadata.dimensions.width,
-      "height": metadata.dimensions.height
+      "url": coverImage.asset->url,
+      "alt": coverImage.asset->metadata.tags[0].title,
+      "width": coverImage.asset->metadata.dimensions.width,
+      "height": coverImage.asset->metadata.dimensions.height
     },
     content,
     category,
@@ -45,5 +45,31 @@ export const getRelatedPostsQuery = groq`
     category,
     publishedAt,
     readingTime
+  }
+`;
+
+
+
+
+
+// ── All projects (ordered by `order` field, featured first) ──────────────────
+export const getAllProjectsQuery = groq`
+  *[_type == "project"] | order(featured desc, order asc, year desc) {
+    _id,
+    category,
+    color,
+    "mainImage": mainImage.asset->url,
+    "mainImageAlt": mainImage.alt,
+  }
+`;
+ 
+// ── Single project by slug ───────────────────────────────────────────────────
+export const getProjectBySlugQuery = groq`
+  *[_type == "project" && slug.current == $slug][0] {
+    _id,
+    category,
+    color,
+    "mainImage": mainImage.asset->url,
+    "mainImageAlt": mainImage.alt,
   }
 `;
