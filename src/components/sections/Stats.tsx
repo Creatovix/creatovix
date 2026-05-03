@@ -59,7 +59,7 @@ const MILESTONES = [
   { year: "2024", event: "150+ Projects", detail: "Trusted by brands worldwide" },
 ];
 
-// Utility for Bebas Neue font for inline style (for specific elements)
+// Utility for Bebas Neue font (kept for headlines)
 const bebasFont = { fontFamily: "'Bebas Neue', sans-serif" };
 
 function useCountUp(target: number, duration: number, started: boolean) {
@@ -95,14 +95,13 @@ function StatCard({
 }) {
   const count = useCountUp(stat.value, 1800, visible);
 
-  // Tailwind classes for animated effects (use Tailwind's `transition` etc.)
   return (
     <div
       className={`
         relative p-7 pt-7 pb-5 rounded-2xl overflow-hidden
-        bg-gradient-to-br from-white/10 to-white/5
-        border border-white/10
-        shadow-[0_8px_40px_rgba(0,0,0,0.4),_inset_0_1px_0_rgba(255,255,255,0.06)]
+        bg-gradient-to-br from-white to-[#fafafa]
+        border border-black/10
+        shadow-[0_8px_40px_rgba(0,0,0,0.08),_inset_0_1px_0_rgba(255,255,255,0.8)]
         opacity-0 scale-95 translate-y-12
         transition-all duration-700
         will-change-transform
@@ -118,25 +117,24 @@ function StatCard({
           transitionDelay: visible ? `${index * 0.1}s` : undefined,
         } as React.CSSProperties
       }
-      // Custom hover style for border (Tailwind can't set accent-colors dynamically)
       onMouseEnter={e => {
         (e.currentTarget as HTMLElement).style.borderColor = stat.accent;
         (e.currentTarget as HTMLElement).style.boxShadow =
-          `0 0 0 1px ${stat.accent}, 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(${stat.accentRgb},0.2), inset 0 1px 0 rgba(255,255,255,0.08)`;
+          `0 0 0 1px ${stat.accent}, 0 20px 60px rgba(0,0,0,0.12), 0 0 40px rgba(${stat.accentRgb},0.15), inset 0 1px 0 rgba(255,255,255,0.9)`;
       }}
       onMouseLeave={e => {
-        (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.1)";
+        (e.currentTarget as HTMLElement).style.borderColor = "rgba(0,0,0,0.1)";
         (e.currentTarget as HTMLElement).style.boxShadow =
-          "0 8px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)";
+          "0 8px 40px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.8)";
       }}
     >
       {/* Card Top */}
       <div className="flex items-start justify-between mb-4">
         <div
-          className="w-12 h-12 rounded-[14px] bg-white/10 border flex items-center justify-center transition-all duration-300"
+          className="w-12 h-12 rounded-[14px] bg-black/5 border flex items-center justify-center transition-all duration-300"
           style={{
             borderColor: stat.accent,
-            boxShadow: `0 0 20px rgba(${stat.accentRgb},0.3)`,
+            boxShadow: `0 0 20px rgba(${stat.accentRgb},0.2)`,
             transition: "transform 0.3s, box-shadow 0.3s",
           }}
         >
@@ -147,7 +145,7 @@ function StatCard({
           style={{
             ...bebasFont,
             fontSize: "36px",
-            color: "rgba(255,255,255,0.35)",
+            color: "rgba(26,26,46,0.25)",
             letterSpacing: "0.04em",
             lineHeight: 1,
           }}
@@ -162,11 +160,11 @@ function StatCard({
             ...bebasFont,
             fontSize: "clamp(44px,5vw,56px)",
             color: stat.accent,
-            textShadow: `0 0 30px rgba(${stat.accentRgb},0.6)`,
+            textShadow: `0 0 25px rgba(${stat.accentRgb},0.35)`,
             letterSpacing: "0.02em",
             lineHeight: 0.9,
           }}
-          className="transition-all duration-300 group-hover:text-shadow-lg"
+          className="transition-all duration-300"
         >
           {count}
         </span>
@@ -175,7 +173,7 @@ function StatCard({
             ...bebasFont,
             fontSize: "28px",
             color: stat.accent,
-            opacity: 0.7,
+            opacity: 0.75,
             marginBottom: "4px",
           }}
         >
@@ -183,15 +181,15 @@ function StatCard({
         </span>
       </div>
       {/* Card Label */}
-      <div className="uppercase text-[10px] tracking-[0.25em] text-[#A8B4CC] mb-3">
+      <div className="uppercase text-[12px] tracking-[0.25em] text-[#4a5568] font-medium mb-3">
         {stat.label}
       </div>
       {/* Card Description */}
-      <p className="text-[11.5px] text-[#A8B4CC] leading-[1.68] mb-4">
+      <p className="text-[13px] text-[#4a5568] leading-[1.48] mb-4 font-medium">
         {stat.description}
       </p>
       {/* Bar */}
-      <div className="h-[3px] bg-white/10 rounded overflow-hidden mb-1.5">
+      <div className="h-[3px] bg-black/10 rounded overflow-hidden mb-1.5">
         <div
           className={`
             h-full
@@ -201,14 +199,14 @@ function StatCard({
           `}
           style={{
             width: visible ? stat.barWidth : 0,
-            background: `linear-gradient(90deg, ${stat.accent}, rgba(${stat.accentRgb},0.5))`,
-            boxShadow: `0 0 10px rgba(${stat.accentRgb},0.7)`,
+            background: `linear-gradient(90deg, ${stat.accent}, rgba(${stat.accentRgb},0.6))`,
+            boxShadow: `0 0 10px rgba(${stat.accentRgb},0.4)`,
             transitionTimingFunction: "cubic-bezier(0.16,1,0.3,1)",
             transitionDelay: `${index * 0.1 + 0.3}s`,
           }}
         />
       </div>
-      <div className="flex items-center justify-between text-[8.5px] text-[#A8B4CC] tracking-widest uppercase">
+      <div className="flex items-center justify-between text-[10px] text-[#4a5568] tracking-widest uppercase font-medium">
         <span>Progress</span>
         <span style={{ color: stat.accent }}>{stat.barWidth}</span>
       </div>
@@ -216,13 +214,13 @@ function StatCard({
       <div
         className="absolute inset-0 rounded-2xl pointer-events-none"
         style={{
-          background: `radial-gradient(ellipse at top right, rgba(${stat.accentRgb},0.1), transparent 60%)`,
+          background: `radial-gradient(ellipse at top right, rgba(${stat.accentRgb},0.06), transparent 60%)`,
           opacity: 0,
           transition: "opacity 0.4s",
         }}
       />
       <div
-        className="absolute top-0 right-0 w-[50px] h-[50px] opacity-50"
+        className="absolute top-0 right-0 w-[50px] h-[50px] opacity-60"
         style={{
           background: `linear-gradient(135deg, ${stat.accent}, transparent)`,
           clipPath: "polygon(100% 0, 0 0, 100% 100%)",
@@ -266,7 +264,6 @@ export default function StatsSection() {
     return () => observer.disconnect();
   }, []);
 
-  // Timeline animation delay
   const getMilestoneTransitionStyle = (i: number) => ({
     transitionDelay: visible ? `${0.15 + i * 0.12}s` : undefined,
   });
@@ -274,23 +271,23 @@ export default function StatsSection() {
   return (
     <section
       ref={sectionRef}
-      className={`relative overflow-hidden py-[8vh] font-mono`}
+      className={`relative overflow-hidden py-[8vh] font-sans`}
       style={{
-        fontFamily: `'DM Mono', 'Courier New', monospace`,
+        fontFamily: `'Inter', sans-serif`,
       }}
     >
-      {/* Decorative Backgrounds */}
+      {/* Decorative Backgrounds - Light Theme */}
       <div className="absolute inset-0 pointer-events-none z-0"
         style={{
           background:
-            "linear-gradient(165deg, #050310 0%, #0a0818 45%, #050310 100%)",
+            "linear-gradient(165deg, #fafafa 0%, #f5f5f5 45%, #fafafa 100%)",
         }}
       />
       <div
         className="absolute inset-0 pointer-events-none z-0"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(255,77,0,0.03) 1px, transparent 1px),linear-gradient(90deg, rgba(255,77,0,0.03) 1px, transparent 1px)",
+            "linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px)",
           backgroundSize: "64px 64px",
           animation: "stGridDrift 28s linear infinite",
         }}
@@ -299,7 +296,7 @@ export default function StatsSection() {
         className="absolute inset-0 pointer-events-none z-0"
         style={{
           backgroundImage:
-            "repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.02) 3px, rgba(0,0,0,0.02) 4px)",
+            "repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.01) 3px, rgba(0,0,0,0.01) 4px)",
         }}
       />
       <div
@@ -310,7 +307,7 @@ export default function StatsSection() {
           top: "-200px",
           left: "-200px",
           background:
-            "radial-gradient(circle, rgba(255,77,0,0.1), transparent 70%)",
+            "radial-gradient(circle, rgba(255,77,0,0.06), transparent 70%)",
         }}
       />
       <div
@@ -321,7 +318,7 @@ export default function StatsSection() {
           top: "20%",
           right: "-150px",
           background:
-            "radial-gradient(circle, rgba(0,200,255,0.08), transparent 70%)",
+            "radial-gradient(circle, rgba(0,200,255,0.05), transparent 70%)",
         }}
       />
       <div
@@ -332,7 +329,7 @@ export default function StatsSection() {
           bottom: "-100px",
           left: "40%",
           background:
-            "radial-gradient(circle, rgba(168,85,247,0.07), transparent 70%)",
+            "radial-gradient(circle, rgba(168,85,247,0.04), transparent 70%)",
         }}
       />
 
@@ -343,13 +340,13 @@ export default function StatsSection() {
         >
           <div>
             <div className="flex items-center gap-3.5 mb-3.5">
-              <span className="inline-block w-12 h-px bg-[#ff4d00] shadow-[0_0_12px_#ff4d00,0_0_24px_rgba(255,77,0,0.3)]" />
-              <span className="uppercase text-[10.5px] tracking-[0.38em] text-[#ff4d00]">
+              <span className="inline-block w-12 h-px bg-[#ff4d00] shadow-[0_0_12px_rgba(255,77,0,0.4)]" />
+              <span className="uppercase text-[10.5px] tracking-[0.38em] text-[#ff4d00] font-semibold">
                 By The Numbers
               </span>
             </div>
             <h2
-              className="leading-none text-white"
+              className="leading-none text-[#1a1a2e]"
               style={{
                 ...bebasFont,
                 fontSize: "clamp(40px,5.5vw,64px)",
@@ -362,7 +359,7 @@ export default function StatsSection() {
                 className="inline-block"
                 style={{
                   color: "#ff4d00",
-                  textShadow: "0 0 50px rgba(255,77,0,0.45)",
+                  textShadow: "0 0 35px rgba(255,77,0,0.3)",
                 }}
               >
                 Speak For Us
@@ -370,7 +367,7 @@ export default function StatsSection() {
             </h2>
           </div>
           <div>
-            <p className="text-[14px] text-[#A8B4CC] leading-[1.78] mb-6 max-w-[520px]">
+            <p className="lg:text-[16px] text-[14px] text-[#4a5568] leading-[1.78] mb-6 max-w-[520px] font-medium">
               We don't just build websites — we build businesses. Every metric here
               represents real clients, real projects, and real growth we've delivered together.
             </p>
@@ -381,24 +378,25 @@ export default function StatsSection() {
                   inline-flex items-center gap-2.5 px-7 py-3
                   bg-gradient-to-br from-[#ff4d00] to-[#ff8c00]
                   text-white no-underline
-                  text-[11px] tracking-[0.22em] uppercase
-                  shadow-[0_6px_28px_rgba(255,77,0,0.4)]
+                  text-[12px] tracking-[0.22em] uppercase font-semibold
+                  shadow-[0_6px_28px_rgba(255,77,0,0.3)]
                   transition-transform duration-200
-                  hover:-translate-y-0.5 hover:shadow-[0_12px_40px_rgba(255,77,0,0.55)]
+                  hover:-translate-y-0.5 hover:shadow-[0_12px_40px_rgba(255,77,0,0.45)]
                 `}
                 style={{
                   clipPath:
                     "polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px))",
+                  fontFamily: "'Inter', sans-serif",
                 }}
               >
                 Start a Project <span>→</span>
               </a>
-              <div className="flex items-center gap-2.5 text-[10.5px] text-[#A8B4CC] tracking-[0.08em]">
+              <div className="flex items-center gap-2.5 text-[12px] text-[#4a5568] tracking-[0.08em] font-medium">
                 <span
                   className="w-[7px] h-[7px] rounded-full"
                   style={{
                     background: "#10d4a0",
-                    boxShadow: "0 0 10px #10d4a0",
+                    boxShadow: "0 0 10px rgba(16,212,160,0.5)",
                     animation: "stPulse 1.8s ease-in-out infinite",
                   }}
                 />
@@ -426,19 +424,19 @@ export default function StatsSection() {
           ))}
         </div>
 
-        {/* Clients logos */}
+        {/* Clients logos - Light Theme */}
         <div
           className={`
             md:px-8 px-3 pt-9 pb-9 rounded-2xl
-            bg-gradient-to-br from-white/10 to-white/5
-            border border-white/10
+            bg-gradient-to-br from-white to-[#fafafa]
+            border border-black/10
             opacity-0 translate-y-6
             transition-all duration-700
             ${visible ? "opacity-100 translate-y-0" : ""}
-            text-white
+            text-[#1a1a2e]
           `}
         >
-          <p className="uppercase text-center text-[10px] tracking-[0.32em] mb-7">
+          <p className="uppercase text-center text-[12px] tracking-[0.32em] mb-7 font-semibold text-[#4a5568]">
             Trusted by innovative brands worldwide
           </p>
           <div className="md:flex grid grid-cols-2 md:flex-wrap md:justify-center text-center items-center gap-x-3 gap-y-3">
@@ -453,10 +451,9 @@ export default function StatsSection() {
               <div key={i} className="md:px-6">
                 <div
                   className={`
-                    md:px-5 px-3 py-2.5 border border-white/10 rounded
-                    bg-white/5
-                    hover:border-orange-500/30
-                    hover:bg-orange-500/10
+                    md:px-5 px-3 py-2.5 border border-black/10 rounded
+                    bg-white hover:border-orange-500/40
+                    hover:bg-orange-500/8
                     transition-colors duration-200
                   `}
                 >
@@ -465,7 +462,7 @@ export default function StatsSection() {
                     style={{
                       ...bebasFont,
                       fontSize: "20px",
-                      color: "white",
+                      color: "#1a1a2e",
                       letterSpacing: "0.12em",
                       transition: "color 0.25s",
                     }}
@@ -482,7 +479,7 @@ export default function StatsSection() {
       {/* Inline keyframes for pulses and grid drift */}
       <style>
         {`
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap');
         @keyframes stPulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.6)} }
         @keyframes stGridDrift { 100% { background-position: 64px 64px; } }
         `}

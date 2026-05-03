@@ -29,7 +29,8 @@ const CATEGORIES = [
 ];
 
 const bebasFont = { fontFamily: "'Bebas Neue','Impact',sans-serif" };
-const monoFont  = { fontFamily: "'DM Mono','Courier New',monospace" };
+// Updated to Inter font
+const sansFont  = { fontFamily: "'Inter', sans-serif" };
 
 function useInView(threshold = 0.05) {
   const ref = useRef<HTMLElement>(null);
@@ -90,18 +91,18 @@ export default function PortfolioSection() {
     <section
       ref={ref}
       id="work"
-      className="relative overflow-hidden pt-[20vh] pb-[10vh]"
+      className="relative overflow-hidden pt-[20vh] pb-[10vh] font-sans"
       style={{
-        fontFamily: "'DM Mono','Courier New',monospace",
-        background: "linear-gradient(165deg,#050310 0%,#0a0818 45%,#050310 100%)",
+        fontFamily: "'Inter', sans-serif",
+        background: "linear-gradient(165deg,#fafafa 0%,#f5f5f5 45%,#fafafa 100%)",
       }}
     >
-      {/* ── Backgrounds ── */}
+      {/* ── Backgrounds - Light Theme ── */}
       <div
         className="absolute inset-0 pointer-events-none z-0"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(255,77,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,77,0,0.03) 1px,transparent 1px)",
+            "linear-gradient(rgba(0,0,0,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0.04) 1px,transparent 1px)",
           backgroundSize: "64px 64px",
           animation: "portGridDrift 26s linear infinite",
         }}
@@ -110,16 +111,16 @@ export default function PortfolioSection() {
         className="absolute inset-0 pointer-events-none z-0"
         style={{
           backgroundImage:
-            "repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.02) 3px,rgba(0,0,0,0.02) 4px)",
+            "repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.01) 3px,rgba(0,0,0,0.01) 4px)",
         }}
       />
       <div
         className="absolute pointer-events-none rounded-full blur-[110px] z-0 w-[900px] h-[900px] -top-56 -left-56"
-        style={{ background: "radial-gradient(circle,rgba(255,77,0,0.09),transparent 70%)" }}
+        style={{ background: "radial-gradient(circle,rgba(255,77,0,0.05),transparent 70%)" }}
       />
       <div
         className="absolute pointer-events-none rounded-full blur-[100px] z-0 w-[600px] h-[600px] -bottom-28 -right-36"
-        style={{ background: "radial-gradient(circle,rgba(16,212,160,0.07),transparent 70%)" }}
+        style={{ background: "radial-gradient(circle,rgba(16,212,160,0.04),transparent 70%)" }}
       />
 
       <div className="max-w-[1600px] mx-auto px-4 md:px-8 xl:px-10 relative z-10">
@@ -134,18 +135,18 @@ export default function PortfolioSection() {
             }}
           >
             <div className="flex items-center gap-3.5 mb-3.5">
-              <span className="inline-block w-12 h-px bg-[#ff4d00] shadow-[0_0_12px_#ff4d00,0_0_24px_rgba(255,77,0,0.3)]" />
-              <span className="text-[10.5px] tracking-[0.38em] text-[#ff4d00] uppercase" style={monoFont}>
+              <span className="inline-block w-12 h-px bg-[#ff4d00] shadow-[0_0_12px_rgba(255,77,0,0.4)]" />
+              <span className="text-[10.5px] tracking-[0.38em] text-[#ff4d00] uppercase font-semibold" style={sansFont}>
                 Our Work
               </span>
             </div>
             <h2
-              className="leading-none text-white m-0"
+              className="leading-none text-[#1a1a2e] m-0"
               style={{ ...bebasFont, fontSize: "clamp(40px,5.5vw,64px)", letterSpacing: "0.03em" }}
             >
               Featured
               <br />
-              <span style={{ color: "#ff4d00", textShadow: "0 0 50px rgba(255,77,0,0.45)" }}>
+              <span style={{ color: "#ff4d00", textShadow: "0 0 35px rgba(255,77,0,0.3)" }}>
                 Projects
               </span>
             </h2>
@@ -158,12 +159,12 @@ export default function PortfolioSection() {
               transition: "all 0.8s cubic-bezier(0.16,1,0.3,1) 0.1s",
             }}
           >
-            <p className="text-[14px] text-[#a8b4cc] leading-[1.78] mb-6 max-w-[520px]" style={monoFont}>
+            <p className="text-[14px] text-[#4a5568] leading-[1.78] mb-6 max-w-[520px] font-medium" style={sansFont}>
               Explore our latest work and see how we've helped brands transform their digital presence
               with bold design and clean code.
             </p>
 
-            {/* Filter pills */}
+            {/* Filter pills - Light Theme */}
             <div className="flex flex-wrap gap-2">
               {CATEGORIES.map((cat) => {
                 const isActive = activeCategory === cat;
@@ -172,13 +173,13 @@ export default function PortfolioSection() {
                   <button
                     key={cat}
                     onClick={() => handleCategoryChange(cat)}
-                    className="px-4 py-2 text-[10px] tracking-[0.22em] uppercase border transition-all duration-300 cursor-pointer rounded-full"
+                    className="px-4 py-2 text-[10px] tracking-[0.22em] uppercase border transition-all duration-300 cursor-pointer rounded-full font-medium"
                     style={{
-                      ...monoFont,
-                      background: isActive ? "#ff4d00" : "rgba(255,255,255,0.04)",
-                      color: isActive ? "#fff" : "rgba(255,255,255,0.5)",
-                      borderColor: isActive ? "#ff4d00" : "rgba(255,255,255,0.12)",
-                      boxShadow: isActive ? "0 0 20px rgba(255,77,0,0.35)" : "none",
+                      ...sansFont,
+                      background: isActive ? "#ff4d00" : "rgba(0,0,0,0.04)",
+                      color: isActive ? "#fff" : "#4a5568",
+                      borderColor: isActive ? "#ff4d00" : "rgba(0,0,0,0.12)",
+                      boxShadow: isActive ? "0 0 20px rgba(255,77,0,0.3)" : "none",
                     }}
                   >
                     {cat}
@@ -192,29 +193,29 @@ export default function PortfolioSection() {
           </div>
         </div>
 
-        {/* ── Loading skeleton ── */}
+        {/* ── Loading skeleton - Light Theme ── */}
         {loading && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 xl:gap-5 mb-12">
             {[...Array(6)].map((_, i) => (
               <div
                 key={i}
-                className="rounded-2xl border border-white/10 overflow-hidden"
-                style={{ height: 340, background: "rgba(255,255,255,0.03)", animation: "skeletonPulse 1.6s ease-in-out infinite" }}
+                className="rounded-2xl border border-black/10 overflow-hidden"
+                style={{ height: 340, background: "rgba(0,0,0,0.04)", animation: "skeletonPulse 1.6s ease-in-out infinite" }}
               />
             ))}
           </div>
         )}
 
-        {/* ── Empty state ── */}
+        {/* ── Empty state - Light Theme ── */}
         {!loading && filtered.length === 0 && (
           <div className="flex flex-col items-center justify-center py-24 gap-4">
             <div
               className="w-16 h-16 rounded-2xl flex items-center justify-center text-2xl"
-              style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
+              style={{ background: "rgba(0,0,0,0.04)", border: "1px solid rgba(0,0,0,0.1)" }}
             >
               🗂
             </div>
-            <p className="text-[#3e5060] text-[13px]" style={monoFont}>
+            <p className="text-[#6b7280] text-[13px] font-medium" style={sansFont}>
               No projects in this category yet.
             </p>
           </div>
@@ -236,32 +237,32 @@ export default function PortfolioSection() {
               </div>
             ))}
 
-            {/* Skeletons while loading more */}
+            {/* Skeletons while loading more - Light Theme */}
             {loadingMore &&
               [...Array(3)].map((_, i) => (
                 <div
                   key={`sk-${i}`}
-                  className="rounded-2xl bg-white/[0.04] border border-white/10 overflow-hidden"
+                  className="rounded-2xl bg-black/[0.04] border border-black/10 overflow-hidden"
                   style={{ height: 340 }}
                 >
-                  <div className="h-full" style={{ animation: "skeletonPulse 1.6s ease-in-out infinite", background: "rgba(255,255,255,0.04)" }} />
+                  <div className="h-full" style={{ animation: "skeletonPulse 1.6s ease-in-out infinite", background: "rgba(0,0,0,0.04)" }} />
                 </div>
               ))}
           </div>
         )}
 
-        {/* ── Load more ── */}
+        {/* ── Load more - Light Theme ── */}
         {hasMore && !loading && (
           <div className="flex justify-center" style={{ opacity: inView ? 1 : 0, transition: "opacity 0.6s ease 0.4s" }}>
             <button
               onClick={loadMore}
               disabled={loadingMore}
-              className="inline-flex items-center gap-3 py-4 px-10 text-white text-[12px] tracking-[0.22em] uppercase transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_44px_rgba(255,77,0,0.5)] disabled:opacity-50 disabled:cursor-not-allowed active:scale-95"
+              className="inline-flex items-center gap-3 py-4 px-10 text-white text-[12px] tracking-[0.22em] uppercase transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_44px_rgba(255,77,0,0.45)] disabled:opacity-50 disabled:cursor-not-allowed active:scale-95 font-semibold"
               style={{
-                ...monoFont,
+                ...sansFont,
                 background: "linear-gradient(135deg,#ff4d00,#ff8c00)",
                 clipPath: "polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px))",
-                boxShadow: "0 8px 32px rgba(255,77,0,0.38)",
+                boxShadow: "0 8px 32px rgba(255,77,0,0.35)",
               }}
             >
               {loadingMore ? "Loading…" : "Load More Projects"}
@@ -272,7 +273,7 @@ export default function PortfolioSection() {
       </div>
 
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap');
         @keyframes portGridDrift { 100% { background-position: 64px 64px; } }
         @keyframes skeletonPulse { 0%,100%{opacity:0.4} 50%{opacity:0.8} }
       `}</style>
@@ -280,7 +281,7 @@ export default function PortfolioSection() {
   );
 }
 
-// ── Project Card ─────────────────────────────────────────────────────────────
+// ── Project Card - Light Theme ─────────────────────────────────────────────────────────────
 function ProjectCard({ project }: { project: Project }) {
   const [hovered, setHovered] = useState(false);
   const imgRef   = useRef<HTMLImageElement>(null);
@@ -340,13 +341,13 @@ function ProjectCard({ project }: { project: Project }) {
 
   return (
     <div
-      className="relative overflow-hidden rounded-2xl border border-white/10 cursor-pointer"
+      className="relative overflow-hidden rounded-2xl border border-black/10 cursor-pointer"
       style={{
         height: 340,
         borderColor: hovered ? project.color : undefined,
         boxShadow: hovered
-          ? `0 0 0 1px ${project.color}, 0 20px 60px rgba(0,0,0,0.5), 0 0 40px ${project.color}18`
-          : "0 8px 30px rgba(0,0,0,0.35)",
+          ? `0 0 0 1px ${project.color}, 0 20px 60px rgba(0,0,0,0.12), 0 0 40px rgba(${project.color.replace("#", "").match(/.{1,2}/g)?.map((hex) => parseInt(hex, 16)).join(",")},0.15)`
+          : "0 8px 30px rgba(0,0,0,0.08)",
         transition: "border-color 0.45s cubic-bezier(0.16,1,0.3,1), box-shadow 0.45s cubic-bezier(0.16,1,0.3,1)",
       }}
       onMouseEnter={() => setHovered(true)}
@@ -364,20 +365,20 @@ function ProjectCard({ project }: { project: Project }) {
         />
       </div>
 
-      {/* Vignette */}
+      {/* Vignette - Light Theme */}
       <div
         className="absolute inset-0 pointer-events-none transition-opacity duration-500"
         style={{
-          background: "linear-gradient(180deg,rgba(5,3,16,0.08) 0%,rgba(5,3,16,0.25) 100%)",
+          background: "linear-gradient(180deg,rgba(250,250,250,0.08) 0%,rgba(250,250,250,0.25) 100%)",
           opacity: hovered ? 0 : 1,
         }}
       />
 
-      {/* Colour glow */}
+      {/* Colour glow - Reduced opacity for light theme */}
       <div
         className="absolute inset-0 pointer-events-none transition-opacity duration-500"
         style={{
-          background: `radial-gradient(ellipse at top,${project.color}16,transparent 65%)`,
+          background: `radial-gradient(ellipse at top,rgba(${project.color.replace("#", "").match(/.{1,2}/g)?.map((hex) => parseInt(hex, 16)).join(",")},0.12),transparent 65%)`,
           opacity: hovered ? 1 : 0,
         }}
       />
@@ -388,14 +389,14 @@ function ProjectCard({ project }: { project: Project }) {
         style={{ background: `linear-gradient(135deg,${project.color},transparent)`, clipPath: "polygon(100% 0,0 0,100% 100%)" }}
       />
 
-      {/* Category badge */}
+      {/* Category badge - Light Theme */}
       <div className="absolute top-4 left-4 z-10">
         <span
-          className="px-3 py-1 text-[8.5px] tracking-[0.22em] uppercase"
+          className="px-3 py-1 text-[8.5px] tracking-[0.22em] uppercase font-medium"
           style={{
-            fontFamily: "'DM Mono','Courier New',monospace",
-            background: "rgba(5,3,16,0.9)",
-            border: `1px solid ${project.color}44`,
+            fontFamily: "'Inter', sans-serif",
+            background: "rgba(255,255,255,0.95)",
+            border: `1px solid ${project.color}55`,
             color: project.color,
           }}
         >
@@ -403,13 +404,13 @@ function ProjectCard({ project }: { project: Project }) {
         </span>
       </div>
 
-      {/* Scroll progress indicator */}
+      {/* Scroll progress indicator - Light Theme */}
       <div
         className="absolute right-3.5 top-1/2 -translate-y-1/2 w-px z-10 transition-opacity duration-400"
         style={{
           height: 50,
           background: `linear-gradient(180deg,${project.color},transparent)`,
-          boxShadow: `0 0 10px ${project.color}`,
+          boxShadow: `0 0 10px rgba(${project.color.replace("#", "").match(/.{1,2}/g)?.map((hex) => parseInt(hex, 16)).join(",")},0.4)`,
           opacity: hovered ? 1 : 0,
         }}
       >

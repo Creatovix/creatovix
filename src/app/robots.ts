@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/api/", "/admin/"], // Block sensitive routes if added later
+      disallow: ["/api/", "/admin/", "/studio/"],
     },
     sitemap: "https://www.creatovix.com/sitemap.xml",
     host: "https://www.creatovix.com",

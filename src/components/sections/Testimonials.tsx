@@ -24,14 +24,15 @@ const STATS = [
 ];
 
 const bebasFont = { fontFamily: "'Bebas Neue','Impact',sans-serif" };
-const monoFont  = { fontFamily: "'DM Mono','Courier New',monospace" };
+// Updated to Inter font
+const sansFont  = { fontFamily: "'Inter', sans-serif" };
 
 function Stars({ color }: { color: string }) {
   return (
     <div className="flex gap-[3px]">
       {[...Array(5)].map((_, i) => (
         <svg key={i} width="12" height="12" viewBox="0 0 24 24" fill={color}
-          style={{ filter: `drop-shadow(0 0 4px ${color}88)` }}>
+          style={{ filter: `drop-shadow(0 0 4px rgba(${color.replace("#", "").match(/.{1,2}/g)?.map((hex) => parseInt(hex, 16)).join(",")},0.55))` }}>
           <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
         </svg>
       ))}
@@ -62,15 +63,15 @@ export default function TestimonialsSection() {
     <section
       ref={ref}
       id="testimonials"
-      className="relative overflow-hidden py-24 xl:py-36"
-      style={{ fontFamily: "'DM Mono','Courier New',monospace", background: "linear-gradient(165deg,#050310 0%,#0a0818 45%,#050310 100%)" }}
+      className="relative overflow-hidden pt-[6vh] pb-[10vh] font-sans"
+      style={{ fontFamily: "'Inter', sans-serif", background: "linear-gradient(165deg,#fafafa 0%,#f5f5f5 45%,#fafafa 100%)" }}
     >
-      {/* ── Backgrounds ── */}
-      <div className="absolute inset-0 pointer-events-none z-0" style={{ backgroundImage: "linear-gradient(rgba(255,77,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,77,0,0.03) 1px,transparent 1px)", backgroundSize: "64px 64px", animation: "testiGridDrift 28s linear infinite" }} />
-      <div className="absolute inset-0 pointer-events-none z-0" style={{ backgroundImage: "repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.02) 3px,rgba(0,0,0,0.02) 4px)" }} />
-      <div className="absolute pointer-events-none rounded-full blur-[110px] z-0 w-[700px] h-[700px] -top-48 -left-48" style={{ background: "radial-gradient(circle,rgba(255,77,0,0.10),transparent 70%)" }} />
-      <div className="absolute pointer-events-none rounded-full blur-[100px] z-0 w-[500px] h-[500px] top-[20%] -right-36" style={{ background: "radial-gradient(circle,rgba(0,200,255,0.07),transparent 70%)" }} />
-      <div className="absolute pointer-events-none rounded-full blur-[100px] z-0 w-[400px] h-[400px] bottom-0 left-[40%]" style={{ background: "radial-gradient(circle,rgba(168,85,247,0.06),transparent 70%)" }} />
+      {/* ── Backgrounds - Light Theme ── */}
+      <div className="absolute inset-0 pointer-events-none z-0" style={{ backgroundImage: "linear-gradient(rgba(0,0,0,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0.04) 1px,transparent 1px)", backgroundSize: "64px 64px", animation: "testiGridDrift 28s linear infinite" }} />
+      <div className="absolute inset-0 pointer-events-none z-0" style={{ backgroundImage: "repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.01) 3px,rgba(0,0,0,0.01) 4px)" }} />
+      <div className="absolute pointer-events-none rounded-full blur-[110px] z-0 w-[700px] h-[700px] -top-48 -left-48" style={{ background: "radial-gradient(circle,rgba(255,77,0,0.05),transparent 70%)" }} />
+      <div className="absolute pointer-events-none rounded-full blur-[100px] z-0 w-[500px] h-[500px] top-[20%] -right-36" style={{ background: "radial-gradient(circle,rgba(0,200,255,0.04),transparent 70%)" }} />
+      <div className="absolute pointer-events-none rounded-full blur-[100px] z-0 w-[400px] h-[400px] bottom-0 left-[40%]" style={{ background: "radial-gradient(circle,rgba(168,85,247,0.04),transparent 70%)" }} />
 
       <div className="max-w-[1600px] mx-auto px-4 md:px-8 xl:px-10 relative z-10 overflow-hidden">
 
@@ -78,21 +79,21 @@ export default function TestimonialsSection() {
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-7 xl:gap-[60px] mb-14 xl:mb-16 items-end">
           <div style={{ opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(40px)", transition: "all 0.8s cubic-bezier(0.16,1,0.3,1)" }}>
             <div className="flex items-center gap-3.5 mb-3.5">
-              <span className="inline-block w-12 h-px bg-[#ff4d00] shadow-[0_0_12px_#ff4d00,0_0_24px_rgba(255,77,0,0.3)]" />
-              <span className="text-[10.5px] tracking-[0.38em] text-[#ff4d00] uppercase" style={monoFont}>Testimonials</span>
+              <span className="inline-block w-12 h-px bg-[#ff4d00] shadow-[0_0_12px_rgba(255,77,0,0.4)]" />
+              <span className="text-[10.5px] tracking-[0.38em] text-[#ff4d00] uppercase font-semibold" style={sansFont}>Testimonials</span>
             </div>
-            <h2 className="leading-none text-white m-0" style={{ ...bebasFont, fontSize: "clamp(40px,5.5vw,64px)", letterSpacing: "0.03em" }}>
+            <h2 className="leading-none text-[#1a1a2e] m-0" style={{ ...bebasFont, fontSize: "clamp(40px,5.5vw,64px)", letterSpacing: "0.03em" }}>
               Client<br />
-              <span style={{ color: "#ff4d00", textShadow: "0 0 50px rgba(255,77,0,0.45)" }}>Success Stories</span>
+              <span style={{ color: "#ff4d00", textShadow: "0 0 35px rgba(255,77,0,0.3)" }}>Success Stories</span>
             </h2>
           </div>
           <div style={{ opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(40px)", transition: "all 0.8s cubic-bezier(0.16,1,0.3,1) 0.1s" }}>
-            <p className="text-[14px] text-white/50 leading-[1.78] mb-6 max-w-[520px]" style={monoFont}>
+            <p className="text-[16px] text-[#4a5568] leading-[1.6] mb-6 max-w-[520px] font-medium" style={sansFont}>
               Real results from real clients. Drag, swipe, or use the controls to explore all stories.
             </p>
-            <div className="flex items-center gap-2.5" style={monoFont}>
-              <span className="w-[7px] h-[7px] rounded-full" style={{ background: "#10d4a0", boxShadow: "0 0 10px #10d4a0", animation: "testiPulse 1.8s ease-in-out infinite" }} />
-              <span className="text-[10.5px] text-white/40 tracking-[0.08em]">Trusted by 150+ brands worldwide</span>
+            <div className="flex items-center gap-2.5" style={sansFont}>
+              <span className="w-[7px] h-[7px] rounded-full" style={{ background: "#10d4a0", boxShadow: "0 0 10px rgba(16,212,160,0.5)", animation: "testiPulse 1.8s ease-in-out infinite" }} />
+              <span className="text-[12px] text-[#6b7280] tracking-[0.08em] font-medium">Trusted by 150+ brands worldwide</span>
             </div>
           </div>
         </div>
@@ -102,18 +103,18 @@ export default function TestimonialsSection() {
           className="relative mb-8"
           style={{ opacity: inView ? 1 : 0, transition: "opacity 0.7s ease 0.2s" }}
         >
-          {/* Left Fade/Blur Edge */}
+          {/* Left Fade/Blur Edge - Light Theme */}
           <div className="absolute -left-20 top-0 bottom-0 w-16 md:w-24 xl:w-32 z-20 pointer-events-none" 
                style={{ 
-                 background: "linear-gradient(90deg, #050310 0%, transparent 100%)",
+                 background: "linear-gradient(90deg, #fafafa 0%, transparent 100%)",
                  backdropFilter: "blur(2px)" 
                }} 
           />
           
-          {/* Right Fade/Blur Edge */}
+          {/* Right Fade/Blur Edge - Light Theme */}
           <div className="absolute -right-20 top-0 bottom-0 w-16 md:w-24 xl:w-32 z-20 pointer-events-none" 
                style={{ 
-                 background: "linear-gradient(270deg, #050310 0%, transparent 100%)",
+                 background: "linear-gradient(270deg, #fafafa 0%, transparent 100%)",
                  backdropFilter: "blur(2px)" 
                }} 
           />
@@ -162,52 +163,52 @@ export default function TestimonialsSection() {
                 style={{
                   width: i === activeIndex ? 28 : 8,
                   height: 3,
-                  background: i === activeIndex ? "#ff4d00" : "rgba(255,255,255,0.18)",
-                  boxShadow: i === activeIndex ? "0 0 8px #ff4d00" : "none",
+                  background: i === activeIndex ? "#ff4d00" : "rgba(0,0,0,0.18)",
+                  boxShadow: i === activeIndex ? "0 0 8px rgba(255,77,0,0.5)" : "none",
                 }}
               />
             ))}
           </div>
 
-          {/* Prev / Next */}
+          {/* Prev / Next - Light Theme */}
           <div className="flex gap-2">
             <button
-              className="testi-prev w-11 h-11 flex items-center justify-center border border-white/10 text-white/60 text-sm bg-transparent cursor-pointer font-mono transition-all duration-300 hover:border-[rgba(255,77,0,0.5)] hover:text-white hover:bg-[rgba(255,77,0,0.09)] active:scale-90"
+              className="testi-prev w-11 h-11 flex items-center justify-center border border-black/10 text-[#4a5568]/60 text-sm bg-transparent cursor-pointer font-sans transition-all duration-300 hover:border-[rgba(255,77,0,0.5)] hover:text-[#1a1a2e] hover:bg-[rgba(255,77,0,0.08)] active:scale-90"
               onClick={() => setProgressKey(k => k + 1)}
             >←</button>
             <button
-              className="testi-next w-11 h-11 flex items-center justify-center border border-white/10 text-white/60 text-sm bg-transparent cursor-pointer font-mono transition-all duration-300 hover:border-[rgba(255,77,0,0.5)] hover:text-white hover:bg-[rgba(255,77,0,0.09)] active:scale-90"
+              className="testi-next w-11 h-11 flex items-center justify-center border border-black/10 text-[#4a5568]/60 text-sm bg-transparent cursor-pointer font-sans transition-all duration-300 hover:border-[rgba(255,77,0,0.5)] hover:text-[#1a1a2e] hover:bg-[rgba(255,77,0,0.08)] active:scale-90"
               onClick={() => setProgressKey(k => k + 1)}
             >→</button>
           </div>
         </div>
 
-        {/* ── Progress bar ── */}
+        {/* ── Progress bar - Light Theme ── */}
         <div
-          className="h-[2px] bg-white/[0.06] overflow-hidden rounded-full mb-12 xl:mb-14"
+          className="h-[2px] bg-black/[0.08] overflow-hidden rounded-full mb-12 xl:mb-14"
           style={{ opacity: inView ? 1 : 0, transition: "opacity 0.7s ease 0.35s" }}
         >
           <div
             key={progressKey}
             className="h-full rounded-full bg-gradient-to-r from-[#ff4d00] to-[#ff8c00]"
-            style={{ boxShadow: "0 0 8px rgba(255,77,0,0.8)", animation: "testiProgress 6s linear forwards" }}
+            style={{ boxShadow: "0 0 8px rgba(255,77,0,0.5)", animation: "testiProgress 6s linear forwards" }}
           />
         </div>
 
-        {/* ── Stats strip ── */}
+        {/* ── Stats strip - Light Theme ── */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 xl:gap-4">
           {STATS.map((s, i) => (
             <div key={i}
-              className="relative overflow-hidden flex items-center gap-4 px-5 py-4 border border-white/10 bg-gradient-to-br from-white/[0.06] to-white/[0.02] transition-all duration-300 hover:-translate-y-0.5"
+              className="relative overflow-hidden flex items-center gap-4 px-5 py-4 border border-black/10 bg-gradient-to-br from-white to-[#fafafa] transition-all duration-300 hover:-translate-y-0.5"
               style={{
                 opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(20px)",
                 transition: `all 0.7s cubic-bezier(0.16,1,0.3,1) ${0.5 + i * 0.08}s`,
-                boxShadow: "0 4px 20px rgba(0,0,0,0.28)", borderRadius: 12,
+                boxShadow: "0 4px 20px rgba(0,0,0,0.08)", borderRadius: 12,
               }}>
-              <div className="absolute left-0 top-0 bottom-0 w-[3px] rounded-r-sm" style={{ background: s.color, boxShadow: `0 0 8px ${s.color}` }} />
+              <div className="absolute left-0 top-0 bottom-0 w-[3px] rounded-r-sm" style={{ background: s.color, boxShadow: `0 0 8px rgba(${s.color.replace("#", "").match(/.{1,2}/g)?.map((hex) => parseInt(hex, 16)).join(",")},0.4)` }} />
               <div>
-                <div style={{ ...bebasFont, fontSize: 30, color: s.color, lineHeight: 1, textShadow: `0 0 20px ${s.color}44` }}>{s.value}</div>
-                <div className="text-[9px] tracking-[0.22em] text-white/38 uppercase mt-0.5" style={monoFont}>{s.label}</div>
+                <div style={{ ...bebasFont, fontSize: 30, color: s.color, lineHeight: 1, textShadow: `0 0 20px rgba(${s.color.replace("#", "").match(/.{1,2}/g)?.map((hex) => parseInt(hex, 16)).join(",")},0.25)` }}>{s.value}</div>
+                <div className="text-[9px] tracking-[0.22em] text-[#6b7280] uppercase mt-0.5 font-medium" style={sansFont}>{s.label}</div>
               </div>
             </div>
           ))}
@@ -215,12 +216,12 @@ export default function TestimonialsSection() {
       </div>
 
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap');
         @keyframes testiGridDrift { 100% { background-position: 64px 64px; } }
         @keyframes testiPulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.6)} }
         @keyframes testiProgress { from{width:0%} to{width:100%} }
         .swiper { overflow: visible !important; }
-        .swiper-slide { transition: opacity 0.3s ease, transform 0.3s ease; opacity: 0.75; transform: scale(0.96); }
+        .swiper-slide { transition: opacity 0.3s ease, transform 0.3s ease; opacity: 0.8; transform: scale(0.96); }
         .swiper-slide-active { opacity: 1; transform: scale(1); }
         @media (prefers-reduced-motion: reduce) {
           [style*="testiGridDrift"] { animation: none !important; }
@@ -230,7 +231,7 @@ export default function TestimonialsSection() {
   );
 }
 
-// ── Card ───────────────────────────────────────────────
+// ── Card - Light Theme ───────────────────────────────────────────────
 function TestiCard({ t, isActive }: { t: typeof TESTIMONIALS[0]; isActive?: boolean }) {
   const [hovered, setHovered] = useState(false);
   const isInteractive = hovered || isActive;
@@ -242,49 +243,49 @@ function TestiCard({ t, isActive }: { t: typeof TESTIMONIALS[0]; isActive?: bool
       style={{
         borderRadius: 16,
         background: isInteractive
-          ? `linear-gradient(135deg,${t.color}12,rgba(255,255,255,0.04))`
-          : "linear-gradient(135deg,rgba(255,255,255,0.07),rgba(255,255,255,0.03))",
-        borderColor: isInteractive ? `${t.color}55` : "rgba(255,255,255,0.09)",
+          ? `linear-gradient(135deg,rgba(${t.color.replace("#", "").match(/.{1,2}/g)?.map((hex) => parseInt(hex, 16)).join(",")},0.08),rgba(255,255,255,0.98))`
+          : "linear-gradient(135deg,rgba(0,0,0,0.04),rgba(0,0,0,0.02))",
+        borderColor: isInteractive ? `rgba(${t.color.replace("#", "").match(/.{1,2}/g)?.map((hex) => parseInt(hex, 16)).join(",")},0.55)` : "rgba(0,0,0,0.12)",
         boxShadow: isInteractive
-          ? `0 0 0 1px ${t.color}, 0 16px 50px rgba(0,0,0,0.45), 0 0 35px ${t.color}18`
-          : "0 6px 28px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06)",
+          ? `0 0 0 1px ${t.color}, 0 16px 50px rgba(0,0,0,0.12), 0 0 35px rgba(${t.color.replace("#", "").match(/.{1,2}/g)?.map((hex) => parseInt(hex, 16)).join(",")},0.15)`
+          : "0 6px 28px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.9)",
         cursor: "default",
       }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
       {/* Corner accent */}
-      <div className="absolute top-0 right-0 w-14 h-14 opacity-50 pointer-events-none"
+      <div className="absolute top-0 right-0 w-14 h-14 opacity-55 pointer-events-none"
         style={{ background: `linear-gradient(135deg,${t.color},transparent)`, clipPath: "polygon(100% 0,0 0,100% 100%)" }} />
 
       <div className="p-5 flex flex-col gap-4 flex-1">
         {/* Open quote */}
-        <div style={{ color: t.color, opacity: 0.25, lineHeight: 1, fontSize: 40, fontFamily: "Georgia,serif", marginBottom: -8 }}>"</div>
+        <div style={{ color: t.color, opacity: 0.2, lineHeight: 1, fontSize: 40, fontFamily: "Georgia,serif", marginBottom: -8 }}>"</div>
 
-        {/* Quote text */}
-        <p className="text-[13px] text-[#b8c8de] leading-[1.72] m-0 flex-1" style={monoFont}>
+        {/* Quote text - Light Theme */}
+        <p className="text-[15px] text-[#4a5568] leading-[1.6] m-0 flex-1 font-medium" style={sansFont}>
           {t.quote}
         </p>
 
         {/* Stars */}
         <Stars color={t.color} />
 
-        {/* Divider */}
-        <div className="h-px w-full" style={{ background: `linear-gradient(90deg,${t.color}33,transparent)` }} />
+        {/* Divider - Light Theme */}
+        <div className="h-px w-full" style={{ background: `linear-gradient(90deg,rgba(${t.color.replace("#", "").match(/.{1,2}/g)?.map((hex) => parseInt(hex, 16)).join(",")},0.33),transparent)` }} />
 
         {/* Person row */}
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 rounded-full overflow-hidden flex-shrink-0"
-            style={{ border: `2px solid ${t.color}`, boxShadow: `0 0 10px ${t.color}44` }}>
+            style={{ border: `2px solid ${t.color}`, boxShadow: `0 0 10px rgba(${t.color.replace("#", "").match(/.{1,2}/g)?.map((hex) => parseInt(hex, 16)).join(",")},0.35)` }}>
             <img src={t.image} alt={t.name} className="w-full h-full object-cover" loading="lazy" />
           </div>
           <div className="min-w-0">
-            <div style={{ ...bebasFont, fontSize: 16, color: "#fff", letterSpacing: "0.04em", lineHeight: 1 }}>{t.name}</div>
-            <div className="text-[10px] text-[#6e8098] mt-0.5 truncate" style={monoFont}>{t.role} · {t.company}</div>
+            <div style={{ ...bebasFont, fontSize: 16, color: "#1a1a2e", letterSpacing: "0.04em", lineHeight: 1 }}>{t.name}</div>
+            <div className="text-[10px] text-[#6b7280] mt-0.5 truncate font-medium" style={sansFont}>{t.role} · {t.company}</div>
           </div>
           <div className="ml-auto flex-shrink-0">
-            <span className="px-2 py-1 text-[8px] tracking-[0.18em] uppercase whitespace-nowrap"
-              style={{ ...monoFont, background: `${t.color}18`, border: `1px solid ${t.color}44`, color: t.color, borderRadius: 6 }}>
+            <span className="px-2 py-1 text-[8px] tracking-[0.18em] uppercase whitespace-nowrap font-semibold"
+              style={{ ...sansFont, background: `rgba(${t.color.replace("#", "").match(/.{1,2}/g)?.map((hex) => parseInt(hex, 16)).join(",")},0.12)`, border: `1px solid rgba(${t.color.replace("#", "").match(/.{1,2}/g)?.map((hex) => parseInt(hex, 16)).join(",")},0.44)`, color: t.color, borderRadius: 6 }}>
               {t.project.split(" ").slice(0, 2).join(" ")}
             </span>
           </div>

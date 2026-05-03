@@ -116,7 +116,8 @@ const SERVICES = [
 ];
 
 const bebasFont = { fontFamily: "'Bebas Neue','Impact',sans-serif" };
-const monoFont = { fontFamily: "'DM Mono','Courier New',monospace" };
+// Updated to Inter font
+const sansFont = { fontFamily: "'Inter', sans-serif" };
 
 function useInView(threshold = 0.08) {
   const ref = useRef<HTMLElement>(null);
@@ -148,19 +149,19 @@ export default function ServicesSection() {
     <section
       ref={ref}
       id="services"
-      className="relative overflow-hidden pt-[6vh] md:pb-[14vh] pb-[8vh]"
+      className="relative overflow-hidden pt-[6vh] md:pb-[14vh] pb-[8vh] font-sans"
       style={{
-        fontFamily: "'DM Mono','Courier New',monospace",
+        fontFamily: "'Inter', sans-serif",
         background:
-          "linear-gradient(165deg,#050310 0%,#0a0818 45%,#050310 100%)",
+          "linear-gradient(165deg,#fafafa 0%,#f5f5f5 45%,#fafafa 100%)",
       }}
     >
-      {/* Backgrounds */}
+      {/* Backgrounds - Light Theme */}
       <div
         className="absolute inset-0 pointer-events-none z-0"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(255,77,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,77,0,0.03) 1px,transparent 1px)",
+            "linear-gradient(rgba(0,0,0,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0.04) 1px,transparent 1px)",
           backgroundSize: "64px 64px",
           animation: "servGridDrift 28s linear infinite",
         }}
@@ -169,20 +170,20 @@ export default function ServicesSection() {
         className="absolute inset-0 pointer-events-none z-0"
         style={{
           backgroundImage:
-            "repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.02) 3px,rgba(0,0,0,0.02) 4px)",
+            "repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.01) 3px,rgba(0,0,0,0.01) 4px)",
         }}
       />
       <div
         className="absolute pointer-events-none rounded-full blur-[110px] z-0 w-[800px] h-[800px] -top-48 -left-48"
         style={{
           background:
-            "radial-gradient(circle,rgba(255,77,0,0.10),transparent 70%)",
+            "radial-gradient(circle,rgba(255,77,0,0.06),transparent 70%)",
         }}
       />
       <div
         className="absolute pointer-events-none rounded-full blur-[100px] z-0 w-[600px] h-[600px] top-[40%] -right-36"
         style={{
-          background: `radial-gradient(circle,${active.accent}14,transparent 70%)`,
+          background: `radial-gradient(circle,${active.accent}0f,transparent 70%)`,
           transition: "all 0.8s ease",
         }}
       />
@@ -190,7 +191,7 @@ export default function ServicesSection() {
         className="absolute pointer-events-none rounded-full blur-[100px] z-0 w-[500px] h-[500px] -bottom-24 left-[25%]"
         style={{
           background:
-            "radial-gradient(circle,rgba(168,85,247,0.07),transparent 70%)",
+            "radial-gradient(circle,rgba(168,85,247,0.04),transparent 70%)",
         }}
       />
 
@@ -205,16 +206,16 @@ export default function ServicesSection() {
             }}
           >
             <div className="flex items-center gap-3.5 mb-3.5">
-              <span className="inline-block w-12 h-px bg-[#ff4d00] shadow-[0_0_12px_#ff4d00,0_0_24px_rgba(255,77,0,0.3)]" />
+              <span className="inline-block w-12 h-px bg-[#ff4d00] shadow-[0_0_12px_rgba(255,77,0,0.4)]" />
               <span
-                className="text-[10.5px] tracking-[0.38em] text-[#ff4d00] uppercase"
-                style={monoFont}
+                className="text-[10.5px] tracking-[0.38em] text-[#ff4d00] uppercase font-semibold"
+                style={sansFont}
               >
                 What We Do
               </span>
             </div>
             <h2
-              className="leading-none text-white m-0"
+              className="leading-none text-[#1a1a2e] m-0"
               style={{
                 ...bebasFont,
                 fontSize: "clamp(40px,5.5vw,64px)",
@@ -226,7 +227,7 @@ export default function ServicesSection() {
               <span
                 style={{
                   color: "#ff4d00",
-                  textShadow: "0 0 50px rgba(255,77,0,0.45)",
+                  textShadow: "0 0 35px rgba(255,77,0,0.3)",
                 }}
               >
                 Your Business Grow
@@ -241,8 +242,8 @@ export default function ServicesSection() {
             }}
           >
             <p
-              className="text-[15px] text-[#a8b4cc] leading-[1.78] mb-6 max-w-[520px]"
-              style={monoFont}
+              className="text-[16px] text-[#4a5568] leading-[1.78] mb-6 max-w-[520px] font-medium"
+              style={sansFont}
             >
               Every service is built around one goal: real, measurable results
               for your business. We solve problems, craft solutions, and deliver
@@ -253,13 +254,13 @@ export default function ServicesSection() {
                 className="w-[7px] h-[7px] rounded-full"
                 style={{
                   background: "#10d4a0",
-                  boxShadow: "0 0 10px #10d4a0",
+                  boxShadow: "0 0 10px rgba(16,212,160,0.5)",
                   animation: "servPulse 1.8s ease-in-out infinite",
                 }}
               />
               <span
-                className="text-[10.5px] text-[#7688a0] tracking-[0.08em]"
-                style={monoFont}
+                className="text-[12px] text-[#6b7280] tracking-[0.08em] font-medium"
+                style={sansFont}
               >
                 5 core services · end-to-end delivery
               </span>
@@ -287,14 +288,14 @@ export default function ServicesSection() {
                   className="relative flex items-center gap-4 px-5 py-4 text-left bg-transparent border cursor-pointer transition-all duration-350 group overflow-hidden"
                   style={{
                     borderColor: isActive
-                      ? `${s.accent}55`
-                      : "rgba(255,255,255,0.08)",
+                      ? `${s.accent}66`
+                      : "rgba(0,0,0,0.12)",
                     background: isActive
-                      ? `linear-gradient(135deg,${s.accent}12,rgba(255,255,255,0.02))`
-                      : "rgba(255,255,255,0.025)",
+                      ? `linear-gradient(135deg,${s.accent}14,rgba(0,0,0,0.02))`
+                      : "rgba(0,0,0,0.03)",
                     borderRadius: 14,
                     boxShadow: isActive
-                      ? `0 4px 24px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.06)`
+                      ? `0 4px 24px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.9)`
                       : "none",
                   }}
                 >
@@ -303,7 +304,7 @@ export default function ServicesSection() {
                     className="absolute left-0 top-0 bottom-0 w-[3px] rounded-r-sm transition-all duration-350"
                     style={{
                       background: isActive ? s.accent : "transparent",
-                      boxShadow: isActive ? `0 0 10px ${s.accent}` : "none",
+                      boxShadow: isActive ? `0 0 10px rgba(${s.accentRgb},0.4)` : "none",
                     }}
                   />
 
@@ -312,11 +313,11 @@ export default function ServicesSection() {
                     className="w-10 h-10 rounded-xl flex items-center justify-center text-lg flex-shrink-0 transition-all duration-300"
                     style={{
                       background: isActive
-                        ? `${s.accent}20`
-                        : "rgba(255,255,255,0.04)",
-                      border: `1px solid ${isActive ? s.accent + "55" : "rgba(255,255,255,0.1)"}`,
-                      color: isActive ? s.accent : "rgba(255,255,255,0.4)",
-                      boxShadow: isActive ? `0 0 16px ${s.accent}33` : "none",
+                        ? `${s.accent}18`
+                        : "rgba(0,0,0,0.04)",
+                      border: `1px solid ${isActive ? s.accent + "66" : "rgba(0,0,0,0.12)"}`,
+                      color: isActive ? s.accent : "rgba(26,26,46,0.4)",
+                      boxShadow: isActive ? `0 0 16px rgba(${s.accentRgb},0.2)` : "none",
                     }}
                   >
                     {s.icon}
@@ -327,11 +328,12 @@ export default function ServicesSection() {
                     <div className="flex items-center gap-2 mb-0.5">
                       <span
                         style={{
-                          ...monoFont,
+                          ...sansFont,
                           fontSize: 9,
-                          color: isActive ? s.accent : "#6e8098",
+                          color: isActive ? s.accent : "#6b7280",
                           letterSpacing: "0.28em",
                           textTransform: "uppercase",
+                          fontWeight: 600,
                         }}
                       >
                         {s.number}
@@ -341,7 +343,7 @@ export default function ServicesSection() {
                       style={{
                         ...bebasFont,
                         fontSize: 19,
-                        color: isActive ? "#fff" : "rgba(255,255,255,0.55)",
+                        color: isActive ? "#1a1a2e" : "rgba(26,26,46,0.55)",
                         letterSpacing: "0.03em",
                         lineHeight: 1,
                         transition: "color 0.3s",
@@ -350,10 +352,10 @@ export default function ServicesSection() {
                       {s.title}
                     </div>
                     <div
-                      className="text-[10px] text-[#5e6e84] mt-0.5 transition-colors duration-300"
+                      className="text-[10px] text-[#6b7280] mt-0.5 transition-colors duration-300 font-medium"
                       style={{
-                        ...monoFont,
-                        color: isActive ? "rgba(255,255,255,0.5)" : undefined,
+                        ...sansFont,
+                        color: isActive ? "rgba(26,26,46,0.6)" : undefined,
                       }}
                     >
                       {s.tagline}
@@ -364,7 +366,7 @@ export default function ServicesSection() {
                   <span
                     className="text-[12px] transition-all duration-300 flex-shrink-0"
                     style={{
-                      color: isActive ? s.accent : "#697a90",
+                      color: isActive ? s.accent : "#9ca3af",
                       transform: isActive ? "translateX(2px)" : "translateX(0)",
                     }}
                   >
@@ -378,10 +380,10 @@ export default function ServicesSection() {
           {/* ── Right: active service detail ── */}
           <div
             key={activeId}
-            className="relative overflow-hidden rounded-2xl border bg-gradient-to-br from-white/[0.07] to-white/[0.03]"
+            className="relative overflow-hidden rounded-2xl border bg-gradient-to-br from-white to-[#fafafa]"
             style={{
-              borderColor: `${active.accent}33`,
-              boxShadow: `0 20px 60px rgba(0,0,0,0.4), 0 0 50px ${active.accent}10, inset 0 1px 0 rgba(255,255,255,0.06)`,
+              borderColor: `${active.accent}44`,
+              boxShadow: `0 20px 60px rgba(0,0,0,0.08), 0 0 50px rgba(${active.accentRgb},0.08), inset 0 1px 0 rgba(255,255,255,0.9)`,
               animation: "servFadeIn 0.42s cubic-bezier(0.16,1,0.3,1) both",
               opacity: inView ? 1 : 0,
               transition: "opacity 0.8s cubic-bezier(0.16,1,0.3,1) 0.25s",
@@ -389,7 +391,7 @@ export default function ServicesSection() {
           >
             {/* Corner accent */}
             <div
-              className="absolute top-0 right-0 w-28 h-28 opacity-45 pointer-events-none"
+              className="absolute top-0 right-0 w-28 h-28 opacity-55 pointer-events-none"
               style={{
                 background: `linear-gradient(135deg,${active.accent},transparent)`,
                 clipPath: "polygon(100% 0,0 0,100% 100%)",
@@ -399,7 +401,7 @@ export default function ServicesSection() {
             <div
               className="absolute inset-0 pointer-events-none"
               style={{
-                background: `radial-gradient(ellipse at top right,${active.accent}0e,transparent 60%)`,
+                background: `radial-gradient(ellipse at top right,rgba(${active.accentRgb},0.05),transparent 60%)`,
               }}
             />
             {/* Ghost number */}
@@ -408,7 +410,7 @@ export default function ServicesSection() {
               style={{
                 ...bebasFont,
                 fontSize: 110,
-                color: `${active.accent}06`,
+                color: `rgba(${active.accentRgb},0.05)`,
                 lineHeight: 1,
                 letterSpacing: "0.04em",
               }}
@@ -425,12 +427,12 @@ export default function ServicesSection() {
                       className="inline-block w-6 h-px"
                       style={{
                         background: active.accent,
-                        boxShadow: `0 0 8px ${active.accent}`,
+                        boxShadow: `0 0 8px rgba(${active.accentRgb},0.4)`,
                       }}
                     />
                     <span
-                      className="text-[9.5px] tracking-[0.32em] uppercase"
-                      style={{ ...monoFont, color: active.accent }}
+                      className="text-[9.5px] tracking-[0.32em] uppercase font-semibold"
+                      style={{ ...sansFont, color: active.accent }}
                     >
                       {active.number} — {active.tagline}
                     </span>
@@ -439,7 +441,7 @@ export default function ServicesSection() {
                     style={{
                       ...bebasFont,
                       fontSize: "clamp(34px,4vw,52px)",
-                      color: "#fff",
+                      color: "#1a1a2e",
                       letterSpacing: "0.03em",
                       lineHeight: 1,
                       margin: 0,
@@ -451,10 +453,10 @@ export default function ServicesSection() {
                 <div
                   className="w-14 h-14 xl:w-16 xl:h-16 rounded-2xl flex items-center justify-center text-2xl xl:text-3xl flex-shrink-0"
                   style={{
-                    background: `${active.accent}1e`,
-                    border: `1px solid ${active.accent}44`,
+                    background: `rgba(${active.accentRgb},0.12)`,
+                    border: `1px solid rgba(${active.accentRgb},0.44)`,
                     color: active.accent,
-                    boxShadow: `0 0 24px ${active.accent}28`,
+                    boxShadow: `0 0 24px rgba(${active.accentRgb},0.2)`,
                   }}
                 >
                   {active.icon}
@@ -485,17 +487,21 @@ export default function ServicesSection() {
                 ].map((item, i) => (
                   <div
                     key={i}
-                    className="flex flex-col gap-3 p-4 rounded-xl border bg-white/[0.04]"
+                    className="flex flex-col gap-3 p-4 rounded-xl border bg-white"
                     style={{
-                      borderColor: `${item.accent}28`,
-                      boxShadow: `inset 0 1px 0 rgba(255,255,255,0.04)`,
+                      borderColor: `rgba(${item.accent === active.accent ? active.accentRgb : item.accent === "#ef4444" ? "239,68,68" : "16,212,160"},0.3)`,
+                      boxShadow: `inset 0 1px 0 rgba(255,255,255,0.9)`,
                     }}
                   >
                     <div className="flex items-center gap-2">
                       <div
                         className="w-6 h-6 rounded-lg flex items-center justify-center text-[12.5px] font-bold flex-shrink-0"
                         style={{
-                          background: `${item.accent}20`,
+                          background: item.accent === active.accent 
+                            ? `rgba(${active.accentRgb},0.15)` 
+                            : item.accent === "#ef4444" 
+                              ? "rgba(239,68,68,0.12)" 
+                              : "rgba(16,212,160,0.12)",
                           border: `1px solid ${item.accent}44`,
                           color: item.accent,
                         }}
@@ -504,14 +510,14 @@ export default function ServicesSection() {
                       </div>
                       <span
                         className="text-[9px] tracking-[0.28em] uppercase font-semibold"
-                        style={{ ...monoFont, color: item.accent }}
+                        style={{ ...sansFont, color: item.accent }}
                       >
                         {item.label}
                       </span>
                     </div>
                     <p
-                      className="text-[13.5px] text-[#9eb0c8] leading-[1.7] m-0"
-                      style={monoFont}
+                      className="text-[13.5px] text-[#4a5568] leading-[1.7] m-0 font-medium"
+                      style={sansFont}
                     >
                       {item.text}
                     </p>
@@ -522,8 +528,8 @@ export default function ServicesSection() {
               {/* Features */}
               <div className="mb-8">
                 <span
-                  className="text-[9px] tracking-[0.3em] text-[#5e6e84] uppercase block mb-3"
-                  style={monoFont}
+                  className="text-[9px] tracking-[0.3em] text-[#6b7280] uppercase block mb-3 font-semibold"
+                  style={sansFont}
                 >
                   What's included
                 </span>
@@ -531,18 +537,18 @@ export default function ServicesSection() {
                   {active.features.map((f, i) => (
                     <div
                       key={i}
-                      className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-white/[0.05] border border-white/10"
+                      className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-white border border-black/10"
                     >
                       <span
                         className="w-[5px] h-[5px] rounded-full flex-shrink-0"
                         style={{
                           background: active.accent,
-                          boxShadow: `0 0 6px ${active.accent}`,
+                          boxShadow: `0 0 6px rgba(${active.accentRgb},0.4)`,
                         }}
                       />
                       <span
-                        className="text-[13px] text-[#b0bdd0]"
-                        style={monoFont}
+                        className="text-[13px] text-[#4a5568] font-medium"
+                        style={sansFont}
                       >
                         {f}
                       </span>
@@ -554,14 +560,14 @@ export default function ServicesSection() {
               {/* CTA */}
               <div className="flex items-center gap-4 flex-wrap">
                 <a
-                  href={`/services/${active.slug}`} // Changed from "#contact"
-                  className="inline-flex items-center gap-2.5 py-3 px-7 text-white text-[12.5px] tracking-[0.22em] uppercase no-underline transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_36px_rgba(255,77,0,0.5)] active:scale-95"
+                  href={`/services/${active.slug}`}
+                  className="inline-flex items-center gap-2.5 py-3 px-7 text-white text-[12.5px] tracking-[0.22em] uppercase no-underline transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_36px_rgba(255,77,0,0.35)] active:scale-95 font-semibold"
                   style={{
-                    ...monoFont,
+                    ...sansFont,
                     background: `linear-gradient(135deg,${active.accent},${active.accent}cc)`,
                     clipPath:
                       "polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px))",
-                    boxShadow: `0 6px 24px ${active.accent}44`,
+                    boxShadow: `0 6px 24px rgba(${active.accentRgb},0.35)`,
                   }}
                 >
                   Learn More <span>→</span>
@@ -582,17 +588,17 @@ export default function ServicesSection() {
           {SERVICES.map((s) => (
             <Link
               key={s.id}
-              href={`/services/${s.slug}`} // Changed from button to Link
-              className="px-4 py-2 rounded-full text-[10px] tracking-[0.2em] uppercase border transition-all duration-300"
+              href={`/services/${s.slug}`}
+              className="px-4 py-2 rounded-full text-[10px] tracking-[0.2em] uppercase border transition-all duration-300 font-semibold"
               style={{
-                ...monoFont,
+                ...sansFont,
                 background:
-                  activeId === s.id ? s.accent : "rgba(255,255,255,0.04)",
-                color: activeId === s.id ? "#fff" : "rgba(255,255,255,0.45)",
+                  activeId === s.id ? s.accent : "rgba(0,0,0,0.04)",
+                color: activeId === s.id ? "#fff" : "rgba(26,26,46,0.6)",
                 borderColor:
-                  activeId === s.id ? s.accent : "rgba(255,255,255,0.1)",
+                  activeId === s.id ? s.accent : "rgba(0,0,0,0.15)",
                 boxShadow:
-                  activeId === s.id ? `0 0 16px ${s.accent}44` : "none",
+                  activeId === s.id ? `0 0 16px rgba(${s.accentRgb},0.35)` : "none",
               }}
             >
               {s.title}
@@ -602,7 +608,7 @@ export default function ServicesSection() {
       </div>
 
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap');
         @keyframes servGridDrift { 100% { background-position: 64px 64px; } }
         @keyframes servPulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.6)} }
         @keyframes servFadeIn { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }

@@ -1,103 +1,87 @@
 "use client";
 import { useEffect, useRef, useState, useCallback } from "react";
 
-// For tailwind animation injection
-const bebassFont =
-  "font-['Bebas_Neue',sans-serif]"; // Not all tailwind configs have this, but you can add! Use as needed.
-
 const SLIDES = [
-  // ...unchanged (all slide objects)
   {
     id: 0,
-    tagline: "WEB DESIGN",
-    headline: ["PIXELS THAT", "SPEAK LOUDER"],
-    sub: "Crafting digital experiences that captivate, convert, and leave a lasting impression.",
-    accent: "#ff4d00",
-    accentRgb: "255,77,0",
+    index: "01",
+    tagline: "Professional Web Design Services",
+    headline: ["AWARD-WINNING", "WEB DESIGN", "SERVICES"],
+    sub: "Custom website design that ranks on Google, converts visitors into clients, and builds lasting brand trust. Responsive, fast, and built for results.",
+    accent: "#E8380D",
+    accentLight: "#fff0ec",
     image: "/web-design.webp",
-    stat: { value: "150+", label: "Projects Delivered" },
-    badges: [
-      { icon: "⭐", text: "4.9/5 Rating" },
-      { icon: "🚀", text: "Free Consult" },
-      { icon: "⚡", text: "24h Response" },
-    ],
-    tags: ["UI/UX", "Figma", "Webflow", "Responsive"],
+    stat: { value: "150+", label: "Websites Designed" },
+    tags: ["Custom Web Design", "UI/UX Design", "Responsive Design", "Webflow"],
+    badges: [{ icon: "⭐", text: "4.9/5 Rating" }, { icon: "🚀", text: "Free Consultation" }, { icon: "⚡", text: "Fast Delivery" }],
   },
   {
     id: 1,
-    tagline: "GRAPHIC DESIGN",
-    headline: ["VISUALS THAT", "DEFY GRAVITY"],
-    sub: "Brand identities and visual systems that make your audience stop scrolling instantly.",
-    accent: "#00c8ff",
-    accentRgb: "0,200,255",
+    index: "02",
+    tagline: "Brand Identity & Graphic Design",
+    headline: ["PROFESSIONAL", "GRAPHIC DESIGN", "& BRANDING"],
+    sub: "Strategic brand identity design, logo design, and visual systems that make your business instantly recognizable and trusted by your target audience.",
+    accent: "#E8380D",
+    accentLight: "#fff0ec",
     image: "/graphic-design.webp",
     stat: { value: "98%", label: "Client Satisfaction" },
-    badges: [
-      { icon: "🎨", text: "Award-Winning" },
-      { icon: "🔄", text: "Free Revisions" },
-      { icon: "📦", text: "Brand Guide" },
-    ],
-    tags: ["Branding", "Illustration", "Motion", "Print"],
+    tags: ["Logo Design", "Brand Identity", "Visual Design", "Print Design"],
+    badges: [{ icon: "🎨", text: "Award-Winning" }, { icon: "🔄", text: "Unlimited Revisions" }, { icon: "📦", text: "Full Brand Guide" }],
   },
   {
     id: 2,
-    tagline: "WEB DEVELOPMENT",
-    headline: ["CODE THAT", "POWERS DREAMS"],
-    sub: "Blazing-fast, scalable web applications built with modern tech stacks and clean architecture.",
-    accent: "#a855f7",
-    accentRgb: "168,85,247",
+    index: "03",
+    tagline: "Custom Web Development Agency",
+    headline: ["CUSTOM WEB", "DEVELOPMENT", "SOLUTIONS"],
+    sub: "Expert web development using React, Next.js, and Node.js. We build fast-loading, SEO-optimized, scalable web applications tailored to your business needs.",
+    accent: "#E8380D",
+    accentLight: "#fff0ec",
     image: "/web-dev.webp",
     stat: { value: "99.9%", label: "Uptime Guarantee" },
-    badges: [
-      { icon: "🔒", text: "Secure & Fast" },
-      { icon: "⚙️", text: "Modern Stack" },
-      { icon: "📱", text: "Mobile-First" },
-    ],
-    tags: ["React", "Next.js", "Node.js", "TypeScript"],
+    tags: ["React Development", "Next.js", "Node.js", "TypeScript"],
+    badges: [{ icon: "🔒", text: "Secure & Fast" }, { icon: "⚙️", text: "Clean Code" }, { icon: "📱", text: "Mobile-First" }],
   },
   {
     id: 3,
-    tagline: "FULL STACK",
-    headline: ["END-TO-END", "EXCELLENCE"],
-    sub: "From database architecture to pixel-perfect UIs — we handle the entire digital stack.",
-    accent: "#10d4a0",
-    accentRgb: "16,212,160",
+    index: "04",
+    tagline: "Full Stack Development Services",
+    headline: ["FULL STACK", "DEVELOPMENT", "EXPERTS"],
+    sub: "End-to-end full stack development services — from database architecture to pixel-perfect front-end. One team, complete digital solutions, faster time to market.",
+    accent: "#E8380D",
+    accentLight: "#fff0ec",
     image: "/full-stack.webp",
-    stat: { value: "5x", label: "Faster Delivery" },
-    badges: [
-      { icon: "🗄️", text: "DB Expertise" },
-      { icon: "🔗", text: "API Pro" },
-      { icon: "🛡️", text: "99.9% Uptime" },
-    ],
-    tags: ["PostgreSQL", "AWS", "Docker", "CI/CD"],
+    stat: { value: "5×", label: "Faster Time to Market" },
+    tags: ["Full Stack Dev", "REST APIs", "Cloud Hosting", "CI/CD"],
+    badges: [{ icon: "🗄️", text: "Database Expert" }, { icon: "🔗", text: "API Integration" }, { icon: "🛡️", text: "99.9% Uptime" }],
   },
   {
     id: 4,
-    tagline: "SHOPIFY",
-    headline: ["STORES BUILT", "TO SELL MORE"],
-    sub: "Custom Shopify themes and apps that transform browsers into loyal, repeat buyers.",
-    accent: "#f59e0b",
-    accentRgb: "245,158,11",
+    index: "05",
+    tagline: "Shopify Development & eCommerce",
+    headline: ["SHOPIFY STORE", "DEVELOPMENT", "& DESIGN"],
+    sub: "Expert Shopify development and custom theme design that increases conversions, reduces bounce rates, and turns your online store into a revenue-generating machine.",
+    accent: "#E8380D",
+    accentLight: "#fff0ec",
     image: "/shopify.webp",
-    stat: { value: "3x", label: "Average ROI Boost" },
-    badges: [
-      { icon: "💰", text: "3x ROI" },
-      { icon: "🛒", text: "Conversion-First" },
-      { icon: "📈", text: "Analytics" },
-    ],
-    tags: ["Liquid", "Shopify+", "Klaviyo", "Analytics"],
+    stat: { value: "3×", label: "Average Revenue Increase" },
+    tags: ["Shopify Development", "eCommerce Design", "Shopify Plus"],
+    badges: [{ icon: "💰", text: "3× Revenue" }, { icon: "🛒", text: "CRO Optimized" }, { icon: "📈", text: "Sales Analytics" }],
   },
 ];
 
+function hexToRgb(hex: string): string {
+  const r = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return r ? `${parseInt(r[1], 16)},${parseInt(r[2], 16)},${parseInt(r[3], 16)}` : "0,0,0";
+}
+
 export default function Hero() {
   const [current, setCurrent] = useState(0);
-  const [transitioning, setTransitioning] = useState(false);
-  const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
-  const [mounted, setMounted] = useState(false);
+  const [prevIdx, setPrevIdx] = useState<number | null>(null);
+  const [animating, setAnimating] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [mounted, setMounted] = useState(false);
   const autoRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const progressRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
 
   const clearTimers = () => {
     if (autoRef.current) clearInterval(autoRef.current);
@@ -107,599 +91,312 @@ export default function Hero() {
   const startProgress = useCallback(() => {
     setProgress(0);
     if (progressRef.current) clearInterval(progressRef.current);
-    const step = 100 / (5000 / 50);
-    progressRef.current = setInterval(() => {
-      setProgress((p) => Math.min(p + step, 100));
-    }, 50);
+    const step = 100 / (5500 / 50);
+    progressRef.current = setInterval(() => setProgress(p => Math.min(p + step, 100)), 50);
   }, []);
 
-  const goTo = useCallback(
-    (nextIdx: number) => {
-      if (transitioning) return;
-      setTransitioning(true);
-      setCurrent(nextIdx);
-      setTimeout(() => setTransitioning(false), 800);
-      startProgress();
-    },
-    [transitioning, startProgress]
-  );
+  const goTo = useCallback((next: number) => {
+    if (animating || next === current) return;
+    setAnimating(true);
+    setPrevIdx(current);
+    setCurrent(next);
+    startProgress();
+    setTimeout(() => { setPrevIdx(null); setAnimating(false); }, 800);
+  }, [animating, current, startProgress]);
 
-  const next = useCallback(() => {
-    goTo((current + 1) % SLIDES.length);
-  }, [current, goTo]);
-
-  const prev = useCallback(() => {
-    goTo((current - 1 + SLIDES.length) % SLIDES.length);
-  }, [current, goTo]);
+  const goNext = useCallback(() => goTo((current + 1) % SLIDES.length), [current, goTo]);
+  const goPrev = useCallback(() => goTo((current - 1 + SLIDES.length) % SLIDES.length), [current, goTo]);
 
   const resetAuto = useCallback(() => {
     clearTimers();
     startProgress();
     autoRef.current = setInterval(() => {
-      setCurrent((c) => {
-        const n = (c + 1) % SLIDES.length;
-        return n;
-      });
+      setCurrent(c => (c + 1) % SLIDES.length);
       startProgress();
-    }, 5000);
+    }, 5500);
   }, [startProgress]);
 
   useEffect(() => {
     setMounted(true);
     startProgress();
     autoRef.current = setInterval(() => {
-      setCurrent((c) => (c + 1) % SLIDES.length);
+      setCurrent(c => (c + 1) % SLIDES.length);
       startProgress();
-    }, 5000);
+    }, 5500);
     return clearTimers;
   }, []);
 
-  useEffect(() => {
-    const handleMouse = (e: MouseEvent) => {
-      setMousePos({ x: e.clientX / window.innerWidth, y: e.clientY / window.innerHeight });
-    };
-    window.addEventListener("mousemove", handleMouse, { passive: true });
-    return () => window.removeEventListener("mousemove", handleMouse);
-  }, []);
-
   const slide = SLIDES[current];
-  // Responsive breakpoint helpers (for tailwind responsive conditionals):
-  // sm = 640, md = 768, lg = 1024, xl = 1280
+  const prevSlide = prevIdx !== null ? SLIDES[prevIdx] : null;
 
   return (
-    <section
-    id="#"
-      ref={containerRef}
-      className={`relative h-[100svh] min-h-[700px] overflow-hidden bg-[#04020a] font-mono pb-[5vh] pt-[10vh]${
-        mounted ? "" : "opacity-0"
-      } transition-opacity duration-700`}
-      style={{
-        fontFamily: "'DM Mono', 'Courier New', monospace",
-      }}
-    >
-      {/* Layered Background */}
-      <div className="absolute inset-0 bg-[linear-gradient(160deg,_#04020a_0%,_#07051a_50%,_#04020a_100%)] z-0"></div>
+    <>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap');
+        .hero-wrap { font-family: 'Inter', sans-serif; }
 
-      {/* Animated slide images */}
-      {SLIDES.map((s, i) => (
-        <div
-          key={s.id}
-          className={`absolute inset-0 z-10 transition-opacity duration-[1200ms] ease-[cubic-bezier(0.4,0,0.2,1)] ${
-            i === current ? "opacity-100" : "opacity-0"
-          }`}
-        >
-          <img
-            src={s.image}
-            alt={s.tagline}
-            className={`w-full h-full object-cover transition-transform duration-[8s] ease-out ${
-              i === current ? "scale-100" : "scale-105"
-            }`}
-            loading={i === 0 ? "eager" : "lazy"}
-          />
-          <div className="absolute inset-0 bg-[linear-gradient(100deg,rgba(4,2,10,0.96)_0%,rgba(4,2,10,0.65)_50%,rgba(4,2,10,0.85)_100%)]" />
-        </div>
-      ))}
+        .img-in  { animation: imgIn  0.95s cubic-bezier(0.16,1,0.3,1) forwards; }
+        .img-out { animation: imgOut 0.6s  cubic-bezier(0.4,0,1,1)   forwards; }
+        @keyframes imgIn  { from{opacity:0;transform:scale(1.07)} to{opacity:1;transform:scale(1)} }
+        @keyframes imgOut { from{opacity:1;transform:scale(1)} to{opacity:0;transform:scale(0.97)} }
 
-      {/* Accent color overlay */}
-      <div
-        className="absolute inset-0 z-20 pointer-events-none transition-opacity duration-700"
-        style={{
-          background: `radial-gradient(ellipse 70% 60% at 75% 45%, rgba(${slide.accentRgb},0.14) 0%, transparent 65%)`,
-        }}
-        key={`accent-${current}`}
-      />
+        .fade-up { animation: fadeUp 0.65s cubic-bezier(0.16,1,0.3,1) both; }
+        @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
 
-      {/* Parallax grid */}
-      <div
-        className={
-          "absolute inset-0 z-30 pointer-events-none transition-transform duration-500"
+        .line-reveal { overflow: hidden; }
+        .line-reveal > span { display:block; animation: lineUp 0.8s cubic-bezier(0.16,1,0.3,1) both; }
+        .line-1 > span { animation-delay:0.08s; }
+        .line-2 > span { animation-delay:0.17s; }
+        .line-3 > span { animation-delay:0.26s; }
+
+        .stagger-1 { animation-delay: 0.12s; }
+        .stagger-2 { animation-delay: 0.22s; }
+        .stagger-3 { animation-delay: 0.32s; }
+        .stagger-4 { animation-delay: 0.42s; }
+        .stagger-5 { animation-delay: 0.52s; }
+
+        @keyframes lineUp { from{transform:translateY(110%)} to{transform:translateY(0)} }
+        @keyframes barGrow { from{width:0 !important} }
+        @keyframes floatY { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+        .cta-btn { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .cta-btn:hover { transform: translateY(-2px); }
+        .outline-btn { transition: background 0.2s, color 0.2s; }
+
+        .tag-pill { transition: background 0.18s, color 0.18s, border-color 0.18s; cursor: default; }
+
+        .nav-arrow { transition: background 0.18s, color 0.18s, border-color 0.18s; }
+        .nav-arrow:hover { background: #1C1917 !important; color: #fff !important; border-color: #1C1917 !important; }
+
+        /* ── Mobile / md fixes only (max-width: 1023px) ── */
+        @media (max-width: 1023px) {
+          /* Shrink headline so long lines never clip */
+          .hero-headline-span {
+            font-size: clamp(36px, 9vw, 68px) !important;
+          }
+          /* Lighten overlay so the cream bg bleeds through & dark text stays readable */
+          .hero-mobile-overlay {
+            display: block !important;
+          }
+          /* Sub text full width on mobile */
+          .hero-sub-text {
+            max-width: 100% !important;
+            font-size: 15px !important;
+          }
+          /* Tags: allow full width wrapping */
+          .hero-tags-wrap {
+            max-width: 100% !important;
+          }
         }
-        style={{
-          transform: `translate(${(mousePos.x - 0.5) * 22}px, ${(mousePos.y - 0.5) * 22}px)`,
-          backgroundImage: `linear-gradient(rgba(255,77,0,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,77,0,0.035)_1px,transparent_1px)`,
-          backgroundSize: "64px 64px",
-        }}
-      />
+      `}</style>
 
-      {/* Scanlines */}
-      <div
-        className="absolute inset-0 z-40 pointer-events-none"
-        style={{
-          backgroundImage:
-            "repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.025) 3px,rgba(0,0,0,0.025) 4px)",
-        }}
-      />
-
-      {/* Noise texture */}
-      <div
-        className="absolute inset-0 z-40 pointer-events-none opacity-5"
-        style={{
-          backgroundImage:
-            "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")",
-          backgroundSize: "200px 200px",
-        }}
-      />
-
-      {/* Slide counter dots - right rail */}
-      <div className="absolute right-6 xl:right-10 top-1/2 -translate-y-1/2 flex flex-col items-center gap-[10px] z-50">
-        {SLIDES.map((s, i) => (
-          <button
-            key={i}
-            className={`rounded-sm border-none cursor-pointer transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] w-[2px] h-[20px] bg-white/20
-              ${
-                i === current
-                  ? ""
-                  : "hover:bg-white/50 hover:h-[28px]"
-              }
-              ${i === current ? "" : ""}
-              ${i === current ? "" : ""}
-            `}
-            style={
-              i === current
-                ? {
-                    background: s.accent,
-                    height: 44,
-                    width: 3,
-                    boxShadow: `0 0 12px ${s.accent}`,
-                  }
-                : { "--dot-accent": s.accent } as React.CSSProperties
-            }
-            onClick={() => {
-              goTo(i);
-              resetAuto();
-            }}
-            aria-label={`Go to slide ${i + 1}`}
-          />
-        ))}
-      </div>
-
-      {/* Watermark number */}
-      <div
-        className="hidden lg:block absolute right-[60px] bottom-[60px] z-10 pointer-events-none select-none"
-        style={{
-          fontFamily: "'Bebas Neue', sans-serif",
-          fontSize: 110,
-          lineHeight: 1,
-          letterSpacing: "0.05em",
-          color: `rgba(${slide.accentRgb},0.06)`,
-          transition: "color 0.8s",
-        }}
+      <section
+        className={`hero-wrap relative w-full bg-[#F5F2ED] overflow-hidden transition-opacity duration-500 pt-[10vh] pb-[5vh] ${mounted ? "opacity-100" : "opacity-0"}`}
+        style={{ minHeight: "100svh" }}
       >
-        {String(current + 1).padStart(2, "0")}
-      </div>
+        <div className="max-w-[1600px] mx-auto px-4 xl:px-10">
 
-      {/* Main content */}
-      <div className="absolute inset-0 z-50 flex items-center px-4 xl:px-10 max-w-[1600px] mx-auto left-0 right-0">
-        <div className="w-full grid grid-cols-1 gap-[40px] items-center lg:grid-cols-[1fr_420px] lg:gap-[60px] xl:grid-cols-[1fr_460px]">
-          {/* Left col */}
-          <div className="max-w-[760px]">
-            {/* Tagline */}
+          {/* ────────── RIGHT: full-bleed image ────────── */}
+          <div className="absolute top-0 right-0 bottom-0 w-full lg:w-[55%] z-0 overflow-hidden">
+            {prevSlide && (
+              <img key={`out-${prevIdx}`} src={prevSlide.image} alt=""
+                className="img-out absolute inset-0 w-full h-full object-cover" />
+            )}
+            <img key={`in-${current}`} src={slide.image} alt={slide.tagline}
+              className="img-in absolute inset-0 w-full h-full object-cover" />
+
+            {/* Desktop left fade — untouched */}
+            <div className="absolute inset-0 hidden lg:block" style={{background:"linear-gradient(to right, rgba(10,8,20,0.92) 0%, rgba(10,8,20,0.55) 38%, transparent 68%)"}} />
+
+            {/* Mobile/md: cream overlay so bg colour shows and dark text is legible */}
             <div
-              key={`tag-${current}`}
-              className="flex items-center gap-3 mb-5"
-            >
-              <span
-                className="inline-block w-8 h-[1.5px] flex-shrink-0"
-                style={{
-                  background: slide.accent,
-                  boxShadow: `0 0 12px rgba(${slide.accentRgb},0.8)`,
-                }}
-              />
-              <span
-                className="text-[11px] tracking-[0.38em] uppercase"
-                style={{ color: slide.accent }}
-              >
-                {slide.tagline}
-              </span>
-              <span
-                className="text-[9px] tracking-[0.2em] border rounded-2xl px-2 py-0.5 ml-auto"
-                style={{
-                  borderColor: `rgba(${slide.accentRgb},0.35)`,
-                  color: slide.accent,
-                }}
-              >
-                {String(current + 1).padStart(2, "0")} /{" "}
+              className="hero-mobile-overlay absolute inset-0 lg:hidden"
+              style={{background:"linear-gradient(to bottom, rgba(245,242,237,0.80) 0%, rgba(245,242,237,0.65) 50%, rgba(245,242,237,0.88) 100%)"}}
+            />
+
+            {/* Bottom vignette */}
+            <div className="absolute inset-0" style={{background:"linear-gradient(to top, rgba(10,8,20,0.6) 0%, transparent 40%)"}} />
+            {/* Per-slide accent wash */}
+            <div className="absolute inset-0 transition-all duration-700"
+              style={{ background: `linear-gradient(140deg,transparent 35%,rgba(${hexToRgb(slide.accent)},0.13) 100%)` }} />
+          </div>
+
+          {/* ────────── Noise ────────── */}
+          <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.035]"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+              backgroundSize: "180px 180px"
+            }} />
+
+          {/* ────────── Main content ────────── */}
+          <div className="relative z-20 flex flex-col min-h-[80vh] justify-center pt-[10vh]">
+
+            {/* Top strip */}
+            <div className="flex items-center justify-between pt-0 pb-[2vh]">
+              <div className="flex items-center gap-2.5">
+                <span className="w-2 h-2 rounded-full flex-shrink-0"
+                  style={{ background: slide.accent, boxShadow: `0 0 8px ${slide.accent}`, animation: "blink 1.8s ease-in-out infinite" }} />
+                <span key={`tag-${current}`} className="fade-up text-[11px] font-semibold tracking-[0.32em] uppercase"
+                  style={{ color: slide.accent }}>
+                  {slide.tagline}
+                </span>
+              </div>
+              <span className="text-[11px] tracking-[0.2em] text-[#9a9489] font-medium select-none">
+                <span style={{ color: slide.accent, fontWeight: 700 }}>{slide.index}</span>
+                <span className="mx-1.5 opacity-40">/</span>
                 {String(SLIDES.length).padStart(2, "0")}
               </span>
             </div>
 
-            {/* Headline */}
-            <div key={`head-${current}`} className="mb-6">
-              {slide.headline.map((line, i) => (
-                <div key={i} className="overflow-hidden leading-[0.95] mb-1">
-                  <h1
-                    className={`${bebassFont} text-[clamp(44px,7vw,88px)] leading-[0.95] tracking-[0.03em] m-0 block`}
+            {/* Hero body */}
+            <div className="flex items-center py-0">
+              <div className="w-full lg:w-[50%] max-w-[740px]">
+
+                {/* Headline */}
+                <div key={`h-${current}`} className="mb-7">
+                  {slide.headline.map((line, i) => (
+                    <div key={i} className={`line-reveal line-${i + 1}`}>
+                      <span
+                        className="hero-headline-span"
+                        style={{
+                          fontFamily: "'Bebas Neue', sans-serif",
+                          fontSize: "clamp(54px,7.5vw,104px)",
+                          lineHeight: 0.92,
+                          letterSpacing: "0.02em",
+                          fontWeight: 400,
+                          color: i === 1 ? slide.accent : "#1C1917",
+                          display: "block",
+                        }}>
+                        {line}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Body block */}
+                <div key={`b-${current}`}>
+                  <p className="hero-sub-text fade-up stagger-1 xl:text-[18px] text-[16px]  lg:text-[#5C5751] text-black leading-[1.72] max-w-[440px] mb-6 lg:font-light">
+                    {slide.sub}
+                  </p>
+
+                  {/* Tags */}
+                  <div className="hero-tags-wrap fade-up stagger-2 flex flex-wrap gap-2 mb-7 max-w-[400px] xl:max-w-full">
+                    {slide.tags.map(tag => (
+                      <span key={tag} className="tag-pill text-[10.5px] font-semibold tracking-[0.12em] uppercase px-3.5 py-[6px] rounded-full border"
+                        style={{ color: slide.accent, borderColor: `rgba(${hexToRgb(slide.accent)},0.3)`, background: slide.accentLight }}>
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* CTAs */}
+                  <div className="fade-up stagger-3 flex items-center gap-3 flex-wrap mb-8">
+                    <a href="#contact"
+                      className="cta-btn inline-flex items-center gap-2 px-7 py-[13px] text-white text-[11.5px] font-semibold tracking-[0.18em] uppercase rounded-full no-underline"
+                      style={{ background: slide.accent, boxShadow: `0 8px 28px rgba(${hexToRgb(slide.accent)},0.38)` }}>
+                      Start a Project
+                      <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M1 7h12M8 3l5 4-5 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                    </a>
+                    <a href="#work"
+                      className="outline-btn inline-flex items-center gap-2 px-7 py-[13px] text-[#1C1917] text-[11.5px] font-semibold tracking-[0.18em] uppercase rounded-full no-underline border lg:border-[#D4CEC6] border-[#1C1917]"
+                      onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = "#1C1917"; el.style.color = "#fff"; el.style.borderColor = "#1C1917"; }}
+                      onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = "transparent"; el.style.color = "#1C1917"; el.style.borderColor = "#D4CEC6"; }}>
+                      View Work
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom controls — removed the "hidden" class that was hiding these entirely */}
+            <div className="flex items-center gap-4 pb-0 hidden">
+              {/* Arrows */}
+              <div className="flex gap-2">
+                <button onClick={() => { goPrev(); resetAuto(); }} aria-label="Previous"
+                  className="nav-arrow w-10 h-10 rounded-full border border-[#D4CEC6] bg-white flex items-center justify-center text-[#1C1917]">
+                  <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M9 2L4 7l5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                </button>
+                <button onClick={() => { goNext(); resetAuto(); }} aria-label="Next"
+                  className="nav-arrow w-10 h-10 rounded-full border border-[#D4CEC6] bg-white flex items-center justify-center text-[#1C1917]">
+                  <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M5 2l5 5-5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                </button>
+              </div>
+
+              {/* Dots */}
+              <div className="flex items-center gap-[7px]">
+                {SLIDES.map((s, i) => (
+                  <button key={i} aria-label={`Slide ${i + 1}`}
+                    onClick={() => { goTo(i); resetAuto(); }}
+                    className="border-0 p-0 cursor-pointer rounded-full transition-all duration-300"
                     style={{
-                      color: i === 0 ? "#fff" : slide.accent,
-                      textShadow:
-                        i === 1
-                          ? `0 0 60px rgba(${slide.accentRgb},0.5)`
-                          : "none",
-                      animationDelay: `${0.1 + i * 0.12}s`,
-                      animation:
-                        "heroSlideUp 0.8s cubic-bezier(0.16,1,0.3,1) both",
-                    }}
-                  >
-                    {line}
-                  </h1>
-                </div>
-              ))}
-            </div>
+                      width: i === current ? 26 : 8, height: 8,
+                      background: i === current ? slide.accent : "#D4CEC6",
+                      boxShadow: i === current ? `0 0 10px rgba(${hexToRgb(slide.accent)},0.5)` : "none",
+                    }} />
+                ))}
+              </div>
 
-            {/* Sub */}
-            <p
-              key={`sub-${current}`}
-              className="text-[clamp(13px,1.4vw,15px)] text-[#A8B4CC] leading-[1.75] max-w-[500px] mb-5"
-              style={{
-                animation:
-                  "heroFadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.3s both",
-              }}
-            >
-              {slide.sub}
-            </p>
+              {/* Progress */}
+              <div className="flex-1 h-[2px] bg-[#E0DAD3] rounded-full overflow-hidden">
+                <div className="h-full rounded-full transition-[width] duration-75"
+                  style={{ width: `${progress}%`, background: slide.accent, boxShadow: `0 0 8px rgba(${hexToRgb(slide.accent)},0.45)` }} />
+              </div>
 
-            {/* Tags */}
-            <div
-              key={`tags-${current}`}
-              className="flex flex-wrap gap-2 mb-7"
-            >
-              {slide.tags.map((tag, i) => (
-                <span
-                  key={i}
-                  className="text-[10px] tracking-[0.15em] uppercase text-[#A8B4CC] border px-3 py-1 rounded-2xl bg-white/5"
-                  style={{
-                    animationDelay: `${0.3 + i * 0.06}s`,
-                    borderColor: `rgba(${slide.accentRgb},0.25)`,
-                    animation:
-                      "heroFadeUp 0.6s cubic-bezier(0.16,1,0.3,1) both",
-                  }}
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-
-            {/* CTAs */}
-            <div
-              key={`cta-${current}`}
-              className="flex gap-3.5 items-center flex-wrap mb-6"
-              style={{
-                animation:
-                  "heroFadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.42s both",
-              }}
-            >
-              <a
-                href="#contact"
-                className="inline-flex items-center gap-2.5 px-8 py-[14px] text-white no-underline text-[11.5px] tracking-[0.22em] uppercase transition-transform duration-200"
-                style={{
-                  background: `linear-gradient(135deg, ${slide.accent}, ${slide.accent}cc)`,
-                  boxShadow: `0 0 32px rgba(${slide.accentRgb},0.45)`,
-                  clipPath:
-                    "polygon(0 0, calc(100% - 13px) 0, 100% 13px, 100% 100%, 13px 100%, 0 calc(100% - 13px))",
-                }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.transform =
-                    "translateY(-3px) scale(1.03)";
-                  (e.currentTarget as HTMLElement).style.boxShadow = `0 14px 44px rgba(${slide.accentRgb},0.65)`;
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLElement).style.transform =
-                    "translateY(0) scale(1)";
-                  (e.currentTarget as HTMLElement).style.boxShadow = `0 0 32px rgba(${slide.accentRgb},0.45)`;
-                }}
-              >
-                Get Started
-                <span className="text-[16px]">→</span>
-              </a>
-              <a
-                href="#work"
-                className="inline-flex items-center px-7 py-[13px] border bg-transparent text-[#A8B4CC] no-underline text-[11.5px] tracking-[0.22em] uppercase transition-colors duration-200"
-                style={{
-                  borderColor: `rgba(${slide.accentRgb},0.25)`,
-                }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.borderColor =
-                    slide.accent;
-                  (e.currentTarget as HTMLElement).style.background = `rgba(${slide.accentRgb},0.1)`;
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLElement).style.borderColor = `rgba(${slide.accentRgb},0.25)`;
-                  (e.currentTarget as HTMLElement).style.background =
-                    "transparent";
-                }}
-              >
-                View Work
-              </a>
-            </div>
-
-            {/* Badges */}
-            <div
-              key={`badges-${current}`}
-              className="flex flex-wrap gap-2"
-              style={{
-                animation:
-                  "heroFadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.55s both",
-              }}
-            >
-              {slide.badges.map((b, i) => (
-                <div
-                  key={i}
-                  className="flex items-center gap-1.5 px-3 py-2 rounded-[30px] bg-white/10 border backdrop-blur-[6px]"
-                  style={{
-                    animationDelay: `${0.5 + i * 0.08}s`,
-                    borderColor: `rgba(${slide.accentRgb},0.18)`,
-                    animation:
-                      "heroFadeUp 0.6s cubic-bezier(0.16,1,0.3,1) both",
-                  }}
-                >
-                  <span className="text-[13px]">{b.icon}</span>
-                  <span className="text-[10.5px] text-[#A8B4CC] tracking-[0.05em]">
-                    {b.text}
-                  </span>
-                </div>
-              ))}
+              {/* Live badge */}
+              <div className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-[#E8E3DC] shadow-sm flex-shrink-0"
+                style={{ animation: "floatY 3.5s ease-in-out infinite" }}>
+                <span className="w-2 h-2 rounded-full" style={{ background: "#22C55E", boxShadow: "0 0 6px rgba(34,197,94,0.7)" }} />
+                <span className="text-[10.5px] font-semibold tracking-[0.1em] uppercase text-[#1C1917]">Available Now</span>
+              </div>
             </div>
           </div>
 
-          {/* Right col (only on lg+) */}
-          <div
-            key={`right-${current}`}
-            className="hidden lg:flex flex-col items-end gap-4 relative"
-            style={{
-              animation:
-                "heroFadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.25s both",
-            }}
-          >
-            {/* Big stat card */}
-            <div
-              className="w-full bg-[#04020a]/90 border rounded-[20px] overflow-hidden backdrop-blur-[20px] relative transition duration-700"
-              style={{
-                borderColor: `rgba(${slide.accentRgb},0.35)`,
-                boxShadow: `0 20px 70px rgba(${slide.accentRgb},0.18), inset 0 0 60px rgba(0,0,0,0.3)`,
-              }}
-            >
-              <div
-                className="flex items-center justify-between px-6 py-4 border-b"
-                style={{ borderColor: `rgba(${slide.accentRgb},0.2)` }}
-              >
-                <span
-                  className="flex items-center gap-2 text-[9.5px] tracking-[0.3em] uppercase"
-                  style={{ color: slide.accent }}
-                >
-                  <span
-                    className="w-[7px] h-[7px] rounded-full"
-                    style={{
-                      background: slide.accent,
-                      boxShadow: `0 0 10px ${slide.accent}`,
-                      animation: "heroPulse 1.6s ease-in-out infinite",
-                    }}
-                  />
-                  Live Metrics
-                </span>
-                <span
-                  className="text-[9px] tracking-[0.2em] uppercase"
-                  style={{
-                    color: `rgba(${slide.accentRgb},0.5)`,
-                  }}
-                >
-                  {slide.tagline}
-                </span>
-              </div>
-              <div className="px-6 pt-6 pb-4">
-                <div
-                  className={`${bebassFont} text-[72px] leading-[.9] tracking-[0.02em] mb-1`}
-                  style={{
-                    color: slide.accent,
-                    textShadow: `0 0 60px rgba(${slide.accentRgb},0.7)`,
-                  }}
-                >
+          {/* ────────── Floating metrics card — lg+ only, hidden on mobile/md ────────── */}
+          <div key={`card-${current}`}
+            className="hidden lg:block absolute xl:right-[10%] right-[2%] top-1/2 z-30 xl:w-[350px] w-[250px] fade-up"
+            style={{ transform: "translateY(-50%)" }}>
+            <div className="bg-white rounded-2xl overflow-hidden border border-[#E8E3DC] shadow-[0_24px_64px_rgba(0,0,0,0.09)]">
+              <div className="h-[3px]" style={{ background: slide.accent }} />
+              <div className="p-5">
+                <div className="flex items-center justify-between mb-4">
+                  <span className="xl:text-[11px] text-[10px] font-bold tracking-[0.3em] uppercase text-[#9a9489]">Live Metrics</span>
+                  <span className="w-2 h-2 rounded-full" style={{ background: slide.accent, animation: "blink 1.8s ease-in-out infinite" }} />
+                </div>
+                <div className="leading-none mb-1" style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: 60, fontWeight: 400, color: slide.accent }}>
                   {slide.stat.value}
                 </div>
-                <div className="text-[11px] tracking-[0.25em] text-[#A8B4CC] uppercase mb-4">
+                <div className="xl:text-[13px] text-[11px] font-semibold tracking-[0.2em] uppercase text-[#9a9489] mb-4">
                   {slide.stat.label}
                 </div>
-                <div className="flex flex-col gap-1.5">
-                  <div className="h-[3px] bg-white/10 rounded overflow-hidden">
-                    <div
-                      className="h-full rounded"
-                      style={{
-                        background: `linear-gradient(90deg, ${slide.accent}, ${slide.accent}88)`,
-                        boxShadow: `0 0 12px rgba(${slide.accentRgb},0.7)`,
-                        width: "100%",
-                        animation:
-                          "heroBarFill 1.2s cubic-bezier(0.16,1,0.3,1) 0.4s both",
-                      }}
-                      key={`bar-${current}`}
-                    />
-                  </div>
-                  <span className="text-[9px] text-[#A8B4CC] tracking-[0.18em] uppercase">
-                    Performance Index
-                  </span>
+                <div className="h-[3px] bg-[#F0EDE8] rounded-full overflow-hidden mb-1">
+                  <div key={`bar-${current}`} className="h-full rounded-full"
+                    style={{ background: slide.accent, width: "100%", animation: "barGrow 1.2s cubic-bezier(0.16,1,0.3,1) 0.3s both" }} />
+                </div>
+                <div className="text-[11px] font-medium tracking-[0.15em] uppercase text-[#C0B9B0] mb-5">Performance Index</div>
+                <div className="grid grid-cols-3 gap-1 pt-4 border-t border-[#F0EDE8]">
+                  {[["24/7", "Support"], ["∞", "Revisions"], ["100%", "Dedicated"]].map(([v, l]) => (
+                    <div key={l} className="text-center">
+                      <div className="leading-none mb-0.5 xl:text-[22px] text-[18px]" style={{ fontFamily: "'Bebas Neue',sans-serif", fontWeight: 400, color: slide.accent }}>{v}</div>
+                      <div className="xl:text-[10px] text-[8px] font-semibold tracking-[0.12em] uppercase text-[#9a9489]">{l}</div>
+                    </div>
+                  ))}
                 </div>
               </div>
-              <div className="px-6 pt-3 pb-4">
-                <div className="flex items-center">
-                  <div className="flex flex-col gap-0.5 flex-1 items-center">
-                    <span
-                      className={`${bebassFont} text-[22px] leading-1`}
-                      style={{ color: slide.accent }}
-                    >
-                      24/7
-                    </span>
-                    <span className="text-[8px] text-[#A8B4CC] tracking-[0.18em] uppercase">
-                      Support
-                    </span>
-                  </div>
-                  <div
-                    className="w-px h-[30px] mx-3"
-                    style={{
-                      background: `rgba(${slide.accentRgb},0.2)`,
-                    }}
-                  />
-                  <div className="flex flex-col gap-0.5 flex-1 items-center">
-                    <span
-                      className={`${bebassFont} text-[22px] leading-1`}
-                      style={{ color: slide.accent }}
-                    >
-                      ∞
-                    </span>
-                    <span className="text-[8px] text-[#A8B4CC] tracking-[0.18em] uppercase">
-                      Revisions
-                    </span>
-                  </div>
-                  <div
-                    className="w-px h-[30px] mx-3"
-                    style={{
-                      background: `rgba(${slide.accentRgb},0.2)`,
-                    }}
-                  />
-                  <div className="flex flex-col gap-0.5 flex-1 items-center">
-                    <span
-                      className={`${bebassFont} text-[22px] leading-1`}
-                      style={{ color: slide.accent }}
-                    >
-                      100%
-                    </span>
-                    <span className="text-[8px] text-[#A8B4CC] tracking-[0.18em] uppercase">
-                      Dedicated
-                    </span>
-                  </div>
-                </div>
-              </div>
-              {/* Corner glow */}
-              <div
-                className="absolute bottom-[-40px] right-[-40px] w-[180px] h-[180px] rounded-full pointer-events-none"
-                style={{
-                  filter: "blur(40px)",
-                  opacity: 0.7,
-                  background: `radial-gradient(circle,rgba(${slide.accentRgb},0.2),transparent 70%)`,
-                }}
-              />
-              {/* Corner slash */}
-              <div
-                className="absolute top-0 right-0 w-[50px] h-[50px]"
-                style={{
-                  clipPath: "polygon(100% 0,0 0,100% 100%)",
-                  opacity: 0.6,
-                  background: `linear-gradient(135deg, ${slide.accent}, transparent)`,
-                }}
-              />
-            </div>
-
-            {/* Floating tag */}
-            <div
-              className="flex items-center gap-2 px-4 py-2 rounded-[30px] bg-[#04020a]/90 border backdrop-blur-[16px]"
-              style={{
-                borderColor: `rgba(${slide.accentRgb},0.4)`,
-                boxShadow: `0 8px 32px rgba(${slide.accentRgb},0.2)`,
-                animation: "heroFloat 4s ease-in-out infinite",
-              }}
-            >
-              <span
-                className="w-2 h-2 rounded-full"
-                style={{
-                  background: slide.accent,
-                  boxShadow: `0 0 8px ${slide.accent}`,
-                }}
-              />
-              <span
-                className="text-[10.5px] tracking-[0.18em] uppercase"
-                style={{ color: slide.accent }}
-              >
-                Available Now
-              </span>
             </div>
           </div>
+
+          {/* ────────── Vertical service label ────────── */}
+          <div className="hidden absolute right-6 top-1/2 -translate-y-1/2 z-30 pointer-events-none select-none">
+            <span key={`vert-${current}`}
+              className="fade-up text-[9px] font-bold tracking-[0.4em] uppercase transition-colors duration-500"
+              style={{ writingMode: "vertical-rl", textOrientation: "mixed", color: slide.accent, opacity: 0.7 }}>
+              {slide.tagline}
+            </span>
+          </div>
         </div>
-      </div>
 
-      {/* Arrow controls */}
-      <div className="absolute bottom-9 left-4 xl:left-10 flex gap-2.5 z-50 hidden">
-        {[
-          {
-            fn: () => {
-              prev();
-              resetAuto();
-            },
-            icon: "←",
-          },
-          {
-            fn: () => {
-              next();
-              resetAuto();
-            },
-            icon: "→",
-          },
-        ].map((btn, i) => (
-          <button
-            key={i}
-            onClick={btn.fn}
-            className="w-12 h-12 bg-white/5 border border-white/10 text-white/70 text-[18px] cursor-pointer flex items-center justify-center font-mono transition-all duration-200 rounded"
-            style={
-              {
-                "--arr-accent": slide.accent,
-                "--arr-rgb": slide.accentRgb,
-              } as React.CSSProperties
-            }
-          >
-            {btn.icon}
-          </button>
-        ))}
-      </div>
-
-      {/* Progress bar */}
-      <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-white/10 z-50">
-        <div
-          className="h-full transition-[width] duration-75"
-          style={{
-            width: `${progress}%`,
-            background: `linear-gradient(90deg, ${slide.accent}, ${slide.accent}88)`,
-            boxShadow: `0 0 10px rgba(${slide.accentRgb},0.7)`,
-          }}
-        />
-      </div>
-      {/* Animations */}
-      <style>
-        {`
-            @keyframes heroPulse {
-              0%,100% { opacity:1; transform: scale(1); }
-              50%      { opacity:0.4; transform: scale(0.65); }
-            }
-            @keyframes heroBarFill { from { width: 0 !important; } }
-            @keyframes heroSlideUp {
-              from { opacity: 0; transform: translateY(50px); }
-              to   { opacity: 1; transform: translateY(0); }
-            }
-            @keyframes heroFadeUp {
-              from { opacity: 0; transform: translateY(28px); }
-              to   { opacity: 1; transform: translateY(0); }
-            }
-            @keyframes heroFloat {
-              0%,100% { transform: translateY(0); }
-              50%      { transform: translateY(-6px); }
-            }
-          `}
-      </style>
-    </section>
+      </section>
+    </>
   );
 }

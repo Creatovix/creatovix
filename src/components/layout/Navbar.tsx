@@ -33,19 +33,18 @@ export default function Header() {
         className={`
           fixed top-0 left-0 right-0 z-[1000]
           transition-all duration-500 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)]
-          ${scrolled ? "bg-[#04020acc] backdrop-blur-[20px] saturate-[1.5] border-b border-[rgba(255,77,0,0.12)]" : "bg-transparent border-b border-transparent"}
-          ${mounted ? "translate-y-0" : "-translate-y-full"} py-3
+          bg-[rgba(255,252,248,0.92)] backdrop-blur-[20px] saturate-[1.5] border-b border-[rgba(255,77,0,0.15)] shadow-[0_2px_20px_rgba(0,0,0,0.06)] py-2
         `}
       >
         <div className="max-w-[1600px] mx-auto xl:px-10 px-4 flex items-center justify-between">
           {/* Logo */}
           <Link href={"/#"}>
             <Image
-              src="/logo.svg"
+              src="/logo.webp"
               alt="logo"
               height={100}
               width={100}
-              className="xl:w-[140px] md:w-[120px] w-[90px] h-auto"
+              className="xl:w-[120px] md:w-[120px] w-[90px] h-auto"
             />
           </Link>
 
@@ -76,7 +75,7 @@ export default function Header() {
               hover:-translate-y-[2px] hover:shadow-[0_8px_30px_rgba(255,77,0,0.4)]
             `}
               style={{
-                fontFamily: "'Courier New', monospace",
+                fontFamily: "'Inter', sans-serif",
               }}
             >
               Start Project
@@ -95,7 +94,7 @@ export default function Header() {
                 key={i}
                 className={`
                 block transition-all duration-300
-                ${i === 1 ? "bg-[#ff4d00] w-[22px]" : "bg-white w-[30px]"}
+                ${i === 1 ? "bg-[#ff4d00] w-[22px]" : "bg-[#1a1a2e] w-[30px]"}
                 h-[2px]
                 origin-center
               `}
@@ -117,7 +116,7 @@ export default function Header() {
       {/* Mobile Menu Overlay */}
       <div
         className={`
-          fixed inset-0 z-[999] bg-[#04020a] flex flex-col items-center justify-center
+          fixed inset-0 z-[999] bg-[#fffcf8] flex flex-col items-center justify-center
           gap-4 sm:gap-6
           transition-transform duration-600 [transition-timing-function:cubic-bezier(0.76,0,0.24,1)]
           ${menuOpen ? "translate-x-0" : "translate-x-full"}
@@ -130,7 +129,7 @@ export default function Header() {
             href={link.href}
             onClick={() => setMenuOpen(false)}
             className={`
-              font-bebasNeue text-white no-underline tracking-[0.1em] relative
+              font-bebasNeue text-[#1a1a2e] no-underline tracking-[0.1em] relative
               text-[2.25rem] xs:text-[2.5rem] sm:text-[2.75rem] md:text-[3rem] lg:text-[3.75rem] xl:text-[4.5rem]
               transition-all duration-600
               ${menuOpen ? "translate-x-0 opacity-100" : "translate-x-20 opacity-0"}
@@ -143,7 +142,7 @@ export default function Header() {
               ((e.currentTarget as HTMLAnchorElement).style.color = "#ff4d00")
             }
             onMouseLeave={(e) =>
-              ((e.currentTarget as HTMLAnchorElement).style.color = "#fff")
+              ((e.currentTarget as HTMLAnchorElement).style.color = "#1a1a2e")
             }
           >
             {link.label}
@@ -163,7 +162,7 @@ export default function Header() {
           `}
           style={{
             transitionDelay: "420ms",
-            fontFamily: "'Courier New', monospace",
+            fontFamily: "'Inter', sans-serif",
           }}
         >
           Start Project
@@ -172,19 +171,7 @@ export default function Header() {
 
       {/* ANIMATIONS AND FONTS */}
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&display=swap');
-        @font-face {
-          font-family: 'Bebas Neue';
-          font-style: normal;
-          font-weight: 400;
-          src: local('Bebas Neue'), url('https://fonts.gstatic.com/s/bebasneue/v14/JTUSjIg1_i6t8kCHKm459WxRxC7m0dR7G4w.woff2') format('woff2');
-        }
-        @font-face {
-          font-family: 'DM Mono';
-          font-style: normal;
-          font-weight: 400;
-          src: local('DM Mono'), url('https://fonts.gstatic.com/s/dmmono/v5/aFTR7PB1QTsUX8KYvrGyDQ.woff2') format('woff2');
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap');
         @keyframes logoPulse {
           0%, 100% { text-shadow: 0 0 20px rgba(255,77,0,0.6); }
           50% { text-shadow: 0 0 40px rgba(255,77,0,1), 0 0 80px rgba(255,77,0,0.4); }
@@ -226,12 +213,12 @@ function NavLink({
       }}
       className={`
         relative py-2 px-2 sm:px-4 xl:px-5 2xl:px-6
-        font-dmMono font-medium text-xs sm:text-[13px] tracking-[0.12em] uppercase inline-block
+        font-medium text-xs sm:text-[13px] tracking-[0.12em] uppercase inline-block
         transition-colors duration-300
-        ${hovered ? "text-[#ff4d00]" : "text-[#A8B4CC]"}
+        ${hovered ? "text-[#ff4d00]" : "text-black"}
       `}
       style={{
-        fontFamily: "'DM Mono', 'Courier New', monospace",
+        fontFamily: "'Inter', sans-serif",
       }}
     >
       {/* Underline bar */}

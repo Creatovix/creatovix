@@ -2,8 +2,6 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import StructuredData from "@/components/StructuredData";
 import SmoothScrollProvider from "@/providers/SmoothScrollProvider";
-import Footer from "@/components/layout/Footer";
-import Header from "@/components/layout/Navbar";
 import LayoutWrapper from "@/components/LayoutWrapper";
 
 export const viewport: Viewport = {
@@ -66,7 +64,7 @@ export const metadata: Metadata = {
       "High-converting websites, powerful branding, and result-driven digital strategies for growing businesses.",
     images: [
       {
-        url: "https://www.creatovix.com/og-image.jpg",
+        url: "https://www.creatovix.com/og-image.webp",
         width: 1200,
         height: 630,
         alt: "Creatovix — Digital Agency Portfolio Preview",
@@ -83,7 +81,7 @@ export const metadata: Metadata = {
     title: "Creatovix — Digital Agency",
     description:
       "High-converting websites, powerful branding, and result-driven digital strategies.",
-    images: ["https://www.creatovix.com/og-image.jpg"],
+    images: ["https://www.creatovix.com/og-image.webp"],
   },
 
   // 🔹 Robots & Indexing

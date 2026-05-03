@@ -8,17 +8,17 @@ import { urlFor } from "@/sanity/lib/image";
 export const sanityPortableTextComponents: PortableTextComponents = {
   block: {
     h1: ({ children }) => (
-      <h1 className="text-3xl md:text-4xl font-bold text-white mt-8 mb-4" style={{ fontFamily: "'Bebas Neue','Impact',sans-serif", letterSpacing: "0.02em" }}>
+      <h1 className="text-3xl md:text-4xl font-bold mt-8 mb-4" style={{ fontFamily: "'Bebas Neue','Impact',sans-serif", letterSpacing: "0.02em" }}>
         {children}
       </h1>
     ),
     h2: ({ children }) => (
-      <h2 className="text-2xl md:text-3xl font-bold text-white mt-7 mb-3" style={{ fontFamily: "'Bebas Neue','Impact',sans-serif", letterSpacing: "0.02em" }}>
+      <h2 className="text-2xl md:text-3xl font-bold mt-7 mb-3" style={{ fontFamily: "'Bebas Neue','Impact',sans-serif", letterSpacing: "0.02em" }}>
         {children}
       </h2>
     ),
     h3: ({ children }) => (
-      <h3 className="text-xl md:text-2xl font-bold text-white mt-6 mb-3" style={{ fontFamily: "'Bebas Neue','Impact',sans-serif", letterSpacing: "0.02em" }}>
+      <h3 className="text-xl md:text-2xl font-bold mt-6 mb-3" style={{ fontFamily: "'Bebas Neue','Impact',sans-serif", letterSpacing: "0.02em" }}>
         {children}
       </h3>
     ),
