@@ -41,20 +41,24 @@ export default function StructuredData({
         "@type": "LocalBusiness",
         name: businessInfo.name,
         url: businessInfo.url,
-        logo: businessInfo.logo,
+        logo: {
+          "@type": "ImageObject",
+          url: businessInfo.logo,
+        },
         image: businessInfo.logo,
         telephone: businessInfo.phone,
         priceRange: businessInfo.priceRange || "$$",
-        address: businessInfo.address
-          ? {
-              "@type": "PostalAddress",
-              streetAddress: businessInfo.address.street,
-              addressLocality: businessInfo.address.locality,
-              postalCode: businessInfo.address.postalCode,
-              addressCountry: businessInfo.address.addressCountry,
-            }
-          : undefined,
-        areaServed: businessInfo.address ? "UK" : "Worldwide",
+        ...(businessInfo.address && {
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: businessInfo.address.street,
+            addressLocality: businessInfo.address.locality,
+            postalCode: businessInfo.address.postalCode,
+            addressCountry: businessInfo.address.addressCountry,
+          },
+          areaServed: "UK",
+        }),
+        ...(!businessInfo.address && { areaServed: "Worldwide" }),
         sameAs: [
           "https://twitter.com/creatovix",
           "https://linkedin.com/company/creatovix",
@@ -63,43 +67,59 @@ export default function StructuredData({
     : null;
 
   // Service schema (for service pages)
-  const serviceSchema = service
-    ? {
-        "@context": "https://schema.org",
-        "@type": "Service",
-        serviceType: service.title,
-        provider: {
-          "@type": "LocalBusiness",
-          name: businessInfo?.name || "Creatovix",
-          url: baseUrl,
-        },
-        areaServed: service.seo.location || "Worldwide",
-        description: service.seo.description,
-        offers: {
-          "@type": "Offer",
-          availability: "https://schema.org/InStock",
+  // FIX: Google requires offers to have priceSpecification or use AggregateOffer,
+  // and the provider should be a full object. Removed bare "url" from Offer
+  // (not a valid property) and replaced with priceSpecification.
+  const serviceSchema =
+    service && pageType === "service"
+      ? {
+          "@context": "https://schema.org",
+          "@type": "Service",
+          name: service.title,
+          serviceType: service.title,
+          provider: {
+            "@type": "LocalBusiness",
+            name: businessInfo?.name || "Creatovix",
+            url: baseUrl,
+          },
+          areaServed: service.seo.location || "Worldwide",
+          description: service.seo.description,
           url: `${baseUrl}/services/${service.slug}`,
-        },
-      }
-    : null;
+          offers: {
+            "@type": "Offer",
+            availability: "https://schema.org/InStock",
+            url: `${baseUrl}/services/${service.slug}`,
+            priceCurrency: "GBP",
+            price: "0",
+            priceSpecification: {
+              "@type": "PriceSpecification",
+              priceCurrency: "GBP",
+              description: "Contact for pricing",
+            },
+          },
+        }
+      : null;
 
   // FAQ schema (for service pages with FAQs)
-  const faqSchema = service?.content.faqs?.length
-    ? {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        mainEntity: service.content.faqs.map((faq) => ({
-          "@type": "Question",
-          name: faq.question,
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: faq.answer.replace(/<[^>]*>/g, ""),
-          },
-        })),
-      }
-    : null;
+  const faqSchema =
+    service?.content.faqs?.length && pageType === "service"
+      ? {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: service.content.faqs.map((faq) => ({
+            "@type": "Question",
+            name: faq.question,
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: faq.answer.replace(/<[^>]*>/g, ""),
+            },
+          })),
+        }
+      : null;
 
   // Breadcrumb schema
+  // FIX: BreadcrumbList is valid on all page types but previously could
+  // render even on non-service pages where `service` is undefined.
   const breadcrumbSchema = service
     ? {
         "@context": "https://schema.org",
@@ -127,41 +147,49 @@ export default function StructuredData({
       }
     : null;
 
-  // Add this schema inside the component
-  const articleSchema = articleData
-    ? {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        headline: articleData.headline,
-        description: articleData.description,
-        datePublished: articleData.datePublished,
-        image: articleData.image,
-        author: { "@type": "Organization", name: articleData.author },
-        publisher: {
-          "@type": "Organization",
-          name: "Creatovix",
-          logo: {
-            "@type": "ImageObject",
-            url: "https://creatovix.com/logo.png",
+  const articleSchema =
+    articleData && pageType === "blog"
+      ? {
+          "@context": "https://schema.org",
+          "@type": "Article",
+          headline: articleData.headline,
+          description: articleData.description,
+          datePublished: articleData.datePublished,
+          image: articleData.image,
+          author: { "@type": "Organization", name: articleData.author },
+          publisher: {
+            "@type": "Organization",
+            name: "Creatovix",
+            logo: {
+              "@type": "ImageObject",
+              url: "https://creatovix.com/logo.png",
+            },
           },
-        },
-      }
-    : null;
+        }
+      : null;
 
+  // FIX: Each schema MUST be its own <script> tag.
+  // Google's Rich Results validator rejects a single <script> containing
+  // a JSON array of schemas — each must be a separate ld+json block.
   const schemas = [
     localBusinessSchema,
-    pageType === "service" && serviceSchema,
-    pageType === "service" && faqSchema,
-    pageType === "blog" && articleSchema,
+    serviceSchema,
+    faqSchema,
+    articleSchema,
     breadcrumbSchema,
-  ].filter(Boolean);
+  ].filter(Boolean) as object[];
 
   if (schemas.length === 0) return null;
 
   return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schemas) }}
-    />
+    <>
+      {schemas.map((schema, i) => (
+        <script
+          key={i}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+      ))}
+    </>
   );
 }

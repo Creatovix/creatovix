@@ -47,8 +47,8 @@ export const SERVICES: Service[] = [
     result: "Clients typically see 2–3× improvement in conversion rates and measurable drop in bounce within 30 days.",
     features: ["Responsive & mobile-first", "Conversion-optimized layouts", "Brand-aligned UI system", "Lightning fast load times"],
     seo: {
-      title: "Web Design Services | Freelance Web Designer UK | Creatovix",
-      description: "Looking for professional web design services? Creatovix builds high-converting, SEO-optimized websites for small businesses in the UK & globally. Get a free quote.",
+      title: "Web Design Services | Creatovix",
+      description: "Looking for professional web design services? Creatovix builds high-converting, SEO-optimized websites for businesses globally. Get a free quote.",
       keywords: ["web design services", "freelance web designer", "small business website", "conversion optimization", "responsive web design", "UK web designer"],
       location: "UK & Remote"
     },
@@ -183,8 +183,8 @@ export const SERVICES: Service[] = [
     result: "A strong visual identity increases perceived value, improves brand recall, and accelerates client trust-building.",
     features: ["Logo & brand identity", "Social media assets", "Marketing collateral", "Style guides & systems"],
     seo: {
-      title: "Graphic Design Services | Brand Identity Designer UK | Creatovix",
-      description: "Professional graphic design services for small businesses. Logo design, brand identity, marketing collateral & social media assets that build trust and recognition.",
+      title: "Graphic Design Services | Creatovix",
+      description: "Professional graphic design services for businesses. Logo design, brand identity & marketing collateral that build trust and recognition.",
       keywords: ["graphic design services", "brand identity designer", "logo design", "visual branding", "marketing collateral design", "UK graphic designer"],
       location: "UK & Remote"
     },
@@ -307,7 +307,7 @@ export const SERVICES: Service[] = [
     number: "03",
     icon: "⬡",
     title: "Web Development",
-    h1: "Web Development Services | Next.js & React Developer UK | Creatovix",
+    h1: "Web Development Services | Creatovix",
     tagline: "Code built to perform",
     accent: "#a855f7",
     accentRgb: "168,85,247",
@@ -316,7 +316,7 @@ export const SERVICES: Service[] = [
     result: "Fast, stable applications with 99.9% uptime that scale seamlessly as your business grows.",
     features: ["Next.js & React", "TypeScript & clean code", "API integrations", "SEO & performance optimized"],
     seo: {
-      title: "Web Development Services | Next.js Developer UK | Creatovix",
+      title: "Web Development Services | Creatovix",
       description: "Professional web development services using Next.js, React & TypeScript. Fast, SEO-optimized, scalable applications for small businesses. Free consultation.",
       keywords: ["web development services", "Next.js developer", "React developer", "TypeScript development", "SEO web development", "UK web developer"],
       location: "UK & Remote"
@@ -449,7 +449,7 @@ export const SERVICES: Service[] = [
     result: "Faster delivery (5× average), lower cost, and a product that's cohesive from the first pixel to the final query.",
     features: ["Database & API design", "Auth & security", "Cloud deployment", "Full project ownership"],
     seo: {
-      title: "Full Stack Development Services | End-to-End Web Developer UK | Creatovix",
+      title: "Full Stack Development Services | Creatovix",
       description: "Full stack development services from concept to deployment. Database, APIs, UI, and cloud infrastructure—all under one roof. Faster delivery, lower cost.",
       keywords: ["full stack development", "end-to-end web development", "database design", "API development", "cloud deployment", "UK full stack developer"],
       location: "UK & Remote"
@@ -582,8 +582,8 @@ export const SERVICES: Service[] = [
     result: "Clients average 3× ROI boost post-launch through better UX, faster checkout, and higher average order values.",
     features: ["Custom Shopify themes", "App integration & dev", "Checkout optimisation", "Shopify Plus expertise"],
     seo: {
-      title: "Shopify Development Services | Shopify Plus Expert UK | Creatovix",
-      description: "Custom Shopify development services for small businesses. High-converting themes, app integrations, checkout optimization & Shopify Plus expertise. Boost your eCommerce revenue.",
+      title: "Shopify Development Services | Creatovix",
+      description: "Custom Shopify development services for businesses. High-converting themes, app integrations, checkout & optimization. Boost your eCommerce revenue.",
       keywords: ["Shopify development", "Shopify Plus expert", "eCommerce development", "Shopify theme customization", "checkout optimization", "UK Shopify developer"],
       location: "UK & Remote"
     },
