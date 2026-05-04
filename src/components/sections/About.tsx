@@ -17,9 +17,9 @@ const MILESTONES = [
 
 const TEAM = [
   { id: 1, name: "Alex Rivera",  role: "Creative Director",    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80", accent: "#ff4d00" },
-  { id: 2, name: "Jordan Chen",  role: "Lead Developer",       image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80", accent: "#00c8ff" },
-  { id: 3, name: "Sam Taylor",   role: "UX Strategist",        image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80", accent: "#a855f7" },
-  { id: 4, name: "Morgan Lee",   role: "Full Stack Engineer",  image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400&q=80", accent: "#10d4a0" },
+  { id: 2, name: "Ameer Hamza",  role: "Lead Developer",       image: "/hamza.webp", accent: "#00c8ff" },
+  { id: 4, name: "Shehroz Khan",   role: "Full Stack Engineer",  image: "/shehroz.webp", accent: "#10d4a0" },
+  { id: 3, name: "Usman Taylor",   role: "UX Strategist",        image: "/usman.webp", accent: "#a855f7" },
 ];
 
 const bebasFont = { fontFamily: "'Bebas Neue','Impact',sans-serif" };
@@ -221,12 +221,27 @@ function TeamCard({ member, index, visible }: { member: typeof TEAM[0]; index: n
       }}
       onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
     >
-      <div className="relative overflow-hidden" style={{ height: "clamp(160px,20vw,220px)" }}>
-        <img src={member.image} alt={member.name} className="w-full h-full object-cover transition-transform duration-700" style={{ transform: hovered ? "scale(1.06)" : "scale(1)" }} loading="lazy" />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(180deg,transparent 40%,rgba(250,250,250,0.95) 100%)" }} />
+      {/* ✅ Fixed image container — aspect-ratio keeps consistent height */}
+      <div
+        className="relative overflow-hidden w-full"
+        style={{ aspectRatio: "4 / 4" }}  // portrait ratio — change to "1/1" for square
+      >
+        <img
+          src={member.image}
+          alt={member.name}
+          className="absolute inset-0 w-full h-full transition-transform duration-700"
+          style={{
+            objectFit: "cover",          // ✅ never stretches
+            objectPosition: "center top", // ✅ keeps face in frame
+            transform: hovered ? "scale(1.06)" : "scale(1)",
+          }}
+          loading="lazy"
+        />
+        {/* <div className="absolute inset-0" style={{ background: "linear-gradient(180deg,transparent 55%,rgba(250,250,250,0.95) 100%)" }} /> */}
         <div className="absolute top-0 right-0 w-10 h-10 opacity-70" style={{ background: `linear-gradient(135deg,${member.accent},transparent)`, clipPath: "polygon(100% 0,0 0,100% 100%)" }} />
         <div className="absolute inset-0 pointer-events-none transition-opacity duration-500" style={{ background: `radial-gradient(ellipse at top,rgba(${member.accent.replace("#", "").match(/.{1,2}/g)?.map((hex) => parseInt(hex, 16)).join(",")},0.12),transparent 65%)`, opacity: hovered ? 1 : 0 }} />
       </div>
+
       <div className="p-4">
         <div style={{ ...bebasFont, fontSize: 20, color: "#1a1a2e", letterSpacing: "0.03em", lineHeight: 1, marginBottom: 4, transition: "color 0.3s", ...(hovered ? { color: member.accent } : {}) }}>{member.name}</div>
         <div className="text-[9.5px] tracking-[0.22em] text-[#6b7280] uppercase font-medium" style={sansFont}>{member.role}</div>

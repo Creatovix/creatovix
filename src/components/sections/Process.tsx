@@ -62,7 +62,7 @@ export default function ProcessSection() {
     <section
       ref={ref}
       id="process"
-      className="relative overflow-hidden py-10 md:py-28 xl:py-36 font-sans"
+      className="relative overflow-hidden py-10 md:py-28 xl:py-24 font-sans"
       style={{ fontFamily: "'Inter', sans-serif", background: "linear-gradient(160deg,#fafafa 0%,#f5f5f5 50%,#fafafa 100%)" }}
     >
       {/* Grid texture - Light Theme */}
