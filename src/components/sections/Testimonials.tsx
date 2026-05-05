@@ -255,8 +255,6 @@ function TestiCard({ t, isActive }: { t: typeof TESTIMONIALS[0]; isActive?: bool
       onMouseLeave={() => setHovered(false)}
     >
       {/* Corner accent */}
-      <div className="absolute top-0 right-0 w-14 h-14 opacity-55 pointer-events-none"
-        style={{ background: `linear-gradient(135deg,${t.color},transparent)`, clipPath: "polygon(100% 0,0 0,100% 100%)" }} />
 
       <div className="p-5 flex flex-col gap-4 flex-1">
         {/* Open quote */}

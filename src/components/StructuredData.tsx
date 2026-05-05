@@ -162,7 +162,7 @@ export default function StructuredData({
             name: "Creatovix",
             logo: {
               "@type": "ImageObject",
-              url: "https://creatovix.com/logo.png",
+              url: "https://creatovix.com/logo.webp",
             },
           },
         }

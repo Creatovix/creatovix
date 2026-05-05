@@ -1,13 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 
-const VALUES = [
-  { id: 1, icon: "✦", title: "Craftsmanship", description: "Every pixel, line of code, and interaction is meticulously crafted with purpose and precision.", accent: "#ff4d00" },
-  { id: 2, icon: "◈", title: "Innovation",    description: "We embrace emerging technologies and creative approaches to solve complex challenges.", accent: "#00c8ff" },
-  { id: 3, icon: "⬡", title: "Partnership",   description: "Your success is our success. We work as an extension of your team, not just a vendor.", accent: "#a855f7" },
-  { id: 4, icon: "⬢", title: "Excellence",    description: "We don't settle for good enough. We push boundaries to deliver exceptional results.", accent: "#10d4a0" },
-];
-
 const MILESTONES = [
   { year: "2019", event: "Founded", detail: "Started with 2 people & a bold vision" },
   { year: "2021", event: "Full-Service Studio", detail: "Expanded to design, dev & strategy" },
@@ -23,7 +16,6 @@ const TEAM = [
 ];
 
 const bebasFont = { fontFamily: "'Bebas Neue','Impact',sans-serif" };
-// Updated to Inter font
 const sansFont  = { fontFamily: "'Inter', sans-serif" };
 
 function useInView(threshold = 0.1) {
@@ -96,27 +88,36 @@ export default function AboutSection() {
         {/* ── Main 2-col: Story + Image Stack ── */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 xl:gap-16 mb-16 xl:mb-20 items-start">
 
-          {/* Left: Story text + Values grid */}
-          <div className="space-y-8">
+          {/* Left: Story text */}
+          <div className="space-y-6">
             {/* Story */}
             <div style={{ opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(32px)", transition: "all 0.8s cubic-bezier(0.16,1,0.3,1) 0.15s" }}>
               <div className="flex items-center gap-3 mb-4">
                 <span className="inline-block w-6 h-px bg-[#ff4d00]" />
                 <span className="text-[12px] tracking-[0.32em] text-[#ff4d00] uppercase font-semibold" style={sansFont}>Our Story</span>
               </div>
-              <p className="text-[16px] text-[#4a5568] leading-[1.82] mb-3 font-medium" style={sansFont}>
+              <p className="text-[16px] text-[#4a5568] leading-[1.82] mb-4 font-medium" style={sansFont}>
                 Founded in 2019 with a simple belief: great digital experiences shouldn't be complicated. What began as a two-person studio obsessed with craft has grown into a full-service agency trusted by startups and enterprises worldwide.
               </p>
-              <p className="text-[16px] text-[#4a5568] leading-[1.82] font-medium" style={sansFont}>
+              <p className="text-[16px] text-[#4a5568] leading-[1.82] mb-4 font-medium" style={sansFont}>
                 Today, we combine strategic thinking, creative excellence, and technical depth to deliver products that don't just look great — they drive measurable growth.
               </p>
             </div>
 
-            {/* Values Grid */}
-            <div className="grid grid-cols-2 gap-3">
-              {VALUES.map((v, i) => (
-                <ValueCard key={v.id} value={v} index={i} inView={inView} />
-              ))}
+            {/* Additional paragraphs replacing the cards */}
+            <div style={{ opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(32px)", transition: "all 0.8s cubic-bezier(0.16,1,0.3,1) 0.25s" }}>
+              <p className="text-[16px] text-[#4a5568] leading-[1.82] mb-4 font-medium" style={sansFont}>
+                Every pixel, line of code, and interaction is meticulously crafted with purpose and precision. We embrace emerging technologies and creative approaches to solve complex challenges, ensuring your success is our success. We work as an extension of your team, not just a vendor.
+              </p>
+              <p className="text-[16px] text-[#4a5568] leading-[1.82] mb-4 font-medium" style={sansFont}>
+                We don't settle for good enough. We push boundaries to deliver exceptional results that exceed expectations. Our approach combines data-driven insights with human-centered design, creating digital experiences that resonate with your audience and drive meaningful engagement.
+              </p>
+              <p className="text-[16px] text-[#4a5568] leading-[1.82] mb-4 font-medium" style={sansFont}>
+                From initial concept to final launch and beyond, we're committed to transparency, collaboration, and continuous improvement. We believe in building lasting partnerships based on trust, results, and shared vision for what's possible.
+              </p>
+              <p className="text-[16px] text-[#4a5568] leading-[1.82] font-medium" style={sansFont}>
+                Whether you're a startup looking to make your mark or an established brand seeking digital transformation, we bring the expertise, creativity, and dedication to turn your vision into reality. Let's build something extraordinary together.
+              </p>
             </div>
           </div>
 
@@ -125,7 +126,7 @@ export default function AboutSection() {
             {/* Front image */}
             <div className="relative -top-4 lg:-left-4 lg:mr-4 rounded-2xl overflow-hidden border border-black/10 bg-white"
               style={{ height: "clamp(320px,50vw,535px)", boxShadow: "0 30px 80px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.9)" }}>
-              <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80" alt="Our team" className="w-full h-full object-cover" />
+              <img src="/about.webp" alt="Our team" className="w-full h-full object-cover" />
               <div className="absolute inset-0" style={{ background: "linear-gradient(180deg,transparent 40%,rgba(250,250,250,0.95) 100%)" }} />
               {/* Corner accent */}
               <div className="absolute top-0 right-0 w-20 h-20 opacity-70" style={{ background: "linear-gradient(135deg,#ff4d00,transparent)", clipPath: "polygon(100% 0,0 0,100% 100%)" }} />
@@ -185,29 +186,6 @@ export default function AboutSection() {
   );
 }
 
-function ValueCard({ value, index, inView }: { value: typeof VALUES[0]; index: number; inView: boolean }) {
-  const [hovered, setHovered] = useState(false);
-  return (
-    <div
-      className="relative overflow-hidden rounded-2xl border border-black/10 bg-gradient-to-br from-white to-[#fafafa] p-4 transition-all duration-500 cursor-default"
-      style={{
-        opacity: inView ? 1 : 0, transform: inView ? "translateY(0) scale(1)" : "translateY(24px) scale(0.97)",
-        transition: `all 0.7s cubic-bezier(0.16,1,0.3,1) ${0.25 + index * 0.08}s`,
-        borderColor: hovered ? value.accent : undefined,
-        boxShadow: hovered ? `0 0 0 1px ${value.accent}, 0 16px 40px rgba(0,0,0,0.12), 0 0 30px rgba(${value.accent.replace("#", "").match(/.{1,2}/g)?.map((hex) => parseInt(hex, 16)).join(",")},0.15)` : "0 4px 20px rgba(0,0,0,0.06)",
-      }}
-      onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
-    >
-      <div className="absolute top-0 right-0 w-10 h-10 opacity-60" style={{ background: `linear-gradient(135deg,${value.accent},transparent)`, clipPath: "polygon(100% 0,0 0,100% 100%)" }} />
-      <div className="w-8 h-8 rounded-lg flex items-center justify-center text-base mb-3" style={{ background: "rgba(255,255,255,0.9)", border: `1px solid ${value.accent}55`, color: value.accent, boxShadow: `0 0 14px rgba(${value.accent.replace("#", "").match(/.{1,2}/g)?.map((hex) => parseInt(hex, 16)).join(",")},0.2)` }}>
-        {value.icon}
-      </div>
-      <h4 style={{ ...bebasFont, fontSize: 20, color: hovered ? value.accent : "#1a1a2e", letterSpacing: "0.03em", lineHeight: 1, marginBottom: 6, transition: "color 0.3s" }}>{value.title}</h4>
-      <p className="text-[13px] text-[#4a5568] leading-[1.65] m-0 font-medium" style={sansFont}>{value.description}</p>
-    </div>
-  );
-}
-
 function TeamCard({ member, index, visible }: { member: typeof TEAM[0]; index: number; visible: boolean }) {
   const [hovered, setHovered] = useState(false);
   return (
@@ -221,23 +199,21 @@ function TeamCard({ member, index, visible }: { member: typeof TEAM[0]; index: n
       }}
       onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
     >
-      {/* ✅ Fixed image container — aspect-ratio keeps consistent height */}
       <div
         className="relative overflow-hidden w-full"
-        style={{ aspectRatio: "4 / 4" }}  // portrait ratio — change to "1/1" for square
+        style={{ aspectRatio: "4 / 4" }}
       >
         <img
           src={member.image}
           alt={member.name}
           className="absolute inset-0 w-full h-full transition-transform duration-700"
           style={{
-            objectFit: "cover",          // ✅ never stretches
-            objectPosition: "center top", // ✅ keeps face in frame
+            objectFit: "cover",
+            objectPosition: "center top",
             transform: hovered ? "scale(1.06)" : "scale(1)",
           }}
           loading="lazy"
         />
-        {/* <div className="absolute inset-0" style={{ background: "linear-gradient(180deg,transparent 55%,rgba(250,250,250,0.95) 100%)" }} /> */}
         <div className="absolute top-0 right-0 w-10 h-10 opacity-70" style={{ background: `linear-gradient(135deg,${member.accent},transparent)`, clipPath: "polygon(100% 0,0 0,100% 100%)" }} />
         <div className="absolute inset-0 pointer-events-none transition-opacity duration-500" style={{ background: `radial-gradient(ellipse at top,rgba(${member.accent.replace("#", "").match(/.{1,2}/g)?.map((hex) => parseInt(hex, 16)).join(",")},0.12),transparent 65%)`, opacity: hovered ? 1 : 0 }} />
       </div>

@@ -220,13 +220,6 @@ function StatCard({
         }}
       />
       <div
-        className="absolute top-0 right-0 w-[50px] h-[50px] opacity-60"
-        style={{
-          background: `linear-gradient(135deg, ${stat.accent}, transparent)`,
-          clipPath: "polygon(100% 0, 0 0, 100% 100%)",
-        }}
-      />
-      <div
         className="absolute bottom-0 left-0 right-0 h-[2px] scale-x-0 origin-left"
         style={{
           background: `linear-gradient(90deg, ${stat.accent}, transparent)`,

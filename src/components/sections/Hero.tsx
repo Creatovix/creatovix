@@ -276,19 +276,9 @@ export default function Hero() {
 
                 {/* Body block */}
                 <div key={`b-${current}`}>
-                  <p className="hero-sub-text fade-up stagger-1 xl:text-[18px] text-[16px]  lg:text-[#5C5751] text-black leading-[1.72] max-w-[440px] mb-6 lg:font-light">
+                  <p className="hero-sub-text fade-up stagger-1 xl:text-[18px] text-[16px]  lg:text-[#5C5751] text-black leading-[1.72] max-w-[440px] 2xl:max-w-[500px] mb-6 lg:font-light">
                     {slide.sub}
                   </p>
-
-                  {/* Tags */}
-                  <div className="hero-tags-wrap fade-up stagger-2 flex flex-wrap gap-2 mb-7 max-w-[400px] xl:max-w-full">
-                    {slide.tags.map(tag => (
-                      <span key={tag} className="tag-pill text-[10.5px] font-semibold tracking-[0.12em] uppercase px-3.5 py-[6px] rounded-full border"
-                        style={{ color: slide.accent, borderColor: `rgba(${hexToRgb(slide.accent)},0.3)`, background: slide.accentLight }}>
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
 
                   {/* CTAs */}
                   <div className="fade-up stagger-3 flex items-center gap-3 flex-wrap mb-8">

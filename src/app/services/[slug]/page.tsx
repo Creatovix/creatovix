@@ -73,7 +73,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
         businessInfo={{
           name: "Creatovix",
           url: "https://creatovix.com",
-          logo: "https://creatovix.com/logo.png",
+          logo: "https://creatovix.com/logo.webp",
           phone: "+92 3097909914",
           priceRange: "££"
         }} 

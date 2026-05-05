@@ -8,7 +8,7 @@ import { SERVICES } from "@/lib/services";
 import ContactSection from "@/components/sections/Contact";
 
 const bebasFont = { fontFamily: "'Bebas Neue','Impact',sans-serif" };
-const monoFont = { fontFamily: "'DM Mono','Courier New',monospace" };
+const interFont = { fontFamily: "'Inter', system-ui, -apple-system, sans-serif" };
 
 function useInView(threshold = 0.08) {
   const ref = useRef<HTMLElement>(null);
@@ -40,13 +40,27 @@ export default function ServiceContent({ service }: ServiceContentProps) {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const relatedServices = SERVICES.filter((s) => s.id !== service.id).slice(0, 3);
 
+  // Light theme colors based on service accent
+  const lightAccent = service.accent;
+  const lightAccentSoft = `${lightAccent}15`;
+  const lightAccentBorder = `${lightAccent}30`;
+  const bgGradient = "linear-gradient(165deg,#ffffff 0%,#f8fafc 45%,#ffffff 100%)";
+  const cardBg = "linear-gradient(135deg,#ffffff,#f8fafc)";
+  const subtleBg = "rgba(0,0,0,0.02)";
+  const borderColor = "rgba(0,0,0,0.08)";
+  const borderColorHover = "rgba(0,0,0,0.15)";
+  const textPrimary = "#1a1a1a";
+  const textSecondary = "#4a5568";
+  const textTertiary = "#64748b";
+  const textMuted = "#94a3b8";
+
   return (
     <main
       ref={ref}
       className="relative min-h-screen overflow-hidden"
       style={{
-        fontFamily: "'DM Mono','Courier New',monospace",
-        background: "linear-gradient(165deg,#050310 0%,#0a0818 45%,#050310 100%)",
+        fontFamily: "'Inter', system-ui, -apple-system, sans-serif",
+        background: bgGradient,
       }}
     >
       {/* ── Grid texture ── */}
@@ -54,17 +68,17 @@ export default function ServiceContent({ service }: ServiceContentProps) {
         className="absolute inset-0 pointer-events-none z-0"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(255,77,0,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,77,0,0.025) 1px,transparent 1px)",
+            "linear-gradient(rgba(0,0,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0.03) 1px,transparent 1px)",
           backgroundSize: "64px 64px",
           animation: "gridDrift 28s linear infinite",
         }}
       />
       {/* Scanlines */}
       <div
-        className="absolute inset-0 pointer-events-none z-0 opacity-30"
+        className="absolute inset-0 pointer-events-none z-0 opacity-20"
         style={{
           backgroundImage:
-            "repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.03) 3px,rgba(0,0,0,0.03) 4px)",
+            "repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.02) 3px,rgba(0,0,0,0.02) 4px)",
         }}
       />
 
@@ -76,7 +90,7 @@ export default function ServiceContent({ service }: ServiceContentProps) {
           height: 900,
           top: -200,
           left: -200,
-          background: `radial-gradient(circle,${service.accent}20,transparent 70%)`,
+          background: `radial-gradient(circle,${lightAccentSoft},transparent 70%)`,
         }}
       />
       <div
@@ -86,7 +100,7 @@ export default function ServiceContent({ service }: ServiceContentProps) {
           height: 600,
           top: "50%",
           right: -150,
-          background: `radial-gradient(circle,${service.accent}10,transparent 70%)`,
+          background: `radial-gradient(circle,${lightAccent}08,transparent 70%)`,
         }}
       />
 
@@ -95,24 +109,29 @@ export default function ServiceContent({ service }: ServiceContentProps) {
       ════════════════════════════════════════ */}
       <section
         className="relative z-10 pt-[18vh] pb-0"
-        style={{ borderBottom: `1px solid rgba(255,255,255,0.06)` }}
+        style={{ borderBottom: `1px solid ${borderColor}` }}
       >
         <div className="max-w-[1600px] mx-auto px-4 xl:px-10">
           {/* Breadcrumb */}
           <nav
             className="flex items-center gap-2 mb-10 text-[11px] tracking-[0.25em] uppercase"
             style={{
-              ...monoFont,
+              ...interFont,
               opacity: inView ? 1 : 0,
               transform: inView ? "translateY(0)" : "translateY(16px)",
               transition: "all 0.55s ease 0.05s",
+              color: textMuted,
             }}
           >
-            <Link href="/" className="text-[#4e5e74] hover:text-[#ff4d00] transition-colors">Home</Link>
-            <span className="text-[#2a3a4e]">/</span>
-            <Link href="/#services" className="text-[#4e5e74] hover:text-[#ff4d00] transition-colors">Services</Link>
-            <span className="text-[#2a3a4e]">/</span>
-            <span style={{ color: service.accent }}>{service.title}</span>
+            <Link href="/" className="hover:text-[#ff4d00] transition-colors" style={{ color: textTertiary }}>
+              Home
+            </Link>
+            <span className="text-[#cbd5e1]">/</span>
+            <Link href="/#services" className="hover:text-[#ff4d00] transition-colors" style={{ color: textTertiary }}>
+              Services
+            </Link>
+            <span className="text-[#cbd5e1]">/</span>
+            <span style={{ color: lightAccent, fontWeight: 500 }}>{service.title}</span>
           </nav>
 
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-10 xl:gap-16 items-end pb-14 md:pb-20">
@@ -129,17 +148,17 @@ export default function ServiceContent({ service }: ServiceContentProps) {
                 <div
                   className="flex items-center gap-2 px-3 py-1.5 rounded-full border"
                   style={{
-                    borderColor: `${service.accent}40`,
-                    background: `${service.accent}0d`,
+                    borderColor: lightAccentBorder,
+                    background: lightAccentSoft,
                   }}
                 >
                   <span
                     className="w-1.5 h-1.5 rounded-full"
-                    style={{ background: service.accent, boxShadow: `0 0 8px ${service.accent}` }}
+                    style={{ background: lightAccent, boxShadow: `0 0 8px ${lightAccent}40` }}
                   />
                   <span
-                    className="text-[10px] tracking-[0.35em] uppercase"
-                    style={{ ...monoFont, color: service.accent }}
+                    className="text-[10px] tracking-[0.35em] uppercase font-medium"
+                    style={{ ...interFont, color: lightAccent }}
                   >
                     {service.number} — {service.tagline}
                   </span>
@@ -147,7 +166,7 @@ export default function ServiceContent({ service }: ServiceContentProps) {
               </div>
 
               <h1
-                className="text-white leading-none m-0 mb-6"
+                className="text-[#1a1a1a] leading-none m-0 mb-6"
                 style={{
                   ...bebasFont,
                   fontSize: "clamp(52px,7.5vw,96px)",
@@ -159,12 +178,12 @@ export default function ServiceContent({ service }: ServiceContentProps) {
                 <span
                   className="block"
                   style={{
-                    color: service.accent,
-                    textShadow: `0 0 80px ${service.accent}55`,
+                    color: lightAccent,
+                    textShadow: `0 0 40px ${lightAccent}30`,
                     fontSize: "clamp(28px,4vw,48px)",
-                    fontFamily: "'DM Mono','Courier New',monospace",
-                    fontWeight: 400,
-                    letterSpacing: "0.04em",
+                    fontFamily: "'Inter', system-ui, -apple-system, sans-serif",
+                    fontWeight: 500,
+                    letterSpacing: "0.02em",
                     marginTop: "0.2em",
                   }}
                 >
@@ -174,8 +193,8 @@ export default function ServiceContent({ service }: ServiceContentProps) {
 
               {/* SEO lead paragraph */}
               <p
-                className="text-[#8a9ab4] leading-[1.8] max-w-[580px]"
-                style={{ ...monoFont, fontSize: 15 }}
+                className={textSecondary}
+                style={{ ...interFont, fontSize: 15, lineHeight: 1.8, maxWidth: 580 }}
               >
                 {service.seo?.description ||
                   `Professional ${service.title.toLowerCase()} services designed to drive real business results. We combine strategic thinking with flawless execution to deliver outcomes that matter.`}
@@ -193,16 +212,16 @@ export default function ServiceContent({ service }: ServiceContentProps) {
                       style={{
                         ...bebasFont,
                         fontSize: 32,
-                        color: service.accent,
-                        textShadow: `0 0 30px ${service.accent}60`,
+                        color: lightAccent,
+                        textShadow: `0 0 20px ${lightAccent}25`,
                         lineHeight: 1,
                       }}
                     >
                       {stat.value}
                     </span>
                     <span
-                      className="text-[10px] tracking-[0.25em] uppercase text-[#4e6070]"
-                      style={monoFont}
+                      className="text-[10px] tracking-[0.25em] uppercase font-medium"
+                      style={{ ...interFont, color: textMuted }}
                     >
                       {stat.label}
                     </span>
@@ -215,9 +234,9 @@ export default function ServiceContent({ service }: ServiceContentProps) {
             <div
               className="relative rounded-2xl border overflow-hidden"
               style={{
-                borderColor: `${service.accent}33`,
-                background: `linear-gradient(135deg,${service.accent}10,rgba(255,255,255,0.03))`,
-                boxShadow: `0 30px 80px rgba(0,0,0,0.5), 0 0 60px ${service.accent}15`,
+                borderColor: lightAccentBorder,
+                background: cardBg,
+                boxShadow: `0 20px 60px rgba(0,0,0,0.08), 0 0 40px ${lightAccent}10`,
                 opacity: inView ? 1 : 0,
                 transform: inView ? "translateY(0)" : "translateY(24px)",
                 transition: "all 0.75s cubic-bezier(0.16,1,0.3,1) 0.22s",
@@ -225,9 +244,9 @@ export default function ServiceContent({ service }: ServiceContentProps) {
             >
               {/* Corner decoration */}
               <div
-                className="absolute top-0 right-0 w-32 h-32 opacity-40 pointer-events-none"
+                className="absolute top-0 right-0 w-32 h-32 opacity-20 pointer-events-none"
                 style={{
-                  background: `linear-gradient(135deg,${service.accent},transparent)`,
+                  background: `linear-gradient(135deg,${lightAccent},transparent)`,
                   clipPath: "polygon(100% 0,0 0,100% 100%)",
                 }}
               />
@@ -236,10 +255,10 @@ export default function ServiceContent({ service }: ServiceContentProps) {
                 <div
                   className="w-24 h-24 rounded-2xl flex items-center justify-center text-5xl"
                   style={{
-                    background: `${service.accent}18`,
-                    border: `1px solid ${service.accent}44`,
-                    color: service.accent,
-                    boxShadow: `0 0 40px ${service.accent}30`,
+                    background: lightAccentSoft,
+                    border: `1px solid ${lightAccentBorder}`,
+                    color: lightAccent,
+                    boxShadow: `0 0 30px ${lightAccent}20`,
                   }}
                 >
                   {service.icon}
@@ -250,15 +269,15 @@ export default function ServiceContent({ service }: ServiceContentProps) {
                     style={{
                       ...bebasFont,
                       fontSize: 28,
-                      color: "#fff",
+                      color: textPrimary,
                       letterSpacing: "0.05em",
                     }}
                   >
                     {service.title}
                   </div>
                   <div
-                    className="text-[11px] tracking-[0.28em] uppercase mt-1"
-                    style={{ ...monoFont, color: service.accent }}
+                    className="text-[11px] tracking-[0.28em] uppercase font-medium mt-1"
+                    style={{ ...interFont, color: lightAccent }}
                   >
                     Premium Service
                   </div>
@@ -266,12 +285,12 @@ export default function ServiceContent({ service }: ServiceContentProps) {
 
                 <a
                   href="#contact"
-                  className="w-full inline-flex items-center justify-center gap-2.5 py-3.5 px-6 text-white text-[11px] tracking-[0.28em] uppercase no-underline transition-all duration-300 hover:-translate-y-0.5 active:scale-95 mt-2"
+                  className="w-full inline-flex items-center justify-center gap-2.5 py-3.5 px-6 text-white text-[11px] tracking-[0.28em] uppercase font-semibold no-underline transition-all duration-300 hover:-translate-y-0.5 active:scale-95 mt-2"
                   style={{
-                    ...monoFont,
-                    background: `linear-gradient(135deg,${service.accent},${service.accent}cc)`,
+                    ...interFont,
+                    background: `linear-gradient(135deg,${lightAccent},${lightAccent}cc)`,
                     clipPath: "polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px))",
-                    boxShadow: `0 8px 32px ${service.accent}44`,
+                    boxShadow: `0 8px 24px ${lightAccent}30`,
                   }}
                 >
                   Start Your Project →
@@ -279,12 +298,12 @@ export default function ServiceContent({ service }: ServiceContentProps) {
 
                 <div
                   className="w-full pt-4 border-t flex items-center justify-between"
-                  style={{ borderColor: "rgba(255,255,255,0.07)" }}
+                  style={{ borderColor: "rgba(0,0,0,0.08)" }}
                 >
-                  <span className="text-[10px] tracking-[0.2em] uppercase text-[#4e5e74]" style={monoFont}>
+                  <span className="text-[10px] tracking-[0.2em] uppercase font-medium" style={{ ...interFont, color: textMuted }}>
                     Free Consultation
                   </span>
-                  <span className="text-[10px] text-[#4e5e74]" style={monoFont}>24hr Response</span>
+                  <span className="text-[10px] font-medium" style={{ ...interFont, color: textMuted }}>24hr Response</span>
                 </div>
               </div>
 
@@ -294,7 +313,7 @@ export default function ServiceContent({ service }: ServiceContentProps) {
                 style={{
                   ...bebasFont,
                   fontSize: 120,
-                  color: `${service.accent}06`,
+                  color: `${lightAccent}08`,
                   lineHeight: 1,
                   letterSpacing: "0.04em",
                 }}
@@ -309,7 +328,7 @@ export default function ServiceContent({ service }: ServiceContentProps) {
       {/* ════════════════════════════════════════
           WHAT IS + BENEFITS  (2-col)
       ════════════════════════════════════════ */}
-      <section className="relative z-10 py-20 md:py-28">
+      <section className="relative z-10 py-[6vh]">
         <div className="max-w-[1600px] mx-auto px-4 xl:px-10">
           <div className="grid grid-cols-1 xl:grid-cols-[1fr_1fr] gap-14 xl:gap-20">
 
@@ -324,24 +343,24 @@ export default function ServiceContent({ service }: ServiceContentProps) {
               <div className="flex items-center gap-3 mb-5">
                 <span
                   className="w-8 h-px"
-                  style={{ background: service.accent, boxShadow: `0 0 10px ${service.accent}` }}
+                  style={{ background: lightAccent, boxShadow: `0 0 8px ${lightAccent}30` }}
                 />
                 <span
-                  className="text-[10px] tracking-[0.38em] uppercase"
-                  style={{ ...monoFont, color: service.accent }}
+                  className="text-[10px] tracking-[0.38em] uppercase font-semibold"
+                  style={{ ...interFont, color: lightAccent }}
                 >
                   Overview
                 </span>
               </div>
               <h2
-                className="text-white mb-6"
+                className="text-[#1a1a1a] mb-6"
                 style={{ ...bebasFont, fontSize: "clamp(30px,4vw,42px)", letterSpacing: "0.02em" }}
               >
                 What Is {service.title}?
               </h2>
               <div
-                className="text-[#8a9ab4] leading-[1.85] space-y-4"
-                style={{ ...monoFont, fontSize: 14.5 }}
+                className={`${textSecondary} text-[14px] md:text-[16px]`}
+                style={{ ...interFont, lineHeight: 1.85 }}
                 dangerouslySetInnerHTML={{ __html: service.content.whatIs }}
               />
             </div>
@@ -357,17 +376,17 @@ export default function ServiceContent({ service }: ServiceContentProps) {
               <div className="flex items-center gap-3 mb-5">
                 <span
                   className="w-8 h-px"
-                  style={{ background: service.accent, boxShadow: `0 0 10px ${service.accent}` }}
+                  style={{ background: lightAccent, boxShadow: `0 0 8px ${lightAccent}30` }}
                 />
                 <span
-                  className="text-[10px] tracking-[0.38em] uppercase"
-                  style={{ ...monoFont, color: service.accent }}
+                  className="text-[10px] tracking-[0.38em] uppercase font-semibold"
+                  style={{ ...interFont, color: lightAccent }}
                 >
                   Why Choose Us
                 </span>
               </div>
               <h2
-                className="text-white mb-6"
+                className="text-[#1a1a1a] mb-6"
                 style={{ ...bebasFont, fontSize: "clamp(30px,4vw,42px)", letterSpacing: "0.02em" }}
               >
                 Key Benefits
@@ -376,10 +395,10 @@ export default function ServiceContent({ service }: ServiceContentProps) {
                 {service.content.benefits.map((benefit, i) => (
                   <div
                     key={i}
-                    className="group p-4 rounded-xl border transition-all duration-300 hover:bg-white/[0.05]"
+                    className="group p-4 rounded-xl border transition-all duration-300 hover:bg-black/[0.02]"
                     style={{
-                      borderColor: `${service.accent}20`,
-                      background: "rgba(255,255,255,0.025)",
+                      borderColor: borderColor,
+                      background: subtleBg,
                     }}
                   >
                     <div className="flex items-start gap-3">
@@ -388,14 +407,14 @@ export default function ServiceContent({ service }: ServiceContentProps) {
                       )}
                       <div>
                         <h3
-                          className="text-white font-medium mb-1 leading-snug"
-                          style={{ ...monoFont, fontSize: 13 }}
+                          className="text-[#1a1a1a] font-semibold mb-1 leading-snug"
+                          style={{ ...interFont, fontSize: 15 }}
                         >
                           {benefit.title}
                         </h3>
                         <p
-                          className="text-[#6e808e] leading-[1.65]"
-                          style={{ ...monoFont, fontSize: 12.5 }}
+                          className={textTertiary}
+                          style={{ ...interFont, fontSize: 13, lineHeight: 1.65 }}
                         >
                           {benefit.description}
                         </p>
@@ -413,32 +432,32 @@ export default function ServiceContent({ service }: ServiceContentProps) {
           PROCESS  (horizontal timeline)
       ════════════════════════════════════════ */}
       <section
-        className="relative z-10 py-20 md:py-28"
-        style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
+        className="relative z-10 py-[6vh]"
+        style={{ borderTop: `1px solid ${borderColor}` }}
       >
         <div className="max-w-[1600px] mx-auto px-4 xl:px-10">
           <div className="flex items-center gap-3 mb-4">
             <span
               className="w-8 h-px"
-              style={{ background: service.accent, boxShadow: `0 0 10px ${service.accent}` }}
+              style={{ background: lightAccent, boxShadow: `0 0 8px ${lightAccent}30` }}
             />
             <span
-              className="text-[10px] tracking-[0.38em] uppercase"
-              style={{ ...monoFont, color: service.accent }}
+              className="text-[10px] tracking-[0.38em] uppercase font-semibold"
+              style={{ ...interFont, color: lightAccent }}
             >
               How We Work
             </span>
           </div>
           <div className="flex items-end justify-between gap-4 mb-14 flex-wrap">
             <h2
-              className="text-white m-0"
+              className="text-[#1a1a1a] m-0"
               style={{ ...bebasFont, fontSize: "clamp(32px,4.5vw,52px)", letterSpacing: "0.02em" }}
             >
               Our {service.title} Process
             </h2>
             <p
-              className="text-[#5e7080] max-w-[340px] text-[13px] leading-[1.7]"
-              style={monoFont}
+              className={textTertiary}
+              style={{ ...interFont, fontSize: 13, lineHeight: 1.7, maxWidth: 340 }}
             >
               A proven, structured approach that keeps every project on time, on budget, and above expectations.
             </p>
@@ -446,10 +465,7 @@ export default function ServiceContent({ service }: ServiceContentProps) {
 
           {/* Steps grid */}
           <div
-            className="grid gap-0"
-            style={{
-              gridTemplateColumns: `repeat(${Math.min(service.content.process.length, 4)}, 1fr)`,
-            }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0"
           >
             {service.content.process.map((step, i) => (
               <div
@@ -466,7 +482,7 @@ export default function ServiceContent({ service }: ServiceContentProps) {
                   <div
                     className="absolute top-[26px] left-[calc(50%+26px)] right-0 h-px hidden md:block"
                     style={{
-                      background: `linear-gradient(90deg,${service.accent}40,transparent)`,
+                      background: `linear-gradient(90deg,${lightAccentBorder},transparent)`,
                     }}
                   />
                 )}
@@ -476,23 +492,23 @@ export default function ServiceContent({ service }: ServiceContentProps) {
                   <div
                     className="w-12 h-12 rounded-full flex items-center justify-center font-bold text-white mb-4 relative z-10 transition-transform duration-300 group-hover:scale-110"
                     style={{
-                      background: `linear-gradient(135deg,${service.accent},${service.accent}90)`,
-                      boxShadow: `0 0 24px ${service.accent}44`,
-                      ...monoFont,
+                      background: `linear-gradient(135deg,${lightAccent},${lightAccent}cc)`,
+                      boxShadow: `0 0 20px ${lightAccent}30`,
+                      ...interFont,
                       fontSize: 14,
                     }}
                   >
                     {step.step}
                   </div>
                   <h3
-                    className="text-white font-medium mb-2"
-                    style={{ ...monoFont, fontSize: 14 }}
+                    className="text-[#1a1a1a] font-semibold mb-2"
+                    style={{ ...interFont, fontSize: 14 }}
                   >
                     {step.title}
                   </h3>
                   <p
-                    className="text-[#6a7d8e] leading-[1.7]"
-                    style={{ ...monoFont, fontSize: 13 }}
+                    className={textTertiary}
+                    style={{ ...interFont, fontSize: 13, lineHeight: 1.7 }}
                   >
                     {step.description}
                   </p>
@@ -509,9 +525,9 @@ export default function ServiceContent({ service }: ServiceContentProps) {
       <div
         className="relative z-10 py-6 overflow-hidden"
         style={{
-          borderTop: "1px solid rgba(255,255,255,0.05)",
-          borderBottom: "1px solid rgba(255,255,255,0.05)",
-          background: `${service.accent}06`,
+          borderTop: `1px solid ${borderColor}`,
+          borderBottom: `1px solid ${borderColor}`,
+          background: lightAccentSoft,
         }}
       >
         <div className="flex items-center gap-8 animate-marquee whitespace-nowrap">
@@ -534,9 +550,9 @@ export default function ServiceContent({ service }: ServiceContentProps) {
             <span
               key={i}
               className="inline-flex items-center gap-2 flex-shrink-0"
-              style={{ ...monoFont, fontSize: 11, color: "#3a4e60", letterSpacing: "0.2em" }}
+              style={{ ...interFont, fontSize: 11, color: textMuted, letterSpacing: "0.2em", fontWeight: 500 }}
             >
-              <span style={{ color: `${service.accent}60`, fontSize: 8 }}>◆</span>
+              <span style={{ color: `${lightAccent}70`, fontSize: 8 }}>◆</span>
               {kw.toUpperCase()}
             </span>
           ))}
@@ -547,8 +563,8 @@ export default function ServiceContent({ service }: ServiceContentProps) {
           FAQ
       ════════════════════════════════════════ */}
       <section
-        className="relative z-10 py-20 md:py-28"
-        style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
+        className="relative z-10 pb-[6vh] pt-[10vh]"
+        style={{ borderTop: `1px solid ${borderColor}` }}
       >
         <div className="max-w-[1600px] mx-auto px-4 xl:px-10">
           <div className="grid grid-cols-1 xl:grid-cols-[320px_1fr] gap-14 xl:gap-20 items-start">
@@ -558,31 +574,31 @@ export default function ServiceContent({ service }: ServiceContentProps) {
               <div className="flex items-center gap-3 mb-5">
                 <span
                   className="w-8 h-px"
-                  style={{ background: service.accent, boxShadow: `0 0 10px ${service.accent}` }}
+                  style={{ background: lightAccent, boxShadow: `0 0 8px ${lightAccent}30` }}
                 />
                 <span
-                  className="text-[10px] tracking-[0.38em] uppercase"
-                  style={{ ...monoFont, color: service.accent }}
+                  className="text-[10px] tracking-[0.38em] uppercase font-semibold"
+                  style={{ ...interFont, color: lightAccent }}
                 >
                   FAQ
                 </span>
               </div>
               <h2
-                className="text-white mb-4"
+                className="text-[#1a1a1a] mb-4"
                 style={{ ...bebasFont, fontSize: "clamp(30px,4vw,44px)", letterSpacing: "0.02em" }}
               >
                 Frequently Asked Questions
               </h2>
               <p
-                className="text-[#5e7080] leading-[1.75]"
-                style={{ ...monoFont, fontSize: 13.5 }}
+                className={textTertiary}
+                style={{ ...interFont, fontSize: 13.5, lineHeight: 1.75 }}
               >
                 Everything you need to know about our {service.title.toLowerCase()} services. Can't find an answer? Reach out directly.
               </p>
               <a
                 href="#contact"
-                className="inline-flex items-center gap-2 mt-6 text-[11px] tracking-[0.2em] uppercase no-underline transition-colors"
-                style={{ ...monoFont, color: service.accent }}
+                className="inline-flex items-center gap-2 mt-6 text-[11px] tracking-[0.2em] uppercase font-semibold no-underline transition-colors"
+                style={{ ...interFont, color: lightAccent }}
               >
                 Ask a question →
               </a>
@@ -597,8 +613,8 @@ export default function ServiceContent({ service }: ServiceContentProps) {
                     key={i}
                     className="rounded-xl border overflow-hidden transition-all duration-300"
                     style={{
-                      borderColor: isOpen ? `${service.accent}40` : "rgba(255,255,255,0.07)",
-                      background: isOpen ? `${service.accent}08` : "rgba(255,255,255,0.025)",
+                      borderColor: isOpen ? lightAccentBorder : borderColor,
+                      background: isOpen ? lightAccentSoft : subtleBg,
                     }}
                   >
                     <button
@@ -606,16 +622,16 @@ export default function ServiceContent({ service }: ServiceContentProps) {
                       className="w-full flex items-center justify-between p-5 text-left bg-transparent border-0 cursor-pointer"
                     >
                       <span
-                        className="text-white font-medium pr-6 leading-snug"
-                        style={{ ...monoFont, fontSize: 14 }}
+                        className="text-[#1a1a1a] font-semibold pr-6 leading-snug"
+                        style={{ ...interFont, fontSize: 14 }}
                       >
                         {faq.question}
                       </span>
                       <div
                         className="flex-shrink-0 w-7 h-7 rounded-full border flex items-center justify-center transition-all duration-300"
                         style={{
-                          borderColor: isOpen ? service.accent : "rgba(255,255,255,0.15)",
-                          color: isOpen ? service.accent : "#4e6070",
+                          borderColor: isOpen ? lightAccent : "rgba(0,0,0,0.15)",
+                          color: isOpen ? lightAccent : textMuted,
                           transform: isOpen ? "rotate(45deg)" : "rotate(0deg)",
                         }}
                       >
@@ -630,8 +646,8 @@ export default function ServiceContent({ service }: ServiceContentProps) {
                       }}
                     >
                       <p
-                        className="px-5 pb-5 text-[#7e90a4] leading-[1.78]"
-                        style={{ ...monoFont, fontSize: 13.5 }}
+                        className="px-5 pb-5"
+                        style={{ ...interFont, fontSize: 13.5, lineHeight: 1.78, color: textTertiary }}
                       >
                         {faq.answer}
                       </p>
@@ -648,23 +664,23 @@ export default function ServiceContent({ service }: ServiceContentProps) {
           CTA BANNER
       ════════════════════════════════════════ */}
       <section
-        className="relative z-10 py-20 md:py-28"
-        style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
+        className="relative z-10 py-[6vh]"
+        style={{ borderTop: `1px solid ${borderColor}` }}
       >
         <div className="max-w-[1600px] mx-auto px-4 xl:px-10">
           <div
             className="relative rounded-2xl overflow-hidden p-10 md:p-14"
             style={{
-              background: `linear-gradient(135deg,${service.accent}15,rgba(255,255,255,0.04),${service.accent}08)`,
-              border: `1px solid ${service.accent}33`,
-              boxShadow: `0 30px 80px rgba(0,0,0,0.4), 0 0 60px ${service.accent}12`,
+              background: `linear-gradient(135deg,${lightAccentSoft},#ffffff,${lightAccent}05)`,
+              border: `1px solid ${lightAccentBorder}`,
+              boxShadow: `0 20px 60px rgba(0,0,0,0.06), 0 0 40px ${lightAccent}08`,
             }}
           >
             {/* BG decoration */}
             <div
               className="absolute top-0 right-0 w-80 h-80 pointer-events-none"
               style={{
-                background: `radial-gradient(circle at top right,${service.accent}18,transparent 65%)`,
+                background: `radial-gradient(circle at top right,${lightAccent}12,transparent 65%)`,
               }}
             />
             <div
@@ -672,7 +688,7 @@ export default function ServiceContent({ service }: ServiceContentProps) {
               style={{
                 ...bebasFont,
                 fontSize: 200,
-                color: `${service.accent}04`,
+                color: `${lightAccent}06`,
                 lineHeight: 1,
               }}
             >
@@ -682,13 +698,13 @@ export default function ServiceContent({ service }: ServiceContentProps) {
             <div className="relative grid grid-cols-1 md:grid-cols-[1fr_auto] gap-8 items-center">
               <div>
                 <div
-                  className="text-[10px] tracking-[0.38em] uppercase mb-3"
-                  style={{ ...monoFont, color: service.accent }}
+                  className="text-[10px] tracking-[0.38em] uppercase font-semibold mb-3"
+                  style={{ ...interFont, color: lightAccent }}
                 >
                   Ready to get started?
                 </div>
                 <h2
-                  className="text-white m-0 mb-3"
+                  className="text-[#1a1a1a] m-0 mb-3"
                   style={{
                     ...bebasFont,
                     fontSize: "clamp(36px,5vw,60px)",
@@ -697,11 +713,11 @@ export default function ServiceContent({ service }: ServiceContentProps) {
                   }}
                 >
                   Let's Build Something
-                  <span style={{ color: service.accent }}> Exceptional</span>
+                  <span style={{ color: lightAccent }}> Exceptional</span>
                 </h2>
                 <p
-                  className="text-[#7e90a4] m-0"
-                  style={{ ...monoFont, fontSize: 14 }}
+                  className="m-0"
+                  style={{ ...interFont, fontSize: 14, color: textTertiary }}
                 >
                   Talk to a {service.title.toLowerCase()} expert today. Free consultation, no commitment.
                 </p>
@@ -709,23 +725,23 @@ export default function ServiceContent({ service }: ServiceContentProps) {
               <div className="flex flex-col gap-3 flex-shrink-0">
                 <a
                   href="#contact"
-                  className="inline-flex items-center justify-center gap-2.5 py-4 px-8 text-white text-[12px] tracking-[0.28em] uppercase no-underline transition-all duration-300 hover:-translate-y-1 active:scale-95"
+                  className="inline-flex items-center justify-center gap-2.5 py-4 px-8 text-white text-[12px] tracking-[0.28em] uppercase font-semibold no-underline transition-all duration-300 hover:-translate-y-1 active:scale-95"
                   style={{
-                    ...monoFont,
-                    background: `linear-gradient(135deg,${service.accent},${service.accent}cc)`,
+                    ...interFont,
+                    background: `linear-gradient(135deg,${lightAccent},${lightAccent}cc)`,
                     clipPath: "polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px))",
-                    boxShadow: `0 10px 40px ${service.accent}50`,
+                    boxShadow: `0 10px 30px ${lightAccent}35`,
                   }}
                 >
                   Start Your Project →
                 </a>
                 <Link
                   href="/#work"
-                  className="inline-flex items-center justify-center gap-2 py-3.5 px-8 text-[12px] tracking-[0.22em] uppercase no-underline border transition-all duration-300 hover:bg-white/[0.05]"
+                  className="inline-flex items-center justify-center gap-2 py-3.5 px-8 text-[12px] tracking-[0.22em] uppercase font-medium no-underline border transition-all duration-300 hover:bg-black/[0.03]"
                   style={{
-                    ...monoFont,
-                    color: "#7e90a4",
-                    borderColor: "rgba(255,255,255,0.12)",
+                    ...interFont,
+                    color: textTertiary,
+                    borderColor: borderColor,
                     borderRadius: 4,
                   }}
                 >
@@ -742,112 +758,27 @@ export default function ServiceContent({ service }: ServiceContentProps) {
       ════════════════════════════════════════ */}
       <section
         className="relative z-10 py-20 md:py-28"
-        style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
+        style={{ borderTop: `1px solid ${borderColor}` }}
       >
         <div className="max-w-[1600px] mx-auto px-4 xl:px-10">
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-14 xl:gap-20">
-
-            {/* Related resources */}
-            <div>
-              <div className="flex items-center gap-3 mb-5">
-                <span
-                  className="w-8 h-px"
-                  style={{ background: service.accent, boxShadow: `0 0 10px ${service.accent}` }}
-                />
-                <span
-                  className="text-[10px] tracking-[0.38em] uppercase"
-                  style={{ ...monoFont, color: service.accent }}
-                >
-                  Learn More
-                </span>
-              </div>
-              <h3
-                className="text-white mb-6"
-                style={{ ...bebasFont, fontSize: "clamp(24px,3vw,34px)", letterSpacing: "0.02em" }}
-              >
-                Related Resources
-              </h3>
-              <div className="space-y-3">
-                <Link
-                  href="/#work"
-                  className="flex items-start gap-4 p-4 rounded-xl border group transition-all duration-300 no-underline hover:bg-white/[0.05]"
-                  style={{ borderColor: "rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.02)" }}
-                >
-                  <div
-                    className="w-10 h-10 rounded-lg flex-shrink-0 flex items-center justify-center text-sm"
-                    style={{ background: `${service.accent}18`, border: `1px solid ${service.accent}30`, color: service.accent }}
-                  >
-                    📊
-                  </div>
-                  <div>
-                    <div className="text-[9px] tracking-[0.3em] uppercase text-[#4a5a6a] mb-1" style={monoFont}>
-                      Case Study
-                    </div>
-                    <div
-                      className="text-white font-medium text-[13.5px] leading-snug group-hover:text-[#ff4d00] transition-colors"
-                      style={monoFont}
-                    >
-                      {service.title === "Shopify"
-                        ? "Shopify Development Case Study: 3× ROI Increase"
-                        : service.title === "Web Design"
-                          ? "Web Design Case Study: 250% Conversion Lift"
-                          : `${service.title} Project: Client Success Story`}
-                    </div>
-                    <div className="text-[11px] text-[#4a5a6a] mt-1" style={monoFont}>
-                      Real results from our {service.title.toLowerCase()} clients →
-                    </div>
-                  </div>
-                </Link>
-
-                <Link
-                  href="/blog"
-                  className="flex items-start gap-4 p-4 rounded-xl border group transition-all duration-300 no-underline hover:bg-white/[0.05]"
-                  style={{ borderColor: "rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.02)" }}
-                >
-                  <div
-                    className="w-10 h-10 rounded-lg flex-shrink-0 flex items-center justify-center text-sm"
-                    style={{ background: `${service.accent}18`, border: `1px solid ${service.accent}30`, color: service.accent }}
-                  >
-                    📝
-                  </div>
-                  <div>
-                    <div className="text-[9px] tracking-[0.3em] uppercase text-[#4a5a6a] mb-1" style={monoFont}>
-                      Blog Post
-                    </div>
-                    <div
-                      className="text-white font-medium text-[13.5px] leading-snug group-hover:text-[#ff4d00] transition-colors"
-                      style={monoFont}
-                    >
-                      {service.title === "Web Design"
-                        ? "10 Web Design Trends That Convert in 2026"
-                        : service.title === "Shopify"
-                          ? "How to Optimise Your Shopify Store for Higher Conversions"
-                          : `The Ultimate Guide to ${service.title} for Growing Businesses`}
-                    </div>
-                    <div className="text-[11px] text-[#4a5a6a] mt-1" style={monoFont}>
-                      Expert {service.title.toLowerCase()} insights →
-                    </div>
-                  </div>
-                </Link>
-              </div>
-            </div>
+          <div className="grid gap-14 xl:gap-20">
 
             {/* Related services */}
             <div>
               <div className="flex items-center gap-3 mb-5">
                 <span
                   className="w-8 h-px"
-                  style={{ background: service.accent, boxShadow: `0 0 10px ${service.accent}` }}
+                  style={{ background: lightAccent, boxShadow: `0 0 8px ${lightAccent}30` }}
                 />
                 <span
-                  className="text-[10px] tracking-[0.38em] uppercase"
-                  style={{ ...monoFont, color: service.accent }}
+                  className="text-[10px] tracking-[0.38em] uppercase font-semibold"
+                  style={{ ...interFont, color: lightAccent }}
                 >
                   Also Available
                 </span>
               </div>
               <h3
-                className="text-white mb-6"
+                className="text-[#1a1a1a] mb-6"
                 style={{ ...bebasFont, fontSize: "clamp(24px,3vw,34px)", letterSpacing: "0.02em" }}
               >
                 Other Services
@@ -857,10 +788,10 @@ export default function ServiceContent({ service }: ServiceContentProps) {
                   <Link
                     key={related.id}
                     href={`/services/${related.slug}`}
-                    className="flex items-center gap-4 p-4 rounded-xl border group transition-all duration-300 no-underline hover:bg-white/[0.05]"
+                    className="flex items-center gap-4 p-4 rounded-xl border group transition-all duration-300 no-underline hover:bg-black/[0.03]"
                     style={{
-                      borderColor: "rgba(255,255,255,0.08)",
-                      background: "rgba(255,255,255,0.02)",
+                      borderColor,
+                      background: subtleBg,
                       opacity: inView ? 1 : 0,
                       transform: inView ? "translateY(0)" : "translateY(12px)",
                       transition: `all 0.55s ease ${0.5 + i * 0.08}s`,
@@ -869,8 +800,8 @@ export default function ServiceContent({ service }: ServiceContentProps) {
                     <div
                       className="w-10 h-10 rounded-xl flex items-center justify-center text-lg flex-shrink-0 transition-transform duration-300 group-hover:scale-110"
                       style={{
-                        background: `${related.accent}18`,
-                        border: `1px solid ${related.accent}33`,
+                        background: `${related.accent}15`,
+                        border: `1px solid ${related.accent}30`,
                         color: related.accent,
                       }}
                     >
@@ -878,26 +809,26 @@ export default function ServiceContent({ service }: ServiceContentProps) {
                     </div>
                     <div className="flex-1 min-w-0">
                       <div
-                        className="text-[9px] tracking-[0.28em] uppercase mb-0.5"
-                        style={{ ...monoFont, color: "#4a5a6a" }}
+                        className="text-[9px] tracking-[0.28em] uppercase font-medium mb-0.5"
+                        style={{ ...interFont, color: textMuted }}
                       >
                         {related.number}
                       </div>
                       <div
-                        className="text-white text-[15px] font-medium truncate group-hover:text-[#ff4d00] transition-colors"
+                        className="text-[#1a1a1a] xl:text-[24px] text-[20px] font-normal truncate group-hover:text-[#ff4d00] transition-colors"
                         style={bebasFont}
                       >
                         {related.title}
                       </div>
                       <div
-                        className="text-[11px] truncate"
-                        style={{ ...monoFont, color: "#4a5a6a" }}
+                        className="xl:text-[15px] text-[13px] truncate"
+                        style={{ ...interFont, color: textMuted }}
                       >
                         {related.tagline}
                       </div>
                     </div>
                     <span
-                      className="text-[11px] transition-transform duration-300 group-hover:translate-x-1"
+                      className="text-[11px] transition-transform duration-300 group-hover:translate-x-1 font-medium"
                       style={{ color: related.accent }}
                     >
                       →
@@ -917,11 +848,23 @@ export default function ServiceContent({ service }: ServiceContentProps) {
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         .animate-marquee { animation: marquee 28s linear infinite; }
         html { scroll-behavior: smooth; }
+        
+        /* Light theme scrollbar */
         ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #050310; }
-        ::-webkit-scrollbar-thumb { background: linear-gradient(180deg,#050310,#7BB6FF 50%,#050310); border-radius: 3px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { 
+          background: linear-gradient(180deg, #94a3b8, #64748b 50%, #94a3b8); 
+          border-radius: 3px; 
+        }
+        ::-webkit-scrollbar-thumb:hover { 
+          background: linear-gradient(180deg, #64748b, #475569 50%, #64748b); 
+        }
+        
         details summary::-webkit-details-marker { display: none; }
         .prose p { margin-bottom: 1em; }
+        
+        /* Ensure Inter font loads properly */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
       `}</style>
     </main>
   );
