@@ -12,7 +12,7 @@ const TEAM = [
   { id: 1, name: "Alex Rivera",  role: "Creative Director",    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80", accent: "#ff4d00" },
   { id: 2, name: "Ameer Hamza",  role: "Lead Developer",       image: "/hamza.webp", accent: "#00c8ff" },
   { id: 4, name: "Shehroz Khan",   role: "Full Stack Engineer",  image: "/shehroz.webp", accent: "#10d4a0" },
-  { id: 3, name: "Usman Taylor",   role: "UX Strategist",        image: "/usman.webp", accent: "#a855f7" },
+  { id: 3, name: "Usman Shaheen",   role: "UX Strategist",        image: "/usman.webp", accent: "#a855f7" },
 ];
 
 const bebasFont = { fontFamily: "'Bebas Neue','Impact',sans-serif" };

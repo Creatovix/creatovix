@@ -140,7 +140,7 @@ export default function PortfolioSection() {
                 Our Work
               </span>
             </div>
-            <h2
+            <h1
               className="leading-none text-[#1a1a2e] m-0"
               style={{ ...bebasFont, fontSize: "clamp(40px,5.5vw,64px)", letterSpacing: "0.03em" }}
             >
@@ -149,7 +149,7 @@ export default function PortfolioSection() {
               <span style={{ color: "#ff4d00", textShadow: "0 0 35px rgba(255,77,0,0.3)" }}>
                 Projects
               </span>
-            </h2>
+            </h1>
           </div>
 
           <div
