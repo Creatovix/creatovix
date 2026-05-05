@@ -16,6 +16,10 @@ export const metadata: Metadata = {
     "conversion optimization",
     "small business marketing",
   ],
+  // ✅ ADD THIS
+  alternates: {
+    canonical: "https://www.creatovix.com/blog",
+  },
 };
 
 const bebasFont = { fontFamily: "'Bebas Neue','Impact',sans-serif" };

@@ -257,7 +257,7 @@ export default function Hero() {
                 <div key={`h-${current}`} className="mb-7">
                   {slide.headline.map((line, i) => (
                     <div key={i} className={`line-reveal line-${i + 1}`}>
-                      <span
+                      <h1
                         className="hero-headline-span"
                         style={{
                           fontFamily: "'Bebas Neue', sans-serif",
@@ -269,7 +269,7 @@ export default function Hero() {
                           display: "block",
                         }}>
                         {line}
-                      </span>
+                      </h1>
                     </div>
                   ))}
                 </div>

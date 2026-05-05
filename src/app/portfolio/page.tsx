@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { sanityClient } from "@/sanity/lib/client";
 import { getAllProjectsQuery } from "@/sanity/lib/queries";
+import { Metadata } from "next";
 
 // ── Types ────────────────────────────────────────────────────────────────────
 interface Project {
@@ -27,6 +28,15 @@ const CATEGORIES = [
   "Full Stack",
   "Shopify",
 ];
+
+export const metadata: Metadata = {
+  title: "Portfolio | Creatovix",
+  description: "Explore our latest web design, development, and graphic design projects.",
+  // ✅ ADD THIS
+  alternates: {
+    canonical: "https://www.creatovix.com/portfolio",
+  },
+};
 
 const bebasFont = { fontFamily: "'Bebas Neue','Impact',sans-serif" };
 // Updated to Inter font

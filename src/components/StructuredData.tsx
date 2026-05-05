@@ -16,6 +16,7 @@ interface StructuredDataProps {
       addressCountry: string;
     };
     priceRange?: string;
+    description?: string; // ← ADD THIS
   };
   articleData?: {
     headline: string;
@@ -34,12 +35,14 @@ export default function StructuredData({
 }: StructuredDataProps) {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://creatovix.com";
 
-  // LocalBusiness schema (include on all pages)
+  // FIX 1: Add @id and description to LocalBusiness
   const localBusinessSchema = businessInfo
     ? {
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
+        "@id": `${baseUrl}/#business`,
         name: businessInfo.name,
+        description: businessInfo.description || "Digital agency offering web design, development, and graphic design services.",
         url: businessInfo.url,
         logo: {
           "@type": "ImageObject",
@@ -56,9 +59,14 @@ export default function StructuredData({
             postalCode: businessInfo.address.postalCode,
             addressCountry: businessInfo.address.addressCountry,
           },
-          areaServed: "UK",
+          areaServed: {
+            "@type": "Country",
+            name: "GB",
+          },
         }),
-        ...(!businessInfo.address && { areaServed: "Worldwide" }),
+        ...(!businessInfo.address && {
+          areaServed: "Worldwide",
+        }),
         sameAs: [
           "https://twitter.com/creatovix",
           "https://linkedin.com/company/creatovix",
@@ -66,10 +74,9 @@ export default function StructuredData({
       }
     : null;
 
-  // Service schema (for service pages)
-  // FIX: Google requires offers to have priceSpecification or use AggregateOffer,
-  // and the provider should be a full object. Removed bare "url" from Offer
-  // (not a valid property) and replaced with priceSpecification.
+  // FIX 2: Remove contradictory price:"0" — use UnitPriceSpecification with no
+  // numeric price, or use Offer with just availability + url for "contact us" services.
+  // Also fix areaServed to avoid plain "Worldwide" string when location is missing.
   const serviceSchema =
     service && pageType === "service"
       ? {
@@ -77,20 +84,23 @@ export default function StructuredData({
           "@type": "Service",
           name: service.title,
           serviceType: service.title,
+          description: service.seo.description,
+          url: `${baseUrl}/services/${service.slug}`,
           provider: {
             "@type": "LocalBusiness",
+            "@id": `${baseUrl}/#business`,
             name: businessInfo?.name || "Creatovix",
             url: baseUrl,
           },
-          areaServed: service.seo.location || "Worldwide",
-          description: service.seo.description,
-          url: `${baseUrl}/services/${service.slug}`,
+          ...(service.seo.location
+            ? { areaServed: service.seo.location }
+            : {}), // FIX: omit areaServed entirely if no location rather than "Worldwide"
           offers: {
             "@type": "Offer",
             availability: "https://schema.org/InStock",
             url: `${baseUrl}/services/${service.slug}`,
-            priceCurrency: "GBP",
-            price: "0",
+            // FIX: For "contact for pricing", omit price/priceCurrency entirely.
+            // A missing price is valid; price:"0" with a description is contradictory.
             priceSpecification: {
               "@type": "PriceSpecification",
               priceCurrency: "GBP",
@@ -100,7 +110,7 @@ export default function StructuredData({
         }
       : null;
 
-  // FAQ schema (for service pages with FAQs)
+  // No changes needed for FAQ schema
   const faqSchema =
     service?.content.faqs?.length && pageType === "service"
       ? {
@@ -117,32 +127,14 @@ export default function StructuredData({
         }
       : null;
 
-  // Breadcrumb schema
-  // FIX: BreadcrumbList is valid on all page types but previously could
-  // render even on non-service pages where `service` is undefined.
   const breadcrumbSchema = service
     ? {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
         itemListElement: [
-          {
-            "@type": "ListItem",
-            position: 1,
-            name: "Home",
-            item: baseUrl,
-          },
-          {
-            "@type": "ListItem",
-            position: 2,
-            name: "Services",
-            item: `${baseUrl}/#services`,
-          },
-          {
-            "@type": "ListItem",
-            position: 3,
-            name: service.title,
-            item: `${baseUrl}/services/${service.slug}`,
-          },
+          { "@type": "ListItem", position: 1, name: "Home", item: baseUrl },
+          { "@type": "ListItem", position: 2, name: "Services", item: `${baseUrl}/#services` },
+          { "@type": "ListItem", position: 3, name: service.title, item: `${baseUrl}/services/${service.slug}` },
         ],
       }
     : null;
@@ -168,9 +160,6 @@ export default function StructuredData({
         }
       : null;
 
-  // FIX: Each schema MUST be its own <script> tag.
-  // Google's Rich Results validator rejects a single <script> containing
-  // a JSON array of schemas — each must be a separate ld+json block.
   const schemas = [
     localBusinessSchema,
     serviceSchema,
