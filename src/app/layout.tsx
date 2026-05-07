@@ -23,9 +23,6 @@ export const metadata: Metadata = {
 
   // 🔹 Canonical & Base URL
   metadataBase: new URL("https://www.creatovix.com"),
-  alternates: {
-    canonical: "/",
-  },
 
   // 🔹 Keywords
   keywords: [

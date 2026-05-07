@@ -2,15 +2,18 @@
 import { groq } from "next-sanity";
 
 export const getAllPostsQuery = groq`
-  *[_type == "post" && defined(slug.current)] | order(publishedAt desc) {
+  *[_type == "post" && defined(slug.current) && publishedAt < now()] 
+  | order(publishedAt desc)[0...3] {
     _id,
     title,
     "slug": slug.current,
     excerpt,
     "coverImage": coverImage.asset->url,
+    "coverImageAlt": coverImage.alt,
     category,
     publishedAt,
-    readingTime
+    readingTime,
+    "author": author->name
   }
 `;
 

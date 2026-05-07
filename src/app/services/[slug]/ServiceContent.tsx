@@ -31,13 +31,31 @@ function useInView(threshold = 0.08) {
   return { ref, inView };
 }
 
-interface ServiceContentProps {
-  service: Service;
+// Type for related blog posts passed from server
+export interface RelatedBlogPost {
+  slug: string;
+  title: string;
+  excerpt: string;
+  date: string;
+  image: {
+    src: string;
+    alt: string;
+    width: number;
+    height: number;
+  };
+  tags: string[];
+  author: string;
 }
 
-export default function ServiceContent({ service }: ServiceContentProps) {
+interface ServiceContentProps {
+  service: Service;
+  relatedPosts?: RelatedBlogPost[];
+}
+
+export default function ServiceContent({ service, relatedPosts = [] }: ServiceContentProps) {
   const { ref, inView } = useInView(0.02);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  
   const relatedServices = SERVICES.filter((s) => s.id !== service.id).slice(0, 3);
 
   // Light theme colors based on service accent
@@ -53,6 +71,24 @@ export default function ServiceContent({ service }: ServiceContentProps) {
   const textSecondary = "#4a5568";
   const textTertiary = "#64748b";
   const textMuted = "#94a3b8";
+
+  // Format date for display
+  const formatDate = (dateString: string) => {
+    if (!dateString) return "";
+    return new Date(dateString).toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric'
+    });
+  };
+
+  // Format tag for display (convert kebab-case to Title Case)
+  const formatTag = (tag: string) => {
+    return tag
+      .split('-')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  };
 
   return (
     <main
@@ -464,9 +500,7 @@ export default function ServiceContent({ service }: ServiceContentProps) {
           </div>
 
           {/* Steps grid */}
-          <div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0"
-          >
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0">
             {service.content.process.map((step, i) => (
               <div
                 key={i}
@@ -754,7 +788,7 @@ export default function ServiceContent({ service }: ServiceContentProps) {
       </section>
 
       {/* ════════════════════════════════════════
-          RELATED RESOURCES + SERVICES
+          RELATED RESOURCES + SERVICES + BLOG
       ════════════════════════════════════════ */}
       <section
         className="relative z-10 py-20 md:py-28"
@@ -763,7 +797,7 @@ export default function ServiceContent({ service }: ServiceContentProps) {
         <div className="max-w-[1600px] mx-auto px-4 xl:px-10">
           <div className="grid gap-14 xl:gap-20">
 
-            {/* Related services */}
+            {/* Related Services */}
             <div>
               <div className="flex items-center gap-3 mb-5">
                 <span
@@ -837,6 +871,132 @@ export default function ServiceContent({ service }: ServiceContentProps) {
                 ))}
               </div>
             </div>
+
+            {/* Related Blog Posts - DYNAMIC CONTENT FROM SANITY */}
+            {relatedPosts.length > 0 && (
+              <div>
+                <div className="flex items-center gap-3 mb-5">
+                  <span
+                    className="w-8 h-px"
+                    style={{ background: lightAccent, boxShadow: `0 0 8px ${lightAccent}30` }}
+                  />
+                  <span
+                    className="text-[10px] tracking-[0.38em] uppercase font-semibold"
+                    style={{ ...interFont, color: lightAccent }}
+                  >
+                    From Our Blog
+                  </span>
+                </div>
+                <h3
+                  className="text-[#1a1a1a] mb-6"
+                  style={{ ...bebasFont, fontSize: "clamp(24px,3vw,34px)", letterSpacing: "0.02em" }}
+                >
+                  Related Insights
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {relatedPosts.map((post, i) => (
+                    <Link
+                      key={post.slug}
+                      href={`/blog/${post.slug}`}
+                      className="group block rounded-xl border overflow-hidden transition-all duration-300 no-underline hover:bg-black/[0.03] hover:-translate-y-1"
+                      style={{
+                        borderColor,
+                        background: subtleBg,
+                        opacity: inView ? 1 : 0,
+                        transform: inView ? "translateY(0)" : "translateY(12px)",
+                        transition: `all 0.55s ease ${0.6 + i * 0.08}s`,
+                      }}
+                    >
+                      {/* Post Image */}
+                      <div className="relative aspect-video overflow-hidden bg-gray-100">
+                        {post.image?.src ? (
+                          <img
+                            src={post.image.src}
+                            alt={post.image.alt || post.title}
+                            width={post.image.width}
+                            height={post.image.height}
+                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            loading="lazy"
+                          />
+                        ) : (
+                          <div 
+                            className="w-full h-full flex items-center justify-center"
+                            style={{ background: `${lightAccent}10` }}
+                          >
+                            <span style={{ color: lightAccent, fontSize: 24 }}>📝</span>
+                          </div>
+                        )}
+                        <div
+                          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                          style={{ background: `linear-gradient(to top, ${lightAccent}20, transparent)` }}
+                        />
+                      </div>
+                      
+                      {/* Post Content */}
+                      <div className="p-4">
+                        <div className="flex items-center gap-2 mb-2">
+                          <span
+                            className="text-[10px] tracking-[0.2em] uppercase font-medium"
+                            style={{ ...interFont, color: textMuted }}
+                          >
+                            {formatDate(post.date)}
+                          </span>
+                          {post.tags?.[0] && (
+                            <>
+                              <span className="text-[8px]" style={{ color: textMuted }}>•</span>
+                              <span
+                                className="text-[10px] tracking-[0.2em] uppercase font-medium"
+                                style={{ ...interFont, color: lightAccent }}
+                              >
+                                {formatTag(post.tags[0])}
+                              </span>
+                            </>
+                          )}
+                        </div>
+                        <h4
+                          className="text-[#1a1a1a] font-semibold mb-2 leading-snug group-hover:text-[#ff4d00] transition-colors"
+                          style={{ ...interFont, fontSize: 15 }}
+                        >
+                          {post.title}
+                        </h4>
+                        <p
+                          className="text-[13px] line-clamp-2"
+                          style={{ ...interFont, color: textTertiary, lineHeight: 1.6 }}
+                        >
+                          {post.excerpt}
+                        </p>
+                        <div className="flex items-center gap-2 mt-3 pt-3 border-t" style={{ borderColor }}>
+                          <span
+                            className="text-[10px] tracking-[0.2em] uppercase font-medium"
+                            style={{ ...interFont, color: textMuted }}
+                          >
+                            {post.author}
+                          </span>
+                          <span
+                            className="text-[10px] transition-transform duration-300 group-hover:translate-x-1"
+                            style={{ color: lightAccent }}
+                          >
+                            →
+                          </span>
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+                
+                {/* View All Blog Link */}
+                <div className="mt-6 text-center">
+                  <Link
+                    href="/blog"
+                    className="inline-flex items-center gap-2 text-[11px] tracking-[0.28em] uppercase font-semibold no-underline transition-colors"
+                    style={{ ...interFont, color: lightAccent }}
+                  >
+                    View All Insights →
+                  </Link>
+                </div>
+              </div>
+            )}
+
           </div>
         </div>
       </section>
@@ -865,6 +1025,14 @@ export default function ServiceContent({ service }: ServiceContentProps) {
         
         /* Ensure Inter font loads properly */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        /* Utility for line clamp */
+        .line-clamp-2 {
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
       `}</style>
     </main>
   );

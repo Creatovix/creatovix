@@ -1,4 +1,3 @@
-"use client";
 import Hero from "@/components/sections/Hero";
 import Stats from "@/components/sections/Stats";
 import Services from "@/components/sections/Services";
@@ -11,10 +10,19 @@ import CTA from "@/components/sections/CTA";
 import Contact from "@/components/sections/Contact";
 import Skills from "@/components/sections/Skills";
 // import Loader from "@/components/sections/loader";
-import { useState } from "react";
+// import { useState } from "react";
+import { Metadata } from "next";
+
+
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "https://www.creatovix.com/",
+  },
+};
 
 export default function HomePage() {
-  const [loaderDone, setLoaderDone] = useState(false);
+  // const [loaderDone, setLoaderDone] = useState(false);
   return (
     <>
       {/* Cinematic loader — unmounts itself via onComplete

@@ -207,16 +207,16 @@ export default function Hero() {
               className="img-in absolute inset-0 w-full h-full object-cover" />
 
             {/* Desktop left fade — untouched */}
-            <div className="absolute inset-0 hidden lg:block" style={{background:"linear-gradient(to right, rgba(10,8,20,0.92) 0%, rgba(10,8,20,0.55) 38%, transparent 68%)"}} />
+            <div className="absolute inset-0 hidden lg:block" style={{ background: "linear-gradient(to right, rgba(10,8,20,0.92) 0%, rgba(10,8,20,0.55) 38%, transparent 68%)" }} />
 
             {/* Mobile/md: cream overlay so bg colour shows and dark text is legible */}
             <div
               className="hero-mobile-overlay absolute inset-0 lg:hidden"
-              style={{background:"linear-gradient(to bottom, rgba(245,242,237,0.80) 0%, rgba(245,242,237,0.65) 50%, rgba(245,242,237,0.88) 100%)"}}
+              style={{ background: "linear-gradient(to bottom, rgba(245,242,237,0.80) 0%, rgba(245,242,237,0.65) 50%, rgba(245,242,237,0.88) 100%)" }}
             />
 
             {/* Bottom vignette */}
-            <div className="absolute inset-0" style={{background:"linear-gradient(to top, rgba(10,8,20,0.6) 0%, transparent 40%)"}} />
+            <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(10,8,20,0.6) 0%, transparent 40%)" }} />
             {/* Per-slide accent wash */}
             <div className="absolute inset-0 transition-all duration-700"
               style={{ background: `linear-gradient(140deg,transparent 35%,rgba(${hexToRgb(slide.accent)},0.13) 100%)` }} />
@@ -254,24 +254,45 @@ export default function Hero() {
               <div className="w-full lg:w-[50%] max-w-[740px]">
 
                 {/* Headline */}
+                {/* Headline - Only ONE H1 tag */}
                 <div key={`h-${current}`} className="mb-7">
-                  {slide.headline.map((line, i) => (
-                    <div key={i} className={`line-reveal line-${i + 1}`}>
-                      <h1
-                        className="hero-headline-span"
-                        style={{
-                          fontFamily: "'Bebas Neue', sans-serif",
-                          fontSize: "clamp(54px,7.5vw,104px)",
-                          lineHeight: 0.92,
-                          letterSpacing: "0.02em",
-                          fontWeight: 400,
-                          color: i === 1 ? slide.accent : "#1C1917",
-                          display: "block",
-                        }}>
-                        {line}
-                      </h1>
-                    </div>
-                  ))}
+                  {slide.headline.map((line, i) => {
+                    const isMainHeading = i === 1; // Make the middle line (e.g., "WEB DESIGN") the H1
+
+                    return (
+                      <div key={i} className={`line-reveal line-${i + 1}`}>
+                        {isMainHeading ? (
+                          <h1
+                            className="hero-headline-span"
+                            style={{
+                              fontFamily: "'Bebas Neue', sans-serif",
+                              fontSize: "clamp(54px,7.5vw,104px)",
+                              lineHeight: 0.92,
+                              letterSpacing: "0.02em",
+                              fontWeight: 400,
+                              color: slide.accent,
+                              display: "block",
+                            }}>
+                            {line}
+                          </h1>
+                        ) : (
+                          <h2
+                            className="hero-headline-span"
+                            style={{
+                              fontFamily: "'Bebas Neue', sans-serif",
+                              fontSize: "clamp(54px,7.5vw,104px)",
+                              lineHeight: 0.92,
+                              letterSpacing: "0.02em",
+                              fontWeight: 400,
+                              color: "#1C1917",
+                              display: "block",
+                            }}>
+                            {line}
+                          </h2>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
 
                 {/* Body block */}

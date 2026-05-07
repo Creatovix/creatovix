@@ -1,6 +1,7 @@
 // src/app/services/[slug]/page.tsx
 import { notFound } from "next/navigation";
 import { getServiceBySlug } from "@/lib/services";
+import { fetchRelatedBlogPosts } from "@/sanity/lib/fetch-related-posts";
 import ServiceContent from "./ServiceContent";
 import StructuredData from "@/components/StructuredData";
 
@@ -64,6 +65,12 @@ export default async function ServicePage({ params }: ServicePageProps) {
   if (!service) {
     notFound();
   }
+
+  // Fetch related blog posts server-side
+  const relatedPosts = await fetchRelatedBlogPosts(slug);
+  
+  // Debug log to see what's being fetched
+  console.log(`Service: ${service.title}, Slug: ${slug}, Related Posts:`, relatedPosts);
   
   return (
     <>
@@ -78,7 +85,10 @@ export default async function ServicePage({ params }: ServicePageProps) {
           priceRange: "££"
         }} 
       />
-      <ServiceContent service={service} />
+      <ServiceContent 
+        service={service} 
+        relatedPosts={relatedPosts}
+      />
     </>
   );
 }

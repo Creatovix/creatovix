@@ -16,7 +16,7 @@ interface StructuredDataProps {
       addressCountry: string;
     };
     priceRange?: string;
-    description?: string; // ← ADD THIS
+    description?: string;
   };
   articleData?: {
     headline: string;
@@ -35,7 +35,7 @@ export default function StructuredData({
 }: StructuredDataProps) {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://creatovix.com";
 
-  // FIX 1: Add @id and description to LocalBusiness
+  // 1. LocalBusiness Schema (Homepage/Footer context)
   const localBusinessSchema = businessInfo
     ? {
         "@context": "https://schema.org",
@@ -74,9 +74,7 @@ export default function StructuredData({
       }
     : null;
 
-  // FIX 2: Remove contradictory price:"0" — use UnitPriceSpecification with no
-  // numeric price, or use Offer with just availability + url for "contact us" services.
-  // Also fix areaServed to avoid plain "Worldwide" string when location is missing.
+  // 2. Service Schema (The fix for Ahrefs Error)
   const serviceSchema =
     service && pageType === "service"
       ? {
@@ -94,23 +92,23 @@ export default function StructuredData({
           },
           ...(service.seo.location
             ? { areaServed: service.seo.location }
-            : {}), // FIX: omit areaServed entirely if no location rather than "Worldwide"
+            : {}),
+          
+          // FIX: Use 'Offer' directly. 
+          // If price is unknown, do NOT include 'price' or 'priceSpecification'.
+          // Just include availability and the URL to the offer (the service page).
           offers: {
             "@type": "Offer",
             availability: "https://schema.org/InStock",
             url: `${baseUrl}/services/${service.slug}`,
-            // FIX: For "contact for pricing", omit price/priceCurrency entirely.
-            // A missing price is valid; price:"0" with a description is contradictory.
-            priceSpecification: {
-              "@type": "PriceSpecification",
-              priceCurrency: "GBP",
-              description: "Contact for pricing",
-            },
+            // Note: We intentionally omit 'price' and 'priceCurrency' here.
+            // This tells Google "This item is available, check the URL for details."
+            // This resolves the "Rich results validation error".
           },
         }
       : null;
 
-  // No changes needed for FAQ schema
+  // 3. FAQ Schema
   const faqSchema =
     service?.content.faqs?.length && pageType === "service"
       ? {
@@ -127,6 +125,7 @@ export default function StructuredData({
         }
       : null;
 
+  // 4. Breadcrumb Schema
   const breadcrumbSchema = service
     ? {
         "@context": "https://schema.org",
@@ -139,6 +138,7 @@ export default function StructuredData({
       }
     : null;
 
+  // 5. Article Schema (Blog)
   const articleSchema =
     articleData && pageType === "blog"
       ? {
