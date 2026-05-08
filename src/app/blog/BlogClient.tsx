@@ -79,7 +79,7 @@ export default function BlogClient({ posts }: BlogClientProps) {
         style={{ width: 400, height: 400, top: "50%", right: -100, background: "radial-gradient(circle,rgba(168,85,247,0.04),transparent 70%)" }}
       />
 
-      <div className="max-w-[1400px] mx-auto px-6 md:px-10 relative z-10 pt-[16vh] pb-20">
+      <div className="max-w-[1600px] mx-auto px-4 xl:px-10 relative z-10 pt-[16vh] pb-20">
 
         {/* ── Header ── */}
         <div className="mb-10">
