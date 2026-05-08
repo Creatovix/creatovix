@@ -2,8 +2,8 @@
 import { groq } from "next-sanity";
 
 export const getAllPostsQuery = groq`
-  *[_type == "post" && defined(slug.current) && publishedAt < now()] 
-  | order(publishedAt desc)[0...3] {
+  *[_type == "post" && defined(slug.current)] 
+  | order(publishedAt desc) {
     _id,
     title,
     "slug": slug.current,
