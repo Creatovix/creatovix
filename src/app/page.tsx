@@ -3,39 +3,55 @@ import Stats from "@/components/sections/Stats";
 import Services from "@/components/sections/Services";
 import About from "@/components/sections/About";
 import Process from "@/components/sections/Process";
-// import Portfolio from "@/components/sections/Portfolio";
 import Testimonials from "@/components/sections/Testimonials";
-// import Team from '@/components/sections/Team'
 import CTA from "@/components/sections/CTA";
 import Contact from "@/components/sections/Contact";
 import Skills from "@/components/sections/Skills";
-// import Loader from "@/components/sections/loader";
-// import { useState } from "react";
 import { Metadata } from "next";
 
-
-
 export const metadata: Metadata = {
+  // 🔹 Inherit title/description from root layout, or override:
+  // title: "Creatovix — Digital Agency | Web Design, Development & Shopify",
+  // description: "Creatovix helps businesses grow with high-converting websites, powerful branding, and result-driven digital strategies.",
+  
+  // 🔹 Canonical URL
   alternates: {
     canonical: "https://www.creatovix.com/",
+  },
+
+  // 🔹 Open Graph (homepage-specific)
+  openGraph: {
+    title: "Creatovix — We Build Digital Experiences That Convert",
+    description: "High-converting websites, powerful branding, and result-driven digital strategies for growing businesses.",
+    url: "https://www.creatovix.com",
+    type: "website",
+    siteName: "Creatovix",
+    locale: "en_US",
+    images: [
+      {
+        url: "https://www.creatovix.com/og-image.webp",
+        width: 1200,
+        height: 630,
+        alt: "Creatovix — Digital Agency Portfolio Preview",
+        type: "image/webp",
+      },
+    ],
+  },
+
+  // 🔹 Twitter Cards
+  twitter: {
+    card: "summary_large_image",
+    title: "Creatovix — Digital Agency",
+    description: "High-converting websites, powerful branding, and result-driven digital strategies.",
+    site: "@creatovix",
+    creator: "@creatovix",
+    images: ["https://www.creatovix.com/og-image.webp"],
   },
 };
 
 export default function HomePage() {
-  // const [loaderDone, setLoaderDone] = useState(false);
   return (
     <>
-      {/* Cinematic loader — unmounts itself via onComplete
-      {!loaderDone && <Loader onComplete={() => setLoaderDone(true)} />}
-
-      Site shell — renders beneath loader, fades in once done
-      <div
-        style={{
-          opacity: loaderDone ? 1 : 0,
-          transition: "opacity 0.6s ease",
-          visibility: loaderDone ? "visible" : "hidden",
-        }}
-      ></div> */}
       <main>
         <Hero />
         <Stats />
@@ -43,9 +59,7 @@ export default function HomePage() {
         <Skills />
         <About />
         <Process />
-        {/* <Portfolio /> */}
         <Testimonials />
-        {/* <Team /> */}
         <CTA />
         <Contact />
       </main>
