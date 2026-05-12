@@ -9,7 +9,7 @@ const NAV_COLS = [
     links: [
       { label: "Home",       href: "/#" },
       { label: "About",      href: "/#about" },
-      { label: "Services",   href: "/#services" },
+      { label: "Services",   href: "/services" },
       { label: "Portfolio",  href: "/#work" },
       { label: "Process",    href: "/#process" },
       { label: "Contact",    href: "/#contact" },
