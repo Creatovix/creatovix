@@ -7,7 +7,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Custom Web & Shopify Services | Creatovix",
   description:
-    "Creatovix offers professional web design, graphic design, web development, full-stack solutions, and custom Shopify stores — all built to drive real business results.",
+    "Creatovix delivers web design, web development, Shopify stores, and full-stack solutions built to grow your business.",
 
   // 🔹 Canonical URL
   alternates: {
