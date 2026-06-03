@@ -5,7 +5,7 @@ import ServicesPage from "@/components/sections/servicespage";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Our Services | Web Design, Development & Shopify Experts — Creatovix",
+  title: "Custom Web & Shopify Services | Creatovix",
   description:
     "Creatovix offers professional web design, graphic design, web development, full-stack solutions, and custom Shopify stores — all built to drive real business results.",
 

@@ -2,7 +2,7 @@ import PortfolioSection from "@/components/sections/Portfolio";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Our Work | Award-Winning Web Design & Development Portfolio — Creatovix",
+  title: "Our Work | Custom Websites by Creatovix",
   description: "Explore Creatovix’s portfolio of high-converting websites, custom Shopify stores. See how we help businesses scale that turn visitors into customers.",
   
   // 🔹 Canonical URL
